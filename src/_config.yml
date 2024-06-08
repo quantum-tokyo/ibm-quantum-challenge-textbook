@@ -36,3 +36,8 @@ parse:
   myst_enable_extensions: # default extensions to enable in the myst parser. See https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html
   - amsmath
   - dollarmath
+#######################################################################################
+# Advanced and power-user settings
+sphinx:
+  config: # key-value pairs to directly over-ride the Sphinx configuration
+    language: ja
