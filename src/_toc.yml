@@ -8,6 +8,10 @@ parts:
   chapters:
   - file: 2024-spring-lab0-welcome-ja
     title: ようこそ、そしてハローワールド(2024春 Lab0)
+  - file: 2024-spring-lab1-qiskit10-ja
+    title: Qiskit 1.0入門(2024春 Lab1)
+  - file: 2024-spring-lab2-transpilation-ja
+    title: Transpiler入門(2024春 Lab2)
 
 # - caption: "Chapter2 量子コンピューターの計算ルール"
 
