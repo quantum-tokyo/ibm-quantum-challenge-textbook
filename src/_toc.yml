@@ -20,8 +20,11 @@ parts:
   - file: 2020-w1-b-grover-ja
     title: Groverのアルゴリズム (2020 w1-B)
 
+- caption: "Chapter3 量子コンピューターのエラー訂正・緩和"
+  chapters:
+  - file: 2021-spring-lab3-error-ja
+    title: 量子エラー訂正 (2021春 Lab3)
 
 # - caption: "Chapter4 量子コンピューターの応用"
 
-# - caption: "Chapter5 量子コンピューターのエラー訂正・緩和"
 
