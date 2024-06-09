@@ -8,11 +8,15 @@ parts:
   chapters:
   - file: 2024-spring-lab0-welcome-ja
     title: ようこそ、そしてハローワールド (2024春 Lab0)
+  - file: 2023-spring-lab1-dynamic-ja
+    title: Dynamic Circuits入門 (2023春 Lab1)
 
 - caption: "Chapter2 量子回路の構築"
   chapters:
   - file: 2020-w1-a-adder-ja
     title: 量子回路の基礎 (2020 w1-A)
+  - file: 2023-spring-lab2-teleportation-ja
+    title: 量子テレポーテーション (2023 Lab2)
   - file: 2020-w1-b-grover-ja
     title: Groverのアルゴリズム (2020 w1-B)
 
