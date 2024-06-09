@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Dynamic Circuits と &#34;Repeat until success&#34;入門 &#8212; IBM Quantum Challengeで学ぶ量子コンピューティング</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/translations.js?v=4dbe4bdc"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2023-spring-lab1-dynamic-ja';</script>
+    <link rel="icon" href="_static/quantum-tokyo-icon.ico"/>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="量子回路における加算器（2020年 Week1a）" href="2020-w1-a-adder-ja.html" />
+    <link rel="prev" title="IBM Quantum Challengeで学ぶ量子コンピューティング" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-light" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>
+    <script>document.write(`<img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-dark" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    IBM Quantum Challengeで学ぶ量子コンピューティング
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter1 Qiskit 101</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Dynamic Circuits入門 (2023春 Lab1)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter2 量子回路の構築</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-a-adder-ja.html">量子回路の基礎 (2020 w1-A)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab2-teleportation-ja.html">量子テレポーテーション (2023 Lab2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-b-grover-ja.html">Groverのアルゴリズム (2020 w1-B)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/quantum-tokyo/ibm-quantum-challenge-textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="ソースリポジトリ"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2023-spring-lab1-dynamic-ja.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dynamic Circuits と "Repeat until success"入門</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-dynamic-circuit-world">Hello Dynamic Circuit World</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-until-success">Repeat until success</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dynamic-circuits-repeat-until-success">
+<h1>Dynamic Circuits と &quot;Repeat until success&quot;入門<a class="headerlink" href="#dynamic-circuits-repeat-until-success" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>はじめに<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><em>「量子回路とは、量子データ(量子ビットなど)に対するコヒーレントな量子演算と、リアルタイム同時古典計算で構成される計算ルーチンのことです。量子回路は、量子ゲート 、測定 、リセットの順序立てられたシーケンスであり、これらはすべてリアルタイム古典計算のデータを使用した条件付ゲートが作用することがあります。」</em></p>
+</div></blockquote>
+<p>この定義の最後の部分はあまり聞き慣れないかもしれませんが、これは動的回路（Dynamic circuits）に関係するものです。通常量子回路の話をするときは、明示的に言わないまでも静的な量子回路を指しています。では、Dynamic circuitsとは何でしょうか？</p>
+<p><strong>Dynamic circuits</strong>とは、量子回路の途中で測定が行われ、その測定結果をもとに回路内の量子ゲートを条件付けることができる回路です。このように、古典的な測定結果をもとに将来の量子演算を条件付ける機能を古典フィードフォワードと呼びます。</p>
+<p>なぜ古典フィードフォワードが必要なのでしょうか？  例を挙げましょう。<br />
+Qiskitの条件付きリセット操作を考えてみましょう。<a class="reference external" href="https://qiskit.org/documentation/stubs/qiskit.circuit.QuantumCircuit.reset.html"><code class="docutils literal notranslate"><span class="pre">reset</span></code></a>操作を使ったことがある人なら聞き覚えがあるかもしれません。リセット操作は初期状態に関係なく量子ビットをゼロ状態にリセットする非ユニタリー操作です。操作はすでに測定された量子ビットに対して実行され、測定値から判断して量子ビットが1状態にある場合にのみビットフリップXゲートを適用してゼロ状態にリセットします。<br />
+この操作は、すでに測定された量子ビットをより速く、エラーを少なくリセットする方法となり得ます。</p>
+<p><img alt="" src="_images/2023-spring-lab1-sketch-1.png" /></p>
+<p>別の言い方をすればDynamic circuitsとは、if文やwhileループなどの制御フローを含む量子回路で、述語は過去の量子ビット測定結果から計算され、条件演算は量子ゲートを含みます。</p>
+<blockquote>
+<div><p>predicate(述語): 量子状態の特定の性質や条件を表したもの</p>
+</div></blockquote>
+</section>
+<section id="hello-dynamic-circuit-world">
+<h2>Hello Dynamic Circuit World<a class="headerlink" href="#hello-dynamic-circuit-world" title="Link to this heading">#</a></h2>
+<p>IBM Quantumハードウェアはすでに回路途中の測定とリセットをサポートしていました。しかし古典フィードフォワードのサポートを追加するには、制御システムと関連するソフトウェアスタックを大幅に再設計する必要がありました。Dynamic circuitsの完全なサポートは、2022年になってから導入されました。</p>
+<p>QiskitではDynamic circuitをプログラミングするための構文が何度か取り入れられていますが、まだ完全なサポートは実装されていません。現在のところは、Dynamic circuitの全機能にアクセスするにはOpenQASM3で書かれたプログラムを提出するしかないのです。とはいえ、今回のチャレンジではQiskitで現在利用可能な機能を使って取り組んでいただきます。</p>
+<p>Qiskitの以前のバージョンでは<a class="reference external" href="https://qiskit.org/documentation/stubs/qiskit.circuit.Instruction.c_if.html"><code class="docutils literal notranslate"><span class="pre">c_if()</span></code></a>命令が使われていましたが、この構文は今後非推奨となる予定です。というのもQuantumCircuitクラスにはより柔軟な<a class="reference external" href="https://qiskit.org/documentation/stubs/qiskit.circuit.QuantumCircuit.if_test.html"><code class="docutils literal notranslate"><span class="pre">if_test()</span></code></a>メソッドがあり、今回のチャレンジではこちらを主に使用します。</p>
+<p>手始めに、この機能を使った簡単な例を確認しましょう。次の手順で、条件付きリセット回路を作ることにします。</p>
+<ol class="arabic simple">
+<li><p>1量子ビットと2古典ビットで回路を初期化する。(<span class="math notranslate nohighlight">\(q_{0}\)</span>、<span class="math notranslate nohighlight">\(b_{0}\)</span>、<span class="math notranslate nohighlight">\(b_{1}\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(q_{0}\)</span>にアダマールゲートを適用する。</p></li>
+<li><p>その量子ビットを測定し、その結果を<span class="math notranslate nohighlight">\(b_{0}\)</span>に保存する。</p></li>
+<li><p><span class="math notranslate nohighlight">\(b_{0}\)</span>が1の場合<code class="docutils literal notranslate"><span class="pre">if_test</span></code>ブロックを開始する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">if_test</span></code>ブロックの中で条件を満たした場合に行う操作を指定する。（今回は<span class="math notranslate nohighlight">\(q_{0}\)</span>を0状態に反転させます。）</p></li>
+<li><p>再度<span class="math notranslate nohighlight">\(q_0\)</span>を<span class="math notranslate nohighlight">\(b_{1}\)</span>に測定し、常に結果が0となることを確認する。</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="kn">from</span> <span class="nn">qiskit.circuit</span> <span class="kn">import</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
+
+<span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+
+<span class="c1"># unpack the qubit and classical bits from the registers</span>
+<span class="p">(</span><span class="n">q0</span><span class="p">,)</span> <span class="o">=</span> <span class="n">qr</span>
+<span class="n">b0</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">cr</span>
+
+<span class="c1"># apply Hadamard</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+<span class="c1"># measure</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span> <span class="n">b0</span><span class="p">)</span>
+
+<span class="c1"># begin if test block. the contents of the block are executed if b0 == 1</span>
+<span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">b0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+    <span class="c1"># if the condition is satisfied (b0 == 1), then flip the bit back to 0</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+<span class="c1"># finally, measure q0 again</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span> <span class="n">b1</span><span class="p">)</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">idle_wires</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f5b787b0daf054d4069e3440718aef942f2f58d1749161dd6cc50b33a31929d3.png" src="_images/f5b787b0daf054d4069e3440718aef942f2f58d1749161dd6cc50b33a31929d3.png" />
+</div>
+</div>
+<p>回路ができたので何度か動かしてみて常に期待通りの出力が得られるかどうか確認してみましょう。最初の測定は0でも1でも構いませんが、2回目の測定は必ず0になるはずです。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit_aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
+
+<span class="c1"># initialize the simulator</span>
+<span class="n">backend_sim</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span>
+
+<span class="c1"># run the circuit</span>
+<span class="n">reset_sim_job</span> <span class="o">=</span> <span class="n">backend_sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="c1"># get the results</span>
+<span class="n">reset_sim_result</span> <span class="o">=</span> <span class="n">reset_sim_job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="c1"># retrieve the bitstring counts</span>
+<span class="n">reset_sim_counts</span> <span class="o">=</span> <span class="n">reset_sim_result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Counts: </span><span class="si">{</span><span class="n">reset_sim_counts</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counts: {&#39;00&#39;: 529, &#39;01&#39;: 495}
+</pre></div>
+</div>
+</div>
+</div>
+<p>期待通り最初のビットは0になったり1になったりしますが、2番目のビットは常に0です。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>Qiskitはリトルエンディアンのビット順を採用しているので、右端のビットが1番目のビット、左端のビットが最後のビットになることを思い出してください。</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+
+<span class="c1"># plot histogram</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">reset_sim_counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/31a0780a9588481a3c099183179627faca6bc6275e9b268c1953300bfaf4cf95.png" src="_images/31a0780a9588481a3c099183179627faca6bc6275e9b268c1953300bfaf4cf95.png" />
+</div>
+</div>
+<p>これで、初めてのDynamic circuitを作る準備ができました！</p>
+<div class="admonition-exercise1-2 admonition">
+<p class="admonition-title">Exercise1: 2量子ビット回路の構築</p>
+<p>レベルを上げましょう。最初の課題は2量子ビット回路を設計することです。この場合<span class="math notranslate nohighlight">\(q_{0}\)</span>の値によって<span class="math notranslate nohighlight">\(q_{1}\)</span>に異なる動作をさせることが目的となります。<span class="math notranslate nohighlight">\(q_{0}\)</span>の測定値が0なら<span class="math notranslate nohighlight">\(q_{1}\)</span>に<span class="math notranslate nohighlight">\(X\)</span>ゲートを適用します。1であれば代わりに<span class="math notranslate nohighlight">\(q_{1}\)</span>にアダマールゲートを適用します。</p>
+<p><span class="math notranslate nohighlight">\(q_{0}\)</span>の値をランダムにするために、まずアダマールゲートを適用します。次に、<span class="math notranslate nohighlight">\(q_{0}\)</span>を測定して<span class="math notranslate nohighlight">\(b_{0}\)</span>に書き込みます。そうすると、動的なマジックが起こるはずです。最後に<span class="math notranslate nohighlight">\(q_{1}\)</span>を測定します。</p>
+<p>このExerciseでは <a class="reference external" href="https://qiskit.org/documentation/stubs/qiskit.circuit.QuantumCircuit.if_test.html"><code class="docutils literal notranslate"><span class="pre">if_test()</span></code></a> のドキュメントを読むことをお勧めします。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+
+<span class="n">q0</span><span class="p">,</span> <span class="n">q1</span> <span class="o">=</span> <span class="n">qr</span>
+<span class="n">b0</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">cr</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span> <span class="n">b0</span><span class="p">)</span>
+
+<span class="c1">####### your code goes here #######</span>
+
+
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">b1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">idle_wires</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+
+<span class="n">q0</span><span class="p">,</span> <span class="n">q1</span> <span class="o">=</span> <span class="n">qr</span>
+<span class="n">b0</span><span class="p">,</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">cr</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span> <span class="n">b0</span><span class="p">)</span>
+
+<span class="c1">####### your code goes here #######</span>
+<span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">b0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="k">as</span> <span class="n">else_</span><span class="p">:</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">else_</span><span class="p">:</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">b1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">idle_wires</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/875e675f22cc6b1c351c09eb574effabd4f5b455b257c7b2baa4a0eb5135abfb.png" src="_images/875e675f22cc6b1c351c09eb574effabd4f5b455b257c7b2baa4a0eb5135abfb.png" />
+</div>
+</details>
+</div>
+<p>オプションで、次のセルを実行して回路が期待通りに動作するかをチェックすることができます。</p>
+<blockquote>
+<div><p>Tip：回路を実行する前に起こりうる結果を考えて見てください。</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">backend_sim</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span>
+
+<span class="n">job_1</span> <span class="o">=</span> <span class="n">backend_sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">result_1</span> <span class="o">=</span> <span class="n">job_1</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">counts_1</span> <span class="o">=</span> <span class="n">result_1</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Counts: </span><span class="si">{</span><span class="n">counts_1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counts: {&#39;01&#39;: 258, &#39;11&#39;: 271, &#39;10&#39;: 495}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="repeat-until-success">
+<h2>Repeat until success<a class="headerlink" href="#repeat-until-success" title="Link to this heading">#</a></h2>
+<p>プロセスの出力がランダムで得られる結果が望んだものでないことがあります。このような場合どうすればいいのでしょうか？もう一度やってみればいいのです！望む結果が得られる確率がゼロでない限り、プロセスを繰り返せば、最終的には期待した結果が得られることが保証されています。多くの場合ほんの数回の繰り返しで済みます。</p>
+<p>このセクションでは &quot;repeat until success&quot; のアイデアを用いて<span class="math notranslate nohighlight">\(R_X(\theta)\)</span>ゲート(ただし<span class="math notranslate nohighlight">\(\theta / \pi\)</span>は無理数)を有限のゲートセット<span class="math notranslate nohighlight">\(\{H,\,X,\,S,\,\text{Toffoli}\}\)</span>から構築します。特に<span class="math notranslate nohighlight">\(\cos\theta = \frac35\)</span>の場合を考えます。この構成はNielsen and Chuangの <em>量子コンピュータと量子通信</em>, 10<sup>th</sup> anniversary edition, Exercise 4.41 からの引用したもので、上で与えられた有限のゲートセットの普遍性を示しています。</p>
+<p>作り方は、3つの量子ビットに作用する回路を作ることになります。そのうちの1つはターゲット量子ビットで、このターゲット量子ビットに対して<span class="math notranslate nohighlight">\(R_X(\theta)\)</span>ゲートを実行することが目標です。残りの2つの量子ビットは「シンドローム」量子ビットで、測定し、測定結果で操作が成功したかどうかを知ることができます。もし両方のシンドローム量子ビットが0を読み取ったら、ゲートが成功したことがわかります。そうでない場合は、量子ビットをリセットして再挑戦します。測定結果をもとに回路の繰り返しを条件付けるために、Dynamic circuitが必要になります。</p>
+<div class="admonition-exercise2 admonition">
+<p class="admonition-title">Exercise2: 実験用量子回路の構築</p>
+<p>このセクションの最初の課題は、上記の回路を返す関数を作成することです。回路のアウトプットイメージはこちらです。</p>
+<p><img alt="output" src="_images/2023-spring-lab1-circuitRx.png" /></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">trial</span><span class="p">(</span>
+    <span class="n">circuit</span><span class="p">:</span> <span class="n">QuantumCircuit</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span>
+    <span class="n">controls</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span>
+    <span class="n">measures</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Probabilistically perform Rx(theta) on the target, where cos(theta) = 3/5.&quot;&quot;&quot;</span>
+
+    <span class="c1">####### your code goes here #######</span>
+
+
+<span class="n">qc</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">copy_empty_like</span><span class="p">()</span>
+<span class="n">trial</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">cregbundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>簡単にできるように、必要な要素を入れた「ベース」回路を用意してあります。このLabで書く関数は、回路を入力として受け取りその場で修正するものです。新しい回路が必要なときはベースとなる回路のコピーを作ればよいのです。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;control&quot;</span><span class="p">)</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+
+<span class="n">mid_measure</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mid&quot;</span><span class="p">)</span>
+<span class="n">final_measure</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;final&quot;</span><span class="p">)</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">,</span> <span class="n">final_measure</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>次のセルで、<code class="docutils literal notranslate"><span class="pre">trial</span></code>関数が以下のステップを踏んで回路を構成するようにしてください。</p>
+<ol class="arabic simple">
+<li><p>制御レジスターの各量子ビットとターゲット量子ビットにアダマールゲートを適用する。</p></li>
+<li><p>制御レジスターとターゲット量子ビットの間にトフォリ（制御-制御-NOT）ゲートを適用する。これはQuantumCircuitの<code class="docutils literal notranslate"><span class="pre">ccx</span></code>メソッドを使うか、<code class="docutils literal notranslate"><span class="pre">qiskit.circuit.library</span></code>から<code class="docutils literal notranslate"><span class="pre">CCXGate</span></code>をインポートして使用することで実現できます。</p></li>
+<li><p>ターゲット量子ビットに<span class="math notranslate nohighlight">\(S\)</span>ゲートを適用する。</p></li>
+<li><p>ステップ2と同じ制御とターゲットで、別のトフォリゲートを適用する。</p></li>
+<li><p>再び、制御レジスターとターゲットレジスターにアダマールゲートを適用する。</p></li>
+<li><p>制御レジスターを測定して、古典レジスターに入れる。</p></li>
+</ol>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">trial</span><span class="p">(</span>
+    <span class="n">circuit</span><span class="p">:</span> <span class="n">QuantumCircuit</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span>
+    <span class="n">controls</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span>
+    <span class="n">measures</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Probabilistically perform Rx(theta) on the target, where cos(theta) = 3/5.&quot;&quot;&quot;</span>
+
+    <span class="c1">####### your code goes here #######</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="o">*</span><span class="n">controls</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="o">*</span><span class="n">controls</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="n">measures</span><span class="p">)</span>
+
+<span class="n">qc</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">copy_empty_like</span><span class="p">()</span>
+<span class="n">trial</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">cregbundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/120456d82431dbf669836d6acb16cf4589959e481786408370462d24d67658ee.png" src="_images/120456d82431dbf669836d6acb16cf4589959e481786408370462d24d67658ee.png" />
+</div>
+</details>
+</div>
+<p>次の作業は測定値のチェックです。制御ビットの測定値が2つとも <span class="math notranslate nohighlight">\(|0\rangle\)</span> の場合、適用されるゲートは<span class="math notranslate nohighlight">\(R_X(\theta)\)</span>で、<span class="math notranslate nohighlight">\(\cos(\theta) = \frac{3}{5}\)</span>です。測定値のいずれかが <span class="math notranslate nohighlight">\(|1\rangle\)</span> であれば、適用されるゲートは単に<span class="math notranslate nohighlight">\(X\)</span>であり失敗を示します。したがって、対象となる量子ビットのコヒーレンスを乱すことなく、測定値から正しいゲートを適用したかどうかを知ることができるのです。</p>
+<p>失敗した場合は、量子ビットをリセットしてもう一度やり直す必要があります。 失敗した場合に何が適用するかがわかっているので、一般的なハードウェアのリセットを使わなくても、この知識を使って効率的にリセットを実行することができます。2つの補助量子ビットについては、それぞれの測定値が <span class="math notranslate nohighlight">\(1\)</span> であることを条件として、 <span class="math notranslate nohighlight">\(X\)</span> ゲートを適用すれば良いのです。</p>
+<div class="admonition-exercise3 admonition">
+<p class="admonition-title">Exercise3: 測定値のチェック</p>
+<p>次のセルに<code class="docutils literal notranslate"><span class="pre">reset_controls</span></code>関数の中身を埋めて、次のステップで回路を変更できるようにしてください。</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">measures</span></code>レジスターの最初のビットが1の場合、最初の制御量子ビットに<span class="math notranslate nohighlight">\(X\)</span>ゲートを適用する。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">measures</span></code>レジスターの2番目のビットが1の場合、2番目の制御量子ビットに<span class="math notranslate nohighlight">\(X\)</span>ゲートを適用する。</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_controls</span><span class="p">(</span>
+    <span class="n">circuit</span><span class="p">:</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">controls</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">measures</span><span class="p">:</span> <span class="n">ClassicalRegister</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset the control qubits if they are in |1&gt;.&quot;&quot;&quot;</span>
+
+    <span class="c1">####### your code goes here #######</span>
+
+
+<span class="n">qc</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">copy_empty_like</span><span class="p">()</span>
+<span class="n">trial</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+<span class="n">reset_controls</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">cregbundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_controls</span><span class="p">(</span>
+    <span class="n">circuit</span><span class="p">:</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">controls</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">measures</span><span class="p">:</span> <span class="n">ClassicalRegister</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset the control qubits if they are in |1&gt;.&quot;&quot;&quot;</span>
+
+    <span class="c1">####### your code goes here #######</span>
+    <span class="k">with</span> <span class="n">circuit</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">measures</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">circuit</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">controls</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">with</span> <span class="n">circuit</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">measures</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">circuit</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">controls</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">qc</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">copy_empty_like</span><span class="p">()</span>
+<span class="n">trial</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+<span class="n">reset_controls</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">cregbundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bbf1311db0172fa42808c59b3d1219fe2e2b94988d2d9badf67628f39478d5d8.png" src="_images/bbf1311db0172fa42808c59b3d1219fe2e2b94988d2d9badf67628f39478d5d8.png" />
+</div>
+</details>
+</div>
+<p>あとは、条件が満たされなかった場合に、回路の実行を繰り返すだけです。
+最後のExerciseでは、現在のDynamic circuitのサポートにおける2つの問題点を解決する必要があります。</p>
+<p>最初の問題は、Qiskitが現在、<strong>古典ビットに対するいかなる算術・論理演算の実行もサポートしていない</strong>ことです。特に古典レジスターが特定の値を持って<em>いない</em>ことをチェックする機能はサポートしていません。現状、回路途中の測定値がビット列<code class="docutils literal notranslate"><span class="pre">00</span></code>で<em>ない</em>場合のみ、試行を繰り返す必要があります。この問題を回避するために、測定値が <code class="docutils literal notranslate"><span class="pre">00</span></code> に等しいことを条件とする if 文を作成し、空のブロックを<strong>パス</strong>して、<strong>else</strong> 分岐を使用して測定値が <code class="docutils literal notranslate"><span class="pre">00</span></code> でない場合に必要な論理を実行することになります。</p>
+<p>2つ目の問題は、現在、私たちのハードウェアが<strong>ループをサポートしていない</strong>ことです。そのため、真の意味で成功するまで繰り返すループを実行することができません。そこで、この問題を解決するために、試行回路を一定回数だけ繰り返すことにします。</p>
+<div class="admonition-exercise4-repeat-until-success admonition">
+<p class="admonition-title">Exercise4: repeat until success</p>
+<p>以下のコードセルに、シンドローム量子ビットの測定で試行を繰り返す必要があると判断された場合に実行されるロジックを <code class="docutils literal notranslate"><span class="pre">else</span></code> ブロックに記入してください。</p>
+<ol class="arabic simple">
+<li><p>ターゲット量子ビットをゼロ状態にリセットする。（すでに1の状態であることを知っていることを思い出してください）</p></li>
+<li><p>回路上の <code class="docutils literal notranslate"><span class="pre">trial</span></code> 関数を再び呼び出す。</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_trials</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">reset_controls</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">circuit</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">mid_measure</span><span class="p">,</span> <span class="mb">0b00</span><span class="p">))</span> <span class="k">as</span> <span class="n">else_</span><span class="p">:</span>
+        <span class="c1"># This is the success path, but Qiskit can&#39;t directly</span>
+        <span class="c1"># represent a negative condition yet, so we have an</span>
+        <span class="c1"># empty `true` block in order to use the `else` branch.</span>
+        <span class="k">pass</span>
+    <span class="k">with</span> <span class="n">else_</span><span class="p">:</span>
+        <span class="c1">####### your code goes here #######</span>
+
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the maximum number of trials</span>
+<span class="n">max_trials</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Create a clean circuit with the same structure (bits, registers, etc)</span>
+<span class="c1"># as the initial base we set up.</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">copy_empty_like</span><span class="p">()</span>
+
+<span class="c1"># The first trial does not need to reset its inputs, since the controls</span>
+<span class="c1"># are guaranteed to start in the |0&gt; state.</span>
+<span class="n">trial</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+
+<span class="c1"># Manually add the rest of the trials.  In the future, we will be</span>
+<span class="c1"># able to use a dynamic `while` loop to do this, but for now, we</span>
+<span class="c1"># statically add each loop iteration with a manual condition check</span>
+<span class="c1"># on each one.  This involves more classical synchronizations than</span>
+<span class="c1"># the while loop, but will suffice for now.</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_trials</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">reset_controls</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">circuit</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">mid_measure</span><span class="p">,</span> <span class="mb">0b00</span><span class="p">))</span> <span class="k">as</span> <span class="n">else_</span><span class="p">:</span>
+        <span class="c1"># This is the success path, but Qiskit can&#39;t directly</span>
+        <span class="c1"># represent a negative condition yet, so we have an</span>
+        <span class="c1"># empty `true` block in order to use the `else` branch.</span>
+        <span class="k">pass</span>
+    <span class="k">with</span> <span class="n">else_</span><span class="p">:</span>
+        <span class="c1">####### your code goes here #######</span>
+        <span class="n">circuit</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">trial</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+
+<span class="c1"># We need to measure the control qubits again to ensure we</span>
+<span class="c1"># get their final results; this is a hardware limitation.</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">controls</span><span class="p">,</span> <span class="n">mid_measure</span><span class="p">)</span>
+
+<span class="c1"># Finally, let&#39;s measure our target, to check that we&#39;re</span>
+<span class="c1"># getting the rotation we desired.</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">final_measure</span><span class="p">)</span>
+
+<span class="n">circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">cregbundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8d58bb28b1d6942291b6b86765957cab2656fb1616cdbc0fe553ad81011a672a.png" src="_images/8d58bb28b1d6942291b6b86765957cab2656fb1616cdbc0fe553ad81011a672a.png" />
+</div>
+</details>
+</div>
+<p>シミュレーター上で回路を実行しましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/96927bda8ae216b0d6421827a0e717d6fdaaf931fa7ae100a7a0f54c79b727da.png" src="_images/96927bda8ae216b0d6421827a0e717d6fdaaf931fa7ae100a7a0f54c79b727da.png" />
+</div>
+</div>
+<p>成功すると、結果は、2つの制御ビットの測定値が<code class="docutils literal notranslate"><span class="pre">00</span></code>の状態で終了します。</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "iqc2024-performance"
+        },
+        kernelOptions: {
+            name: "iqc2024-performance",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'iqc2024-performance'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">IBM Quantum Challengeで学ぶ量子コンピューティング</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2020-w1-a-adder-ja.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">量子回路における加算器（2020年 Week1a）</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hello-dynamic-circuit-world">Hello Dynamic Circuit World</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-until-success">Repeat until success</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Quantum Tokyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
