@@ -1,4 +1,4 @@
-# [IBM Quantum Challengeで学ぶ量子コンピューティング]()
+# [IBM Quantum Challengeで学ぶ量子コンピューティング](https://quantum-tokyo.github.io/ibm-quantum-challenge-textbook/)
 IBM Quantum Challengeを題材とした量子コンピューティングの学習教材です。
 
 ![](./src/resources/ibm-quantum-challenge.png)
