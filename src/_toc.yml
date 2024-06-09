@@ -7,11 +7,15 @@ parts:
 - caption: "Chapter1 Qiskit 101"
   chapters:
   - file: 2024-spring-lab0-welcome-ja
-    title: ようこそ、そしてハローワールド(2024春 Lab0)
+    title: ようこそ、そしてハローワールド (2024春 Lab0)
 
-# - caption: "Chapter2 量子コンピューターの計算ルール"
+- caption: "Chapter2 量子回路の構築"
+  chapters:
+  - file: 2020-w1-a-adder-ja
+    title: 量子回路の基礎 (2020 w1-A)
+  - file: 2020-w1-b-grover-ja
+    title: Groverのアルゴリズム (2020 w1-B)
 
-# - caption: "Chapter3 量子アルゴリズム"
 
 # - caption: "Chapter4 量子コンピューターの応用"
 
