@@ -1,0 +1,971 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>量子エラー訂正(2021年春 Lab3) &#8212; IBM Quantum Challengeで学ぶ量子コンピューティング</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/translations.js?v=4dbe4bdc"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2021-spring-lab3-error-ja';</script>
+    <link rel="icon" href="_static/quantum-tokyo-icon.ico"/>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="prev" title="Groverのアルゴリズム(2020年 Week1-B)" href="2020-w1-b-grover-ja.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-light" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>
+    <script>document.write(`<img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-dark" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    IBM Quantum Challengeで学ぶ量子コンピューティング
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter1 Qiskit 101</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab1-dynamic-ja.html">Dynamic Circuits入門 (2023春 Lab1)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter2 量子回路の構築</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-a-adder-ja.html">量子回路の基礎 (2020 w1-A)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab2-teleportation-ja.html">量子テレポーテーション (2023 Lab2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-b-grover-ja.html">Groverのアルゴリズム (2020 w1-B)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter3 量子コンピューターのエラー訂正・緩和</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">量子エラー訂正 (2021春 Lab3)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/quantum-tokyo/ibm-quantum-challenge-textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="ソースリポジトリ"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2021-spring-lab3-error-ja.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>量子エラー訂正(2021年春 Lab3)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">歴史的背景</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">参考文献</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">エラーがもたらす課題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">極めて単純な例</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">表面符号</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-information">Additional information</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab3">
+<h1>量子エラー訂正(2021年春 Lab3)<a class="headerlink" href="#lab3" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>歴史的背景<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>ショアのアルゴリズムは量子コンピューターに価値あるユースケースを与えました。しかし、量子力学特有のノイズの多さから、このようなアルゴリズムを実行できるハードウェアを作るのは非常に困難でした。1995年、ショアは量子情報を複数の量子ビットで共有することで誤差を減らすという画期的な論文を発表しました。[1]</p>
+<p>それ以来、数十年の間に大きな進歩がありました。新しい形式の誤り訂正符号が発見され、それらを中心とした大きな理論的枠組みが構築されました。1997年にKitaevが提案した表面符号が有力な候補として浮上し、その後も多くのバリエーションが登場しています。しかし、量子ハードウェアの特性に合わせてコードを調整するには、まだ多くの課題が残っています。[2]</p>
+<p>この課題では、回路に人工的な「エラー」を挿入するケースを考えます。あなたの課題は、これらの追加ゲートを識別できるように回路を設計することです。</p>
+<p>次に、作成した回路を実際のデバイスに実装する方法を考える必要があります。つまり、量子デバイス上の量子ビットのレイアウトに合わせてソリューションを調整します。量子もつれの状態にあるゲート（最もノイズの多いゲート）の数がどれだけ少ないかで採点されます。</p>
+<section id="id2">
+<h3>参考文献<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Shor, Peter W. &quot;Scheme for reducing decoherence in quantum computer memory.&quot; Physical review A 52.4 (1995): R2493.</p></li>
+<li><p>Dennis, Eric, et al. &quot;Topological quantum memory.&quot; Journal of Mathematical Physics 43.9 (2002): 4452-4505.</p></li>
+</ol>
+</section>
+</section>
+<section id="id3">
+<h2>エラーがもたらす課題<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>エラーは、量子ビットに何らかの予期せぬ誤操作がなされたときに発生します。その影響で、回路がおかしくなってしまうのです。実機で動かしてみると、不思議な結果になることがありますが、それはすべてこのエラーのせいです。</p>
+<p>予期せぬ誤操作はたくさんありますが、ここでは2種類のエラーしか存在しないと仮定します：ビット反転と位相反転です。</p>
+<p>ビット反転は、<code class="docutils literal notranslate"><span class="pre">x</span></code>ゲートと同じ効果があります。1つの量子ビットの状態を0から1に反転させます。<br />
+位相反転は、<code class="docutils literal notranslate"><span class="pre">z</span></code>ゲートと同じ効果を持ち、重ね合わせ状態に<span class="math notranslate nohighlight">\(-1\)</span>の位相を導入します。簡単に言うと、1つの量子ビットの<span class="math notranslate nohighlight">\(|+\rangle\)</span>状態を<span class="math notranslate nohighlight">\(|-\rangle\)</span>に反転させるもので、その逆も然りです。</p>
+<p>任意のエラーをこの2つだけで考えることができるのは、任意のエラーは何らかの行列で表すことができ、任意の行列は行列<span class="math notranslate nohighlight">\(X\)</span>と<span class="math notranslate nohighlight">\(Z\)</span>で書くことができるからです。具体的には、ある適切に選択された値 <span class="math notranslate nohighlight">\(\alpha\)</span>, <span class="math notranslate nohighlight">\(\beta\)</span>, <span class="math notranslate nohighlight">\(\gamma\)</span>, <span class="math notranslate nohighlight">\(\delta\)</span>について、任意の1量子ビットの行列<span class="math notranslate nohighlight">\(M\)</span>を以下のように書き表すことができます。</p>
+<div class="math notranslate nohighlight">
+\[
+M = \alpha I + \beta X + \gamma XZ + \delta Z
+\]</div>
+<p>ゆえに、したがって、この行列をある単一の量子ビット状態<span class="math notranslate nohighlight">\(|\psi\rangle\)</span>に適用すると、次のようになります。</p>
+<div class="math notranslate nohighlight">
+\[
+M |\psi\rangle = \alpha |\psi\rangle + \beta X |\psi\rangle + \gamma XZ |\psi\rangle + \delta Z |\psi\rangle
+\]</div>
+<p>結果として得られる重ね合わせは、初期状態、エラーが単なるビット反転の場合の状態、位相反転の場合の状態、そして両方の場合の状態で構成されます。もし、ビット反転と位相反転のどちらが起きたかを測定する方法があれば、状態は1つの可能性に集約されます。そして、私たちの複雑なエラーは、単純なビットまたは位相の反転になります。</p>
+<p>では、ビット反転なのか位相反転なのか（あるいはその両方なのか）をどうやって検出するのでしょうか。そして、それがわかったら、どうすればいいのか。これらの疑問を解決するのが、量子エラー訂正です。</p>
+</section>
+<section id="id4">
+<h2>極めて単純な例<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>多くの人が最初に書く量子回路の一つは、ふたつの量子ビットのもつれ（エンタングルメント）状態でしょう。今回の量子エラー訂正の旅も、まずはこの単純な例からみていきます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+
+<span class="c1"># Make an entangled pair</span>
+<span class="n">qc_init</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">qc_init</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8057fc38443f0440ed5e14e5222ee89479bd5131bc224629ced8bb36b2b04508.png" src="_images/8057fc38443f0440ed5e14e5222ee89479bd5131bc224629ced8bb36b2b04508.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit_aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
+
+<span class="k">def</span> <span class="nf">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">:</span> <span class="n">QuantumCircuit</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+
+    <span class="n">backend</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">qc_init</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;00&#39;: 496, &#39;11&#39;: 528}
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここでは、回路を動作させたときに期待される結果、つまり、「00」と「11」が同じ確率で発生することがわかります。</p>
+<p>しかし、同じ回路でも、手動でビット反転の「エラー」を挿入するとどうなるでしょうか。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make bit flip error</span>
+<span class="n">qc_insert</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc_insert</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Add it to our original circuit</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qc_init</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">qc_insert</span><span class="p">)</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4e8e84cc0118c6637e645b9b76de16770bd44cda0bdbfe651b29484c1101ef79.png" src="_images/4e8e84cc0118c6637e645b9b76de16770bd44cda0bdbfe651b29484c1101ef79.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;01&#39;: 492, &#39;10&#39;: 532}
+</pre></div>
+</div>
+</div>
+</div>
+<p>今度は結果が違っていて、<code class="docutils literal notranslate"><span class="pre">01</span></code>と<code class="docutils literal notranslate"><span class="pre">10</span></code>です。2つのビット値は、常に一致していたものが、常に一致しなくなっています。このようにして、エラーの影響を検出します。</p>
+<p>もうひとつの検出方法は、さらにいくつかのゲートを使ってエンタングルメントを元に戻すことです。エラーがなければ、最初の<span class="math notranslate nohighlight">\(|00\rangle\)</span>の状態に戻ります。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Undo entanglement</span>
+<span class="n">qc_syn</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Add this after the error</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qc_init</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">qc_syn</span><span class="p">)</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d71e56e1548d9e7501ee946d72c35b5998c8c6e42c36f1c76f5695e44bd5a367.png" src="_images/d71e56e1548d9e7501ee946d72c35b5998c8c6e42c36f1c76f5695e44bd5a367.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;00&#39;: 1024}
+</pre></div>
+</div>
+</div>
+</div>
+<p>しかし、量子ビットの1つにエラーがあるとどうなるでしょうか？さまざまなエラーを挿入してみましょう。</p>
+<p>初期化の <code class="docutils literal notranslate"><span class="pre">qc_init</span></code> 、エラーを挿入する <code class="docutils literal notranslate"><span class="pre">qc_insert</span></code> 、そして最終的な測定で明確な答えが得られるようにする <code class="docutils literal notranslate"><span class="pre">qc_syn</span></code> という回路です。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define an error</span>
+<span class="n">qc_insert</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc_insert</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Undo entanglement</span>
+<span class="n">qc_syn</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Add this after the error</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qc_init</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">qc_insert</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">qc_syn</span><span class="p">)</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/992b79c01cf9b79f032f0d29d10588ab968337444653d951556c3189cd5eff62.png" src="_images/992b79c01cf9b79f032f0d29d10588ab968337444653d951556c3189cd5eff62.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;10&#39;: 1024}
+</pre></div>
+</div>
+</div>
+</div>
+<p>出力を見ると、エラーの状況が正確にわかります。ビット反転と位相反転の両方が検出できます。左側のビット値は、ビット反転があった場合（つまり、<code class="docutils literal notranslate"><span class="pre">x(0)</span></code>または<code class="docutils literal notranslate"><span class="pre">x(1)</span></code>を挿入した場合）にのみ<code class="docutils literal notranslate"><span class="pre">1</span></code>となります。右側のビット値も同様に，位相反転があること（<code class="docutils literal notranslate"><span class="pre">z(0)</span></code>または<code class="docutils literal notranslate"><span class="pre">z(1)</span></code>が挿入されていること）を示しています。</p>
+<p>このように、ビットや位相の反転を検出して区別する能力は非常に便利です。しかし、それだけでは十分ではありません。どのような種類のエラーが発生しているかがわかるだけで、どこでエラーが発生しているかはわかりません。より詳細な情報がなければ、これらの演算の影響を計算から取り除く方法を考えることはできません。したがって、量子エラー訂正には、もっと大きくて優れたものが必要なのです。</p>
+<p>それを実装するのがあなたの役目です。ここには、あなたが提出しなければならないもののリストがあります。ここに書かれていることは、この後の例で説明されています。</p>
+</section>
+<section id="id5">
+<h2>表面符号<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>2つの量子ビットの<code class="docutils literal notranslate"><span class="pre">x</span></code>と<code class="docutils literal notranslate"><span class="pre">z</span></code>のエラーを検出できる回路を作ってください。
+自分で解決策を考えてもよいですし、あるいは、以下に示す完成間近の解答に手を加えるだけでも構いません。</p>
+<ul class="simple">
+<li><p>2つの回路を供給する必要があります。</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">qc_init</span></code>: 量子ビット(少なくとも2つ)を望ましい初期状態にします。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">qc_syn</span></code>: 量子ビットのサブセットを測定します。</p></li>
+</ul>
+</li>
+<li><p>挿入される人工的なエラーは、2つの特定の量子ビット上の <code class="docutils literal notranslate"><span class="pre">x</span></code> および <code class="docutils literal notranslate"><span class="pre">z</span></code> ゲートです。これに使用する2つの量子ビットを選択する必要があります（リスト <code class="docutils literal notranslate"><span class="pre">error_qubits</span></code> として提供されます）。</p></li>
+<li><p>挿入されるエラーのセットは、16通りあります（エラーがないという些細なケースを含む）。<code class="docutils literal notranslate"><span class="pre">qc_syn</span></code> の測定結果は、それぞれに固有のビット文字列を出力する必要があります。これが満たされない場合、採点者はエラーメッセージ <em>'Please make sure the circuit is created to the initial layout.'</em> を返します。</p></li>
+</ul>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>この例では、符号化量子ビットと呼ばれる5つの量子ビットを使用します。それらを記録するために、特別な量子レジスタを定義します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">code</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>さらに、シンドローム量子ビットと呼ばれる4つの量子ビットを追加します。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>シンドローム量子ビット
+シンドローム量子ビットは符号化量子ビットのエラー検出と識別を行うための量子ビットです。<br />
+直接符号化量子ビットを測定してしまうと、測定により量子状態が崩壊してしまい、正しい誤り訂正が困難となってしまうため、
+エンタングルメントを利用して符号化量子ビットのエラー情報をシンドローム量子ビットに転送して測定します。</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">syn</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;syn&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>同様に、シンドローム量子ビットを測定する際に使用される4つの出力ビット用のレジスタを定義します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここで、符号化量子ビットは4つの三角形の角を形成し、シンドローム量子ビットはそれぞれの三角形の内側に存在するようなレイアウトを考えます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c0</span><span class="o">----------</span><span class="n">c1</span>
+<span class="o">|</span> \   <span class="n">s0</span>   <span class="o">/</span> <span class="o">|</span>
+<span class="o">|</span>   \    <span class="o">/</span>   <span class="o">|</span>
+<span class="o">|</span> <span class="n">s1</span>  <span class="n">c2</span>  <span class="n">s2</span> <span class="o">|</span>
+<span class="o">|</span>   <span class="o">/</span>    \   <span class="o">|</span>
+<span class="o">|</span> <span class="o">/</span>   <span class="n">s3</span>   \ <span class="o">|</span>
+<span class="n">c3</span><span class="o">----------</span><span class="n">c4</span>
+</pre></div>
+</div>
+<p>3つの量子ビットが互いに隣り合って形成されている各三角形に対して、スタビライザー演算を関連付けます。<br />
+スタビライザ―演算は両側面の量子ビットはZZZ、上下の量子ビットには、XXXとします。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  
+S_0 &amp;= X_1X_2X_3I_4I_5 \\
+S_1 &amp;= Z_1I_2Z_3Z_4I_5 \\
+S_2 &amp;= Z_1Z_2Z_3I_4Z_5 \\
+S_3 &amp;= I_1I_2X_3X_4X_5
+\end{split}\]</div>
+<p>まず始めに、符号化量子ビットのエラーを解析するためのシンドローム測定回路を構築します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc_syn</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">code</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">out</span><span class="p">)</span>
+
+
+<span class="c1"># Left ZZZ</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">syn</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">syn</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">syn</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1"># Right ZZZ</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">syn</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">syn</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">syn</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1"># Top XXX</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1"># Bottom XXX</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+
+<span class="c1"># Measure the auxilliary qubits</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">syn</span><span class="p">,</span><span class="n">out</span><span class="p">)</span>
+<span class="n">qc_syn</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/682ab5a7693e866cc714e93e93c72222b822947a5344ee569328a25bea639842.png" src="_images/682ab5a7693e866cc714e93e93c72222b822947a5344ee569328a25bea639842.png" />
+</div>
+</div>
+<p>次に初期化回路として、情報を符号化するための回路を構築します。エラーが無い場合にこの回路で符号化した量子状態に対してシンドローム測定を行ったときに、出力が確実に<code class="docutils literal notranslate"><span class="pre">0000</span></code>になるようにします。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>符号化回路
+この回路は複数の物理量子ビットを用いて論理的な0と1に符号化します。<br />
+このとき、誤り訂正が実現可能なように符号化を行う必要があり、そのためにはスタビライザ演算に対して不変となるような状態（固有状態）で符号化される必要があります。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\ket{0_L} = \frac{1}{2}(\ket{00000} + \ket{00111} + \ket{11011} + \ket{11100}) \\
+\ket{1_L} = \frac{1}{2}(\ket{01001} + \ket{01110} + \ket{10010} + \ket{10101}) \\
+\end{split}\]</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc_init</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">code</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">out</span><span class="p">)</span>
+
+<span class="n">qc_init</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">syn</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">qc_init</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">code</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">code</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">syn</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="n">qc_init</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+<span class="n">qc_init</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/02797b498461e51357081d75daf5512ebb480f686b30b564ab8d9f406b4bb67c.png" src="_images/02797b498461e51357081d75daf5512ebb480f686b30b564ab8d9f406b4bb67c.png" />
+</div>
+</div>
+<p>事実か確認しましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">qc_init</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">qc_syn</span><span class="p">)</span>
+<span class="n">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;000000111 0000&#39;: 253,
+ &#39;000000000 0000&#39;: 259,
+ &#39;000011011 0000&#39;: 252,
+ &#39;000011100 0000&#39;: 260}
+</pre></div>
+</div>
+</div>
+</div>
+<p>それでは、2つの符号量子ビットにエラーである<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>ゲートを適用できる回路を作ってみましょう。</p>
+<p>5個の符号量子ビットのうち、適切な2個を選ぶ必要があります。この符号では、反対側の角を選択する必要があります。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">error_qubits</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここで，0と4は，以下のリストの量子ビットの位置を示しており，量子ビット<code class="docutils literal notranslate"><span class="pre">code[0]</span></code>と<code class="docutils literal notranslate"><span class="pre">code[4]</span></code>です。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="o">.</span><span class="n">qubits</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Qubit(QuantumRegister(5, &#39;code&#39;), 0),
+ Qubit(QuantumRegister(5, &#39;code&#39;), 1),
+ Qubit(QuantumRegister(5, &#39;code&#39;), 2),
+ Qubit(QuantumRegister(5, &#39;code&#39;), 3),
+ Qubit(QuantumRegister(5, &#39;code&#39;), 4),
+ Qubit(QuantumRegister(4, &#39;syn&#39;), 0),
+ Qubit(QuantumRegister(4, &#39;syn&#39;), 1),
+ Qubit(QuantumRegister(4, &#39;syn&#39;), 2),
+ Qubit(QuantumRegister(4, &#39;syn&#39;), 3)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>正しく符号化しているかどうかをチェックするために、次のような関数を使って人工的なエラーを導入する回路を作ることができます。ここでは、例えば、<code class="docutils literal notranslate"><span class="pre">error_qubits[0]</span></code> の <code class="docutils literal notranslate"><span class="pre">x</span></code> を表す <code class="docutils literal notranslate"><span class="pre">x0</span></code> のように追加したいエラーを <code class="docutils literal notranslate"><span class="pre">errors</span></code> に単純なテキスト文字列としてリストアップしています。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span><span class="n">error_qubits</span><span class="p">,</span><span class="n">code</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">out</span><span class="p">):</span>
+
+    <span class="n">qc_insert</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">code</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">out</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;x0&#39;</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+        <span class="n">qc_insert</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">error_qubits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;x1&#39;</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+        <span class="n">qc_insert</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">error_qubits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;z0&#39;</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+        <span class="n">qc_insert</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="n">error_qubits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;z1&#39;</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+        <span class="n">qc_insert</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="n">error_qubits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        
+    <span class="k">return</span> <span class="n">qc_insert</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>可能性のある16通りすべてではなく、1つのエラーが導入された4つのケースだけを見てみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span><span class="s1">&#39;z0&#39;</span><span class="p">,</span><span class="s1">&#39;z1&#39;</span><span class="p">]:</span>
+    
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">qc_init</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">insert</span><span class="p">([</span><span class="n">error</span><span class="p">],</span><span class="n">error_qubits</span><span class="p">,</span><span class="n">code</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">out</span><span class="p">))</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">qc_syn</span><span class="p">)</span>
+    
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">For error &#39;</span><span class="o">+</span><span class="n">error</span><span class="o">+</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Output was&#39;</span><span class="p">,</span><span class="n">output</span><span class="p">,</span><span class="s1">&#39;for&#39;</span><span class="p">,</span><span class="n">counts</span><span class="p">[</span><span class="n">output</span><span class="p">],</span><span class="s1">&#39;shots.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>For error x0:
+Output was 001011101 0010 for 258 shots.
+Output was 001011010 0010 for 270 shots.
+Output was 001000110 0010 for 255 shots.
+Output was 001000001 0010 for 241 shots.
+
+For error x1:
+Output was 010010000 0100 for 246 shots.
+Output was 010001011 0100 for 263 shots.
+Output was 010010111 0100 for 236 shots.
+Output was 010001100 0100 for 279 shots.
+
+For error z0:
+Output was 000111011 0001 for 254 shots.
+Output was 000100000 0001 for 274 shots.
+Output was 000100111 0001 for 253 shots.
+Output was 000111100 0001 for 243 shots.
+
+For error z1:
+Output was 100000000 1000 for 247 shots.
+Output was 100011011 1000 for 273 shots.
+Output was 100011100 1000 for 254 shots.
+Output was 100000111 1000 for 250 shots.
+</pre></div>
+</div>
+</div>
+</div>
+<p>ここでは、特定のエラーが発生したときに、出力の各ビットが <code class="docutils literal notranslate"><span class="pre">1</span></code> になることがわかります。左端のビットが <code class="docutils literal notranslate"><span class="pre">error_qubits[1]</span></code> で <code class="docutils literal notranslate"><span class="pre">z</span></code> を検出し、次のビットが <code class="docutils literal notranslate"><span class="pre">error_qubits[1]</span></code> で <code class="docutils literal notranslate"><span class="pre">x</span></code> を検出し、以下同様です。</p>
+<ol class="arabic simple">
+<li><p>一番左の出力は，<code class="docutils literal notranslate"><span class="pre">code[1]</span></code>の<code class="docutils literal notranslate"><span class="pre">z</span></code>を表しています．</p></li>
+<li><p>左から2番目の出力は <code class="docutils literal notranslate"><span class="pre">code[1]</span></code> の <code class="docutils literal notranslate"><span class="pre">x</span></code> を表しています。</p></li>
+<li><p>左から 3 番目の出力は、<code class="docutils literal notranslate"><span class="pre">code[0]</span></code> の <code class="docutils literal notranslate"><span class="pre">x</span></code> を表します。</p></li>
+<li><p>一番右の出力は <code class="docutils literal notranslate"><span class="pre">code[0]</span></code> 上の <code class="docutils literal notranslate"><span class="pre">z</span></code> を表す。</p></li>
+</ol>
+<p>より多くのエラーが回路に影響を与えると、どのエラーが発生したかを明確に判断することが難しくなります。しかし、シンドロームの読み出しを継続的に行い、より多くの結果を得て、デコーディングというプロセスでデータを分析することで、エラーの影響を修正するのに十分な判断が可能となります。</p>
+<p>このような検討事項は、今回の課題では扱わないかわりに、よりシンプルな事項でありながら同じくらい重要な事項にフォーカスします。<br />
+エラーの数が少なければ少ないほど、またエラーの内容が単純であればあるほど、エラー訂正の質が向上します。そのためには、使用しているデバイスに合わせてエラー訂正の手順を調整する必要があります。</p>
+<p>今回の回路がどのように構成されているかを簡単に理解するために、2量子ビットゲートがいくつあるかを見てみましょう。</p>
+</section>
+<section id="additional-information">
+<h2>Additional information<a class="headerlink" href="#additional-information" title="Link to this heading">#</a></h2>
+<p><strong>Created by:</strong> James Wootton, Rahul Pratap Singh</p>
+<p><strong>翻訳者:</strong> 小林有里</p>
+<p><strong>Version:</strong> 1.0.0</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "iqc2024-performance"
+        },
+        kernelOptions: {
+            name: "iqc2024-performance",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'iqc2024-performance'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2020-w1-b-grover-ja.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">Groverのアルゴリズム(2020年 Week1-B)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">歴史的背景</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">参考文献</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">エラーがもたらす課題</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">極めて単純な例</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">表面符号</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-information">Additional information</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Quantum Tokyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
