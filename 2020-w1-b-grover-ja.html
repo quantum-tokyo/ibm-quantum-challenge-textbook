@@ -1,0 +1,811 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Groverのアルゴリズム(2020年 Week1-B) &#8212; IBM Quantum Challengeで学ぶ量子コンピューティング</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/translations.js?v=4dbe4bdc"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2020-w1-b-grover-ja';</script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="prev" title="量子回路における加算器（2020年 Week1a）" href="2020-w1-a-adder-ja.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-light" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>
+    <script>document.write(`<img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-dark" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    IBM Quantum Challengeで学ぶ量子コンピューティング
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter2 量子回路の構築</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-a-adder-ja.html">量子回路の基礎 (2020 w1-A)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Groverのアルゴリズム (2020 w1-B)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/quantum-tokyo/ibm-quantum-challenge-textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="ソースリポジトリ"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2020-w1-b-grover-ja.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Groverのアルゴリズム(2020年 Week1-B)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">非構造化データの検索</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">オラクル</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#amplitude-amplification">振幅増幅（Amplitude amplification）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-0">Step 0:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qiskit-2grover">Qiskitでの実装: 2量子ビットのGroverのアルゴリズム</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grover">補助量子ビットを用いた2量子ビットのGroverのアルゴリズム</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">TIPS: 繰り返しの回数</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="grover-2020-week1-b">
+<h1>Groverのアルゴリズム(2020年 Week1-B)<a class="headerlink" href="#grover-2020-week1-b" title="Link to this heading">#</a></h1>
+<p>このチュートリアルでは、量子アルゴリズムの一つであるGrover (グローバー) のアルゴリズムについて学びます。</p>
+<p>古典コンピューターを凌駕する量子コンピューターの数あるアドバンテージの１つに、データベース検索を高速に行えるというのを聞いたことがあるかも知れません。Groverのアルゴリズムはこの能力を実証します。Groverのアルゴリズムは、非構造化データの検索問題に対して二次のオーダーの高速化ができる（古典計算で<span class="math notranslate nohighlight">\(N\)</span>回の計算となる問題が、量子計算では約<span class="math notranslate nohighlight">\(\sqrt N\)</span>回になる）だけではなく、検索以外の用途でも利用することができます。つまり、その他様々のアルゴリズムの実行時間を二次のオーダーで改善する一般的なテクニック、もしくはサブルーチンとして利用することができます。これは振幅増幅テクニックと呼ばれています。</p>
+<p>このページでは、検索問題の詳細を説明し、検索問題用のオラクル(Oracle)を回路で作成した後にGroverのアルゴリズムをQiskitを利用して実装します。</p>
+<section id="id1">
+<h2>非構造化データの検索<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\(N\)</span>個の大きなアイテムリストがあるとします。その中で、一つだけアタリ<span class="math notranslate nohighlight">\(w\)</span>があるとします。</p>
+<p><img alt="" src="_images/2020-w1-b-unstructured_search.png" /></p>
+<p>アタリの箱（マークのついたアイテム）を見つけるためには、古典計算では平均で <span class="math notranslate nohighlight">\(N/2\)</span> 個の箱を探す必要があります。
+最悪の場合は、<span class="math notranslate nohighlight">\(N\)</span> 個探す必要があります。ところが、量子コンピューターでは Groverの振幅増幅のテクニックを使って、
+おおよそ <span class="math notranslate nohighlight">\(\sqrt N\)</span> ステップでマークされたアイテムを探し出すことができます。
+二次の高速化は、大きなリスト内のマークされたアイテムを探すためには実際の所、大きな時間の節約になります。
+さらに、このアルゴリズムはリスト自体の内部構造を利用しないので、一般化することができ、多くの古典の問題でも二次の速度向上をもたらしてくれます。</p>
+</section>
+<section id="id2">
+<h2>オラクル<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>量子コンピューターにこのようなリストをどのように提供すればいいでしょうか？このようなリストをエンコードするためによく用いられる手法としては、マークのついていない<span class="math notranslate nohighlight">\(x\)</span>には<span class="math notranslate nohighlight">\(f(x)=0\)</span>を返し、アタリ<span class="math notranslate nohighlight">\(w\)</span>に対しては<span class="math notranslate nohighlight">\(f(w)=1\)</span>を返すような関数<span class="math notranslate nohighlight">\(f\)</span>を定義する手法が挙げられます。この問題に対して量子コンピューターを使用するには、この関数に対して、重ね合わせ状態にあるアイテムを提供する必要があります。つまり、この関数をオラクルと呼ばれるユニタリー行列としてエンコードする必要があります。そのために、まず初めにアイテムをバイナリ表現にします。すなわち、<span class="math notranslate nohighlight">\(x,w \in \{0,1\}^n\)</span>で<span class="math notranslate nohighlight">\(N=2^n\)</span>です。このようにすると量子コンピューター上の量子ビットとして表現することができます。その後、オラクル行列<span class="math notranslate nohighlight">\(U_w\)</span>を任意の標準基底<span class="math notranslate nohighlight">\(|x\rangle\)</span>に対して<span class="math notranslate nohighlight">\(U_w |x\rangle =(-1)^{f(x)}|x\rangle\)</span>となるように定義します。</p>
+<p><span class="math notranslate nohighlight">\(x\)</span>がマークされていないアイテムの場合、オラクルは状態に対して何もしません。ところが、状態<span class="math notranslate nohighlight">\(|w\rangle\)</span>に対してオラクルを適用すると、<span class="math notranslate nohighlight">\(U_w |w\rangle = -|w\rangle\)</span>にマッピングします。幾何学的には、このユニタリー行列は<span class="math notranslate nohighlight">\(N=2^n\)</span>次元のベクトル空間において、マークされたアイテムを原点に対して反転する操作に対応しています。</p>
+<p><img alt="" src="_images/2020-w1-b-oracle.png" /></p>
+</section>
+<section id="amplitude-amplification">
+<h2>振幅増幅（Amplitude amplification）<a class="headerlink" href="#amplitude-amplification" title="Link to this heading">#</a></h2>
+<p>では、アルゴリズムはどのように動作するのでしょう？リストを調べる前は、私たちはマークされたアイテムがどこにあるのか知りません。従って、下記の式で表される均一な重ね合わせ状態です。
+$<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum_{x=0}^{N-1} |x\rangle \)</span>$</p>
+<p>もしこの時点で標準基底 <span class="math notranslate nohighlight">\(|x\rangle \)</span>でこの重ね合わせ状態を測定した場合、<span class="math notranslate nohighlight">\(\frac{1}{N} = \frac{1}{2^{n}} \)</span> の確率で、標準基底のうちの一つに収束します。予想通り、正しい<span class="math notranslate nohighlight">\(|w\rangle\)</span>を当てる確率は<span class="math notranslate nohighlight">\(\frac{1}{2^{n}}\)</span> です。従って、正しいアイテムを推測するには、平均<span class="math notranslate nohighlight">\(N=2^{n}\)</span>回トライする必要があります。</p>
+<p>そこで振幅増幅と呼ばれる処理を加えましょう。この処理により、量子コンピューターが正しいアイテムを見つける確率を大幅に高めることが出来ます。この処理では、マークされたアイテムの振幅を増幅し、その他のアイテムの振幅を小さくします。この結果、最終状態を測定すると、正しいアイテムをほぼ確実に取り出すことができるようになります。</p>
+<p>このアルゴリズムには２つの反転という面白い幾何学的解釈があり、２次元平面での回転として表せます。私たちが考慮すべきは、アタリ<span class="math notranslate nohighlight">\(|w\rangle\)</span> と均一な重ね合わせ状態<span class="math notranslate nohighlight">\(|s\rangle\)</span> の２つの特別な状態のみです。この２つのベクトルは、ベクトル空間 <span class="math notranslate nohighlight">\(\mathbb C^{N}\)</span> において、２次元の平面を張ります。<span class="math notranslate nohighlight">\(|w\rangle\)</span> 状態は、<span class="math notranslate nohighlight">\(N^{-1/2}\)</span> の振幅で重ね合わせ状態に入っているため、これら２つのベクトルは完全に直交しているわけではありません。</p>
+<p>しかし、<span class="math notranslate nohighlight">\(|s\rangle\)</span> から <span class="math notranslate nohighlight">\(|w\rangle\)</span> を削除し、正規化し直す事で<span class="math notranslate nohighlight">\(|w\rangle\)</span> に直交する追加の状態 <span class="math notranslate nohighlight">\(|s'\rangle\)</span> を導入することができます</p>
+<section id="step-0">
+<h3>Step 0:<a class="headerlink" href="#step-0" title="Link to this heading">#</a></h3>
+<p>振幅増幅は均一な重ね合わせ状態 <span class="math notranslate nohighlight">\(|s\rangle\)</span> から開始します。均一な重ね合わせ状態は、<span class="math notranslate nohighlight">\(|s\rangle = H^{\otimes n}|0\rangle^{n}\)</span> により簡単に作成できます。<span class="math notranslate nohighlight">\(t=0\)</span> の時、初期状態は <span class="math notranslate nohighlight">\(|\psi_{0}\rangle = |s\rangle\)</span> です。</p>
+<p><img alt="" src="_images/2020-w1-b-step0.png" /></p>
+<p>左の図は、<span class="math notranslate nohighlight">\(|w\rangle, |s'\rangle\)</span> によって張られる、２次元平面に対応しています。右の図は、<span class="math notranslate nohighlight">\(N=2^n\)</span> の場合の、状態 <span class="math notranslate nohighlight">\(|\psi_{t}\rangle\)</span> の振幅を表す棒グラフです。振幅の平均値は破線で示されています。</p>
+</section>
+<section id="step-1">
+<h3>Step 1:<a class="headerlink" href="#step-1" title="Link to this heading">#</a></h3>
+<p>反転のオラクル <span class="math notranslate nohighlight">\(U_{w}\)</span> を状態に適用します <span class="math notranslate nohighlight">\(U_{w}|\psi_{t}\rangle = |\psi_{t'}\rangle\)</span></p>
+<p><img alt="" src="_images/2020-w1-b-step1.png" /></p>
+<p>幾何学的には、状態 <span class="math notranslate nohighlight">\(|\psi_{t}\rangle\)</span> を <span class="math notranslate nohighlight">\(|s'\rangle\)</span> に対して反転させることに対応しています。この変換が意味することは、<span class="math notranslate nohighlight">\(|w\rangle\)</span> 状態の振幅が負の値になるということで、結果として平均振幅が低くなることを意味しています。(右側のグラフで破線が下がっていることに着目してください）。</p>
+</section>
+<section id="step-2">
+<h3>Step 2:<a class="headerlink" href="#step-2" title="Link to this heading">#</a></h3>
+<p>次に、<span class="math notranslate nohighlight">\(|s\rangle\)</span> に対する追加の反転 <span class="math notranslate nohighlight">\(U_{s}\)</span> を適用します：<span class="math notranslate nohighlight">\(U_{s} = 2|s\rangle \langle s| - 1 \)</span> 。この変換の結果、状態は <span class="math notranslate nohighlight">\(U_{s}|\psi_{t'}\rangle\)</span> となり、変換 <span class="math notranslate nohighlight">\(|\psi_{t+1}\rangle = U_{s}U_{w}|\psi_{t}\rangle\)</span> が完了します。（右側のグラフで<span class="math notranslate nohighlight">\(|w\rangle\)</span>に対応する振幅が増幅されていることに着目してください）。</p>
+<p><img alt="" src="_images/2020-w1-b-step2.png" /></p>
+<p>２つの反転は常に回転と対応しています。<span class="math notranslate nohighlight">\( U_{s}U_{w}\)</span> による変換は、初期状態 <span class="math notranslate nohighlight">\(|s\rangle\)</span> をアタリ<span class="math notranslate nohighlight">\(|w\rangle\)</span> に近づけるような回転となります（Step 2の左側の図を参照)。<span class="math notranslate nohighlight">\(U_{s}\)</span> による反転の効果は、振幅の棒グラフにおいて、平均振幅での反転と解釈できます。最初の反転で平均振幅の値が低くなったので、この変換は、負の振幅をもった <span class="math notranslate nohighlight">\(|w\rangle\)</span> をオリジナルの値から大雑把にいって約３倍程度増幅し、他の振幅は小さくします。その後、<strong>Step １</strong> に戻ってこれを繰り返します。アタリ <span class="math notranslate nohighlight">\(w\)</span>に近くなるまで、この処理を何回か繰り返します。</p>
+<p><span class="math notranslate nohighlight">\(t\)</span> 回繰り返した後、状態は <span class="math notranslate nohighlight">\(|\psi_{t}\rangle = (U_{s}U_{w})^{t}|\psi_{0}\rangle \)</span> に変換されます。</p>
+<p>回転を何回適用する必要があるでしょうか？ おおよそ <span class="math notranslate nohighlight">\(\sqrt N\)</span> 回転で十分なことが分かっています。これは、状態 <span class="math notranslate nohighlight">\(|\psi_{t}\rangle\)</span> の振幅を調べることで明確になります。<span class="math notranslate nohighlight">\(|w\rangle\)</span> の振幅が適用回数と共に線型的（<span class="math notranslate nohighlight">\( \sim tN^{1/2}\)</span>）に増えていくことが見てとれます。確率ではなく振幅を扱っているので、ベクトル空間の値には平方根として入ります。そのため、この処理で増幅されるのは、ただの確率ではなく振幅です。</p>
+<p>もし解が複数、<span class="math notranslate nohighlight">\(M\)</span>個ある場合、おおよそ<span class="math notranslate nohighlight">\(\sqrt{(N/M)}\)</span> 回転で十分なことが分かっています。</p>
+<p><img alt="" src="_images/2020-w1-b-grover_algorithm.png" /></p>
+</section>
+<section id="qiskit-2grover">
+<h3>Qiskitでの実装: 2量子ビットのGroverのアルゴリズム<a class="headerlink" href="#qiskit-2grover" title="Link to this heading">#</a></h3>
+<p>では、GroverのアルゴリズムをQiskitで実装してみましょう。今回は、2量子ビットを使って、<span class="math notranslate nohighlight">\(|11\rangle\)</span>を見つけるGroverのアルゴリズムを実装します。</p>
+<p>最初に環境を準備します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">ClassicalRegister</span><span class="p">,</span> <span class="n">QuantumRegister</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>上のStep1で実施したように求めたい解（今回の場合、<span class="math notranslate nohighlight">\(|11\rangle\)</span>）の符号を反転するオラクルを作成します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oracleCircuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracleCircuit</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">oracleCircuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bfb1e22c2bb4ba25fe7b279eba92a6b6da70908899e73cd2b4bc5ca12d2fbd38.png" src="_images/bfb1e22c2bb4ba25fe7b279eba92a6b6da70908899e73cd2b4bc5ca12d2fbd38.png" />
+</div>
+</div>
+<p>次にStep 2で実施した平均についての反転(inversion about averate)をする回路を作成します。この回路はDiffusion回路と呼ばれることもあります。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oracleCircuit</span><span class="o">.</span><span class="n">qubits</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Qubit(QuantumRegister(2, &#39;q&#39;), 0), Qubit(QuantumRegister(2, &#39;q&#39;), 1)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inversion_about_average</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Apply inversion about the average step of Grover&#39;s algorithm.</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6b4989a603a461a399451b41c9a5eb669b2a8f482beed72ae4a301748d6255a2.png" src="_images/6b4989a603a461a399451b41c9a5eb669b2a8f482beed72ae4a301748d6255a2.png" />
+</div>
+</div>
+<p>回路の初めで均一な重ね合わせ状態を準備し、今まで作成した部品を合わせ、最後に測定を行います。四つの可能性のうち解は一つなので、繰り返し回数は一回であることに注意してください。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groverCircuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">groverCircuit</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">oracleCircuit</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9404461a4a0dcbea4a7b0bc474f7b42aed85db534c855d4b57c3d5ee3d7d6f79.png" src="_images/9404461a4a0dcbea4a7b0bc474f7b42aed85db534c855d4b57c3d5ee3d7d6f79.png" />
+</div>
+</div>
+<p>上記の回路をシミュレーターで実行してみます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.primitives</span> <span class="kn">import</span> <span class="n">StatevectorSampler</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">StatevectorSampler</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">groverCircuit</span><span class="p">])</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">meas</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/692252a1cb3031585837e0ee35db8979cf91a2935cf60ddd8f1eacf105d9bedc.png" src="_images/692252a1cb3031585837e0ee35db8979cf91a2935cf60ddd8f1eacf105d9bedc.png" />
+</div>
+</div>
+<p>実行結果から分かるようにGroverのアルゴリズムは解を発見しています。</p>
+</section>
+<section id="grover">
+<h3>補助量子ビットを用いた2量子ビットのGroverのアルゴリズム<a class="headerlink" href="#grover" title="Link to this heading">#</a></h3>
+<p>同じ<span class="math notranslate nohighlight">\(|11\rangle\)</span>を見つける2量子ビットのGroverのアルゴリズムですが、補助量子ビットを用いることで、量子ビットの数が増えた際や問題が難しい際に複雑なオラクルを実装しやすくなります。</p>
+<p>求めたい解（今回の場合、<span class="math notranslate nohighlight">\(|11\rangle\)</span>）の符号を反転するオラクルを作成します。ただし、今回は補助量子ビットを用いて<span class="math notranslate nohighlight">\(|11\rangle\)</span>の場合に符号が反転するようにします。この際、正しく符号を反転させるためには事前に補助ビットを<span class="math notranslate nohighlight">\(|1\rangle\)</span>にする必要があることに注意してください。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.circuit</span> <span class="kn">import</span> <span class="n">AncillaRegister</span>
+
+<span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle_register</span> <span class="o">=</span> <span class="n">AncillaRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">oracleCircuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">oracle_register</span><span class="p">)</span>
+
+<span class="c1"># initialize oracle_resgister |1&gt;</span>
+<span class="n">oracleCircuit</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">oracle_register</span><span class="p">)</span>
+
+<span class="c1"># oracle</span>
+<span class="n">oracleCircuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">oracle_register</span><span class="p">)</span>
+<span class="n">oracleCircuit</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">qr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">qr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">oracle_register</span><span class="p">)</span>
+<span class="n">oracleCircuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">oracle_register</span><span class="p">)</span>
+
+<span class="n">oracleCircuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a0e1643a7b5a95c27c1f5ebaf32c01278858a6c9fbcaf6a6116d47794337b0e6.png" src="_images/a0e1643a7b5a95c27c1f5ebaf32c01278858a6c9fbcaf6a6116d47794337b0e6.png" />
+</div>
+</div>
+<p>次に、Diffusion回路を準備します。Diffusion回路は補助ビットには作用しないようにしてください。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inversion_about_average</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Apply inversion about the average step of Grover&#39;s algorithm.</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+
+<span class="n">inversion_about_average</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6b4989a603a461a399451b41c9a5eb669b2a8f482beed72ae4a301748d6255a2.png" src="_images/6b4989a603a461a399451b41c9a5eb669b2a8f482beed72ae4a301748d6255a2.png" />
+</div>
+</div>
+<p>補助ビットなしで作成した回路と同じように、回路の最初で均一な重ね合わせ状態を作成し（この際、補助ビットにHゲートをかけないように注意してください）、変換を適用し、最後に測定をします。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ancilla</span> <span class="o">=</span> <span class="n">AncillaRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">groverCircuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">ancilla</span><span class="p">)</span>
+
+<span class="c1"># initialize qubits</span>
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qr</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">oracleCircuit</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">inversion_about_average</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+<span class="n">groverCircuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7bbae1dae4d5c5893c2239466ab8e92b5cf2b08ec50d1884acdbcd0746e3d594.png" src="_images/7bbae1dae4d5c5893c2239466ab8e92b5cf2b08ec50d1884acdbcd0746e3d594.png" />
+</div>
+</div>
+<p>上記の回路をシミュレーターで実行してみます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.primitives</span> <span class="kn">import</span> <span class="n">StatevectorSampler</span>
+
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">StatevectorSampler</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">groverCircuit</span><span class="p">])</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">meas</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/94e07f1b9b4c920216f28d54f3b0938ff65551fd7e92d5e4dbdf5c4f9f356dbf.png" src="_images/94e07f1b9b4c920216f28d54f3b0938ff65551fd7e92d5e4dbdf5c4f9f356dbf.png" />
+</div>
+</div>
+<p>補助ビットなしで作成した回路と同じように<span class="math notranslate nohighlight">\(|11\rangle\)</span>の状態の確率が増幅されていることが確認できます。最上位ビットの1は補助量子ビットのものなので無視して問題ありません。</p>
+</section>
+<section id="tips">
+<h3>TIPS: 繰り返しの回数<a class="headerlink" href="#tips" title="Link to this heading">#</a></h3>
+<p>先ほど、グローバーのアルゴリズムは、解が完全に増幅されるまで約<span class="math notranslate nohighlight">\(\sqrt{N}\)</span>回繰り返しますと述べましたが、最も解が大きくなる繰り返し回数について考えてみましょう。</p>
+<p>例えば、<span class="math notranslate nohighlight">\(N = 2^4\)</span>のデータベースにおいてグローバーのアルゴリズムを実行させるとき、その回の測定確率は以下のように繰り返しの回数によって変化します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prob_of_ans</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+    <span class="n">database</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">auxiliary</span> <span class="o">=</span> <span class="n">AncillaRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> 
+    <span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;meas&#39;</span><span class="p">)</span>
+    
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="n">oracle</span><span class="p">,</span> <span class="n">auxiliary</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">database</span><span class="p">[:])</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">oracle</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">oracle</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1"># oracle_4q</span>
+        <span class="c1"># search 7: 0111 </span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">database</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">mcx</span><span class="p">(</span><span class="n">database</span><span class="p">[:],</span> <span class="n">oracle</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">auxiliary</span><span class="p">[:],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;basic&#39;</span><span class="p">)</span> 
+        <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">database</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># diffusion_4q</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">database</span><span class="p">[:])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">database</span><span class="p">[:])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">database</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">mcx</span><span class="p">(</span><span class="n">database</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">database</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">auxiliary</span><span class="p">[:],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;basic&#39;</span><span class="p">)</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">database</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">database</span><span class="p">[:])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">database</span><span class="p">[:])</span>
+
+
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">oracle</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">oracle</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+    <span class="c1"># Change the endian </span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">reverse_bits</span><span class="p">()</span> 
+
+    <span class="n">sampler</span> <span class="o">=</span> <span class="n">StatevectorSampler</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">qc</span><span class="p">])</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">meas</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="n">count</span><span class="p">[</span><span class="s1">&#39;0111&#39;</span><span class="p">]</span>
+    <span class="n">prob_of_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">iteration</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">)]</span>
+<span class="n">correct</span> <span class="o">=</span> <span class="n">prob_of_ans</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">iteration</span><span class="p">,</span> <span class="n">correct</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;# of iteration&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;# of times the solution was obtained&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;# of times the solution was obtained&#39;)
+</pre></div>
+</div>
+<img alt="_images/e0957986cbec44b4e2cf0cc8310bdb77d8248976f6437632e7b1f9cd13dd6d71.png" src="_images/e0957986cbec44b4e2cf0cc8310bdb77d8248976f6437632e7b1f9cd13dd6d71.png" />
+</div>
+</div>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise: 最大振幅を得る繰り返し回数</p>
+<p><span class="math notranslate nohighlight">\(N = 2 ^ 7\)</span>のデータベースにおいてグローバーのアルゴリズムを実行するときに最大振幅を得る繰り返しの回数を答えよ。<br />
+上の例で示したように、繰り返し回数を変えて、振幅を調べよ。解答は整数である必要があります。(ヒント: 答えは、15回以下です。)</p>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "iqc2024-performance"
+        },
+        kernelOptions: {
+            name: "iqc2024-performance",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'iqc2024-performance'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2020-w1-a-adder-ja.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">量子回路における加算器（2020年 Week1a）</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">非構造化データの検索</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">オラクル</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#amplitude-amplification">振幅増幅（Amplitude amplification）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-0">Step 0:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qiskit-2grover">Qiskitでの実装: 2量子ビットのGroverのアルゴリズム</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grover">補助量子ビットを用いた2量子ビットのGroverのアルゴリズム</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">TIPS: 繰り返しの回数</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Quantum Tokyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
