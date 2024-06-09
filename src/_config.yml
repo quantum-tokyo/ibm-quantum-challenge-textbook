@@ -28,6 +28,7 @@ repository:
 #######################################################################################
 # HTML-specific settings
 html:
+  favicon: './resources/quantum-tokyo-icon.ico'
   use_repository_button: true
 
 #######################################################################################
