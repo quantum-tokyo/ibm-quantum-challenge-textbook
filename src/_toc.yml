@@ -10,14 +10,25 @@ parts:
     title: ようこそ、そしてハローワールド(2024春 Lab0)
   - file: 2024-spring-lab1-qiskit10-ja
     title: Qiskit 1.0入門(2024春 Lab1)
+  - file: 2023-spring-lab1-dynamic-ja
+    title: Dynamic Circuits入門 (2023春 Lab1)
   - file: 2024-spring-lab2-transpilation-ja
     title: Transpiler入門(2024春 Lab2)
 
-# - caption: "Chapter2 量子コンピューターの計算ルール"
+- caption: "Chapter2 量子回路の構築"
+  chapters:
+  - file: 2020-w1-a-adder-ja
+    title: 量子回路の基礎 (2020 w1-A)
+  - file: 2023-spring-lab2-teleportation-ja
+    title: 量子テレポーテーション (2023 Lab2)
+  - file: 2020-w1-b-grover-ja
+    title: Groverのアルゴリズム (2020 w1-B)
 
-# - caption: "Chapter3 量子アルゴリズム"
+- caption: "Chapter3 量子コンピューターのエラー訂正・緩和"
+  chapters:
+  - file: 2021-spring-lab3-error-ja
+    title: 量子エラー訂正 (2021春 Lab3)
 
 # - caption: "Chapter4 量子コンピューターの応用"
 
-# - caption: "Chapter5 量子コンピューターのエラー訂正・緩和"
 
