@@ -7,9 +7,15 @@ parts:
 - caption: "Chapter1 Qiskit 101"
   chapters:
   - file: 2024-spring-lab0-welcome-ja
-    title: ようこそ、そしてハローワールド (2024春 Lab0)
+    title: ようこそ、そしてハローワールド(2024春 Lab0)
+  - file: 2024-spring-lab1-qiskit10-ja
+    title: Qiskit 1.0入門(2024春 Lab1)
   - file: 2023-spring-lab1-dynamic-ja
     title: Dynamic Circuits入門 (2023春 Lab1)
+  - file: 2024-spring-lab2-transpilation-ja
+    title: Transpiler入門(2024春 Lab2)
+  - file: 2024-spring-lab3-circuit-knitting-ja
+    title: Circuit Knittingの紹介(2024春 Lab3)
 
 - caption: "Chapter2 量子回路の構築"
   chapters:
