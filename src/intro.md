@@ -2,10 +2,16 @@
 
 このページは Quantum Tokyoコミュニティが作成した、IBM Quantum Challenge を題材とした量子コンピューティングの学習教材です。
 
-IBM Quantum Challenge は IBM が主催する量子コンピューターのプログラミングコンテストのことで、2019 年から半年に一度（Spring/Autumn）開催されています。  
-オープンソースの量子開発キットの Qiskit を活用して、量子コンピューティングに関する基礎から応用までを学びながら腕を競っています。
+IBM Quantum Challenge は2019年から IBM 主催で開催されている量子コンピュータのイベントです。    
+オープンソース開発キットの Qiskit を使って、量子コンピューティングに関する問題に取り組みます。
 
-本教材では過去の Quantum Challenge の問題を扱いながら量子コンピューティングを学ぶことを目的としています。
+本教材では過去の Quantum Challenge の問題を扱いながら量子コンピューティングの基礎を学部ことが出来ます
+
+## What's NEW
+2024/6/15 Quantum Challenge2024 (Lab0-3) を追加しました。  
+2024/6/7  [旧ページ](https://quantum-tokyo.github.io/iqc-textbook/intro.html)のコンテンツの一部をQiskit1.0対応しました。  
+
+![](./resources/group-working.png)
 
 ## 目次
 ```{tableofcontents}
