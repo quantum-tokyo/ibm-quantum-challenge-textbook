@@ -14,6 +14,8 @@ parts:
     title: Dynamic Circuits入門 (2023春 Lab1)
   - file: 2024-spring-lab2-transpilation-ja
     title: Transpiler入門(2024春 Lab2)
+  - file: 2024-spring-lab3-ai-transpiler-ja
+    title: Transpiler powere by AI(2024春 Lab3)
   - file: 2024-spring-lab3-circuit-knitting-ja
     title: Circuit Knittingの紹介(2024春 Lab3)
 
