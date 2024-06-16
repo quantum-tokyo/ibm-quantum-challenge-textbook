@@ -187,9 +187,8 @@
 <li class="toctree-l1"><a class="reference internal" href="2024-spring-lab1-qiskit10-ja.html">Qiskit 1.0入門(2024春 Lab1)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2023-spring-lab1-dynamic-ja.html">Dynamic Circuits入門 (2023春 Lab1)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2024-spring-lab2-transpilation-ja.html">Transpiler入門(2024春 Lab2)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-circuit-knitting-ja.html">Circuit Kinitting Toolboxを使ってみる(2024年 Lab3)</a></li>
-
-
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-ai-transpiler-ja.html">Transpiler powere by AI(2024春 Lab3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-circuit-knitting-ja.html">Circuit Knittingの紹介(2024春 Lab3)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter2 量子回路の構築</span></p>
 <ul class="current nav bd-sidenav">
@@ -509,8 +508,8 @@ document.write(`
 CNOTゲートは2量子ビットゲートで、入力に制御量子ビットとターゲット量子ビットを指定する必要があります。<br />
 ここではアリスのもつ量子ビットを制御量子ビットに、ボブのもつ量子ビットをターゲット量子ビットに設定します。</p>
 <p>ここで、メッセージ量子ビット<span class="math notranslate nohighlight">\(s\)</span>の状態を<span class="math notranslate nohighlight">\(\ket{\psi}\)</span>とおくと、3量子ビットの量子状態は以下のように表すことが出来ます。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-573e3f0d-7f24-4908-913d-91ca56be565f">
-<span class="eqno">(1)<a class="headerlink" href="#equation-573e3f0d-7f24-4908-913d-91ca56be565f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-62bfbc45-6681-4ddd-8c05-752d383e0b27">
+<span class="eqno">(1)<a class="headerlink" href="#equation-62bfbc45-6681-4ddd-8c05-752d383e0b27" title="Permalink to this equation">#</a></span>\[\begin{align}
     \ket{\psi}\ket{B_{00}} &amp;= (\alpha\ket{0}+\beta\ket{1})(\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})) \\
      &amp;= \frac{1}{\sqrt{2}}(\alpha\ket{000}+\alpha\ket{011}+\beta\ket{100}+\beta\ket{111})
 \end{align}\]</div>
