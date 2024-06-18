@@ -10,6 +10,8 @@ parts:
     title: ようこそ、そしてハローワールド(2024春 Lab0)
   - file: 2024-spring-lab1-qiskit10-ja
     title: Qiskit 1.0入門(2024春 Lab1)
+  - file: 2022-autumn-lab1-runtime-ja
+    title: Qiskit Runtime Primitives入門(2022秋 Lab1)
   - file: 2023-spring-lab1-dynamic-ja
     title: Dynamic Circuits入門 (2023春 Lab1)
   - file: 2024-spring-lab2-transpilation-ja
