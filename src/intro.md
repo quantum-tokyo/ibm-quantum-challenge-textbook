@@ -8,9 +8,9 @@ IBM Quantum Challenge は2019年から IBM 主催で開催されている量子�
 本教材では過去の Quantum Challenge の問題を扱いながら量子コンピューティングの基礎を学部ことが出来ます
 
 ## What's NEW
+2024/6/20 Quantum Challenge2024 (Lab4) を追加しました。  
 2024/6/18 Qiskit Runtime PrimitivesのLabをPrimitivesV2に対応させました。  
 2024/6/15 Quantum Challenge2024 (Lab0-3) を追加しました。  
-2024/6/7  [旧ページ](https://quantum-tokyo.github.io/iqc-textbook/intro.html)のコンテンツの一部をQiskit1.0対応しました。  
 
 ![](./resources/group-working.png)
 
