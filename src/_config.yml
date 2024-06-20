@@ -32,6 +32,8 @@ html:
   favicon: './resources/quantum-tokyo-icon.ico'
   use_repository_button: true
   announcement: "📢 Quantum Challenge 2024 Lab0-3 を公開しました 📢" # A banner announcement at the top of the site.
+  analytics:
+    google_analytics_id: G-77YW0LJ8RC
 
 #######################################################################################
 # Parse and render settings
