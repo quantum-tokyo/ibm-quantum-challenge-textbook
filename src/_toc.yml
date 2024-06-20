@@ -13,11 +13,11 @@ parts:
   - file: 2023-spring-lab1-dynamic-ja
     title: Dynamic Circuits入門 (2023春 Lab1)
   - file: 2024-spring-lab2-transpilation-ja
-    title: Transpiler入門(2024春 Lab2)
+    title: Transpiler入門(2024 Lab2)
   - file: 2024-spring-lab3-ai-transpiler-ja
-    title: Transpiler powere by AI(2024春 Lab3)
+    title: Transpiler powere by AI(2024 Lab3)
   - file: 2024-spring-lab3-circuit-knitting-ja
-    title: Circuit Knittingの紹介(2024春 Lab3)
+    title: Circuit Knittingの紹介(2024 Lab3)
 
 - caption: "Chapter2 量子回路の構築"
   chapters:
@@ -32,6 +32,8 @@ parts:
   chapters:
   - file: 2021-spring-lab3-error-ja
     title: 量子エラー訂正 (2021春 Lab3)
+  - file: 2024-spring-lab4-vqc-hw-ja
+    title: 実機上でのVQCのテスト (2024 Lab4)
 
 # - caption: "Chapter4 量子コンピューターの応用"
 
