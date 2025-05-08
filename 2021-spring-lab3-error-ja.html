@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -459,7 +459,7 @@ M |\psi\rangle = \alpha |\psi\rangle + \beta X |\psi\rangle + \gamma XZ |\psi\ra
 <p>多くの人が最初に書く量子回路の一つは、ふたつの量子ビットのもつれ（エンタングルメント）状態でしょう。今回の量子エラー訂正の旅も、まずはこの単純な例からみていきます。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span>
 
 <span class="c1"># Make an entangled pair</span>
 <span class="n">qc_init</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -476,9 +476,9 @@ M |\psi\rangle = \alpha |\psi\rangle + \beta X |\psi\rangle + \gamma XZ |\psi\ra
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit_aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">AerSimulator</span>
 
-<span class="k">def</span> <span class="nf">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">:</span> <span class="n">QuantumCircuit</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">:</span> <span class="n">QuantumCircuit</span><span class="p">):</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
 
     <span class="n">backend</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span>
@@ -627,7 +627,7 @@ M |\psi\rangle = \alpha |\psi\rangle + \beta X |\psi\rangle + \gamma XZ |\psi\ra
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
 </pre></div>
 </div>
 </div>
@@ -814,7 +814,7 @@ S_3 &amp;= I_1I_2X_3X_4X_5
 <p>正しく符号化しているかどうかをチェックするために、次のような関数を使って人工的なエラーを導入する回路を作ることができます。ここでは、例えば、<code class="docutils literal notranslate"><span class="pre">error_qubits[0]</span></code> の <code class="docutils literal notranslate"><span class="pre">x</span></code> を表す <code class="docutils literal notranslate"><span class="pre">x0</span></code> のように追加したいエラーを <code class="docutils literal notranslate"><span class="pre">errors</span></code> に単純なテキスト文字列としてリストアップしています。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span><span class="n">error_qubits</span><span class="p">,</span><span class="n">code</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">out</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span><span class="n">error_qubits</span><span class="p">,</span><span class="n">code</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">out</span><span class="p">):</span>
 
     <span class="n">qc_insert</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">code</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">out</span><span class="p">)</span>
 

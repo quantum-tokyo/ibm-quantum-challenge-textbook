@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -453,10 +453,10 @@ document.write(`
 <p class="admonition-title">Exercise 1: Bell状態の生成</p>
 <p>２つの量子ビットを利用して、エンタングルしたBellペアの状態 <span class="math notranslate nohighlight">\(\frac{\lvert 00 \rangle + \lvert 11 \rangle}{\sqrt{2}}\)</span> を生成してください。量子ビット <span class="math notranslate nohighlight">\(a\)</span> はアリスに割り当てられ、量子ビット <span class="math notranslate nohighlight">\(b\)</span> はボブのものです。</p>
 <p>ヒント：Bell状態はアダマールゲートとCNOTゲートを使うことで生成できます。</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
-<span class="kn">from</span> <span class="nn">qiskit.circuit</span> <span class="kn">import</span> <span class="n">Qubit</span><span class="p">,</span> <span class="n">Clbit</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.circuit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qubit</span><span class="p">,</span> <span class="n">Clbit</span>
 
-<span class="k">def</span> <span class="nf">create_bell_pair</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuantumCircuit</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_bell_pair</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuantumCircuit</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a bell pair between qubits a and b.&quot;&quot;&quot;</span>
     <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
     <span class="c1"># unpack qubits</span>
@@ -476,10 +476,10 @@ document.write(`
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
-<span class="kn">from</span> <span class="nn">qiskit.circuit</span> <span class="kn">import</span> <span class="n">Qubit</span><span class="p">,</span> <span class="n">Clbit</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.circuit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qubit</span><span class="p">,</span> <span class="n">Clbit</span>
 
-<span class="k">def</span> <span class="nf">create_bell_pair</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuantumCircuit</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_bell_pair</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuantumCircuit</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a bell pair between qubits a and b.&quot;&quot;&quot;</span>
     <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
     <span class="c1"># unpack qubits</span>
@@ -515,8 +515,8 @@ document.write(`
 CNOTゲートは2量子ビットゲートで、入力に制御量子ビットとターゲット量子ビットを指定する必要があります。<br />
 ここではアリスのもつ量子ビットを制御量子ビットに、ボブのもつ量子ビットをターゲット量子ビットに設定します。</p>
 <p>ここで、メッセージ量子ビット<span class="math notranslate nohighlight">\(s\)</span>の状態を<span class="math notranslate nohighlight">\(\ket{\psi}\)</span>とおくと、3量子ビットの量子状態は以下のように表すことが出来ます。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8add23ea-5945-477d-b7e1-55963683a29d">
-<span class="eqno">(1)<a class="headerlink" href="#equation-8add23ea-5945-477d-b7e1-55963683a29d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-db55de17-379b-44de-a2c4-f19089898a6a">
+<span class="eqno">(1)<a class="headerlink" href="#equation-db55de17-379b-44de-a2c4-f19089898a6a" title="Permalink to this equation">#</a></span>\[\begin{align}
     \ket{\psi}\ket{B_{00}} &amp;= (\alpha\ket{0}+\beta\ket{1})(\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})) \\
      &amp;= \frac{1}{\sqrt{2}}(\alpha\ket{000}+\alpha\ket{011}+\beta\ket{100}+\beta\ket{111})
 \end{align}\]</div>
@@ -529,7 +529,7 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 <li><p>アリスが、 <span class="math notranslate nohighlight">\(s\)</span> (<span class="math notranslate nohighlight">\(\lvert \psi \rangle\)</span> を含む量子ビット)を制御、 <span class="math notranslate nohighlight">\(a\)</span> をターゲットとしてCNOTゲートを適用する。</p></li>
 <li><p>アリスが <span class="math notranslate nohighlight">\(s\)</span> にアダマールゲートを適用する。</p></li>
 </ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">alice_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">alice_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates Alices&#39;s gates&quot;&quot;&quot;</span>
     <span class="n">qc</span> <span class="o">=</span> <span class="n">create_bell_pair</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>  <span class="c1"># Use barrier to separate steps</span>
@@ -548,7 +548,7 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">alice_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">alice_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates Alices&#39;s gates&quot;&quot;&quot;</span>
     <span class="n">qc</span> <span class="o">=</span> <span class="n">create_bell_pair</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>  <span class="c1"># Use barrier to separate steps</span>
@@ -585,7 +585,7 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 <p class="admonition-title">Exercise 3: 量子状態の測定</p>
 <p>このステップでは、アリスは所有している両方の量子ビットで測定を実行し、結果を２つの古典ビットに保存します。その後、彼女はこれら２つのビットをボブに送信します。</p>
 <p>彼女は量子ビット <span class="math notranslate nohighlight">\(a\)</span> を古典ビット <span class="math notranslate nohighlight">\(c0\)</span> に、量子ビット <span class="math notranslate nohighlight">\(s\)</span> を古典ビット <span class="math notranslate nohighlight">\(c1\)</span> に測定して入れるように以下のコードセルを完成させてください。</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">measure_and_send</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">measure_and_send</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Measures qubits a &amp; b and &#39;sends&#39; the results to Bob&quot;&quot;&quot;</span>
     <span class="n">qc</span> <span class="o">=</span> <span class="n">alice_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>  <span class="c1"># Use barrier to separate steps</span>
@@ -605,7 +605,7 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">measure_and_send</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">measure_and_send</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Measures qubits a &amp; b and &#39;sends&#39; the results to Bob&quot;&quot;&quot;</span>
     <span class="n">qc</span> <span class="o">=</span> <span class="n">alice_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>  <span class="c1"># Use barrier to separate steps</span>
@@ -652,7 +652,7 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 <li><p>ビット <code class="docutils literal notranslate"><span class="pre">10</span></code> には、 <span class="math notranslate nohighlight">\(Z\)</span> ゲート（Pauli-Z または フェーズ・フリップ・ゲートとも呼ばれます）を適用する必要があります。</p></li>
 <li><p>最後に、古典ビットが <code class="docutils literal notranslate"><span class="pre">11</span></code> の場合は、 <span class="math notranslate nohighlight">\(ZX\)</span> ゲートを適用する必要があります。これには、 <span class="math notranslate nohighlight">\(Z\)</span>ゲートと <span class="math notranslate nohighlight">\(X\)</span> ゲートの両方を順番に適用する必要があります。</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bob_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bob_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Uses qc.if_test to control which gates are dynamically added&quot;&quot;&quot;</span>
     <span class="n">qc</span> <span class="o">=</span> <span class="n">measure_and_send</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>  <span class="c1"># Use barrier to separate steps</span>
@@ -672,7 +672,7 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bob_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bob_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Uses qc.if_test to control which gates are dynamically added&quot;&quot;&quot;</span>
     <span class="n">qc</span> <span class="o">=</span> <span class="n">measure_and_send</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
     <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>  <span class="c1"># Use barrier to separate steps</span>
@@ -729,7 +729,7 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 <li><p>状態を準備する回路を構築します。角度 <span class="math notranslate nohighlight">\(\pi / 4\)</span> の <span class="math notranslate nohighlight">\(R_x\)</span> 回転ゲートを適用して量子ビット <span class="math notranslate nohighlight">\(s\)</span> を準備してください。</p></li>
 <li><p>状態準備回路と先ほど構築したテレポーテーション回路を結合してください。</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
 <span class="n">teleport_superposition_circuit</span><span class="p">:</span> <span class="n">QuantumCircuit</span>
 
@@ -747,7 +747,7 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
 <span class="n">teleport_superposition_circuit</span><span class="p">:</span> <span class="n">QuantumCircuit</span>
 
@@ -769,9 +769,9 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">transpile</span>
-<span class="kn">from</span> <span class="nn">qiskit_aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
-<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">transpile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">AerSimulator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_histogram</span>
 
 <span class="n">sim</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span>
 <span class="n">transpiled_circuit</span> <span class="o">=</span> <span class="n">transpile</span><span class="p">(</span><span class="n">teleport_superposition_circuit</span><span class="p">,</span> <span class="n">sim</span><span class="p">)</span>
@@ -798,7 +798,7 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># trace out Bob&#39;s results on qubit 2</span>
-<span class="kn">from</span> <span class="nn">qiskit.result</span> <span class="kn">import</span> <span class="n">marginal_counts</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">marginal_counts</span>
 
 <span class="n">bobs_counts</span> <span class="o">=</span> <span class="n">marginal_counts</span><span class="p">(</span><span class="n">exp_counts</span><span class="p">,</span> <span class="p">[</span><span class="n">qr</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">b</span><span class="p">)])</span>
 <span class="n">plot_histogram</span><span class="p">(</span><span class="n">bobs_counts</span><span class="p">)</span>

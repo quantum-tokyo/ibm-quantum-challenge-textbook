@@ -28,8 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -467,22 +467,22 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import all in one cell</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
 
-<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
-<span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">SparsePauliOp</span>
-<span class="kn">from</span> <span class="nn">qiskit.circuit.library</span> <span class="kn">import</span> <span class="n">RealAmplitudes</span>
-<span class="kn">from</span> <span class="nn">qiskit.transpiler.preset_passmanagers</span> <span class="kn">import</span> <span class="n">generate_preset_pass_manager</span>
-<span class="kn">from</span> <span class="nn">qiskit.transpiler</span> <span class="kn">import</span> <span class="n">InstructionProperties</span>
-<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_distribution</span>
-<span class="kn">from</span> <span class="nn">qiskit.providers.fake_provider</span> <span class="kn">import</span> <span class="n">GenericBackendV2</span>
-<span class="kn">from</span> <span class="nn">qiskit.primitives</span> <span class="kn">import</span> <span class="n">StatevectorEstimator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.quantum_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">SparsePauliOp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.circuit.library</span><span class="w"> </span><span class="kn">import</span> <span class="n">RealAmplitudes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.transpiler.preset_passmanagers</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_preset_pass_manager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.transpiler</span><span class="w"> </span><span class="kn">import</span> <span class="n">InstructionProperties</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_distribution</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.providers.fake_provider</span><span class="w"> </span><span class="kn">import</span> <span class="n">GenericBackendV2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.primitives</span><span class="w"> </span><span class="kn">import</span> <span class="n">StatevectorEstimator</span>
 
-<span class="kn">from</span> <span class="nn">qiskit_aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
-<span class="kn">from</span> <span class="nn">qiskit_ibm_runtime</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">AerSimulator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_ibm_runtime</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">QiskitRuntimeService</span><span class="p">,</span> 
     <span class="n">EstimatorV2</span> <span class="k">as</span> <span class="n">Estimator</span><span class="p">,</span>
     <span class="n">SamplerV2</span> <span class="k">as</span> <span class="n">Sampler</span><span class="p">,</span>
@@ -495,8 +495,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load your API token in .env</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;QXInstance&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;QXToken&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -981,7 +981,7 @@ Qiskit circuit library の ```RealAmplitudes``` 回路を使用して以下のan
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the cost function</span>
-<span class="k">def</span> <span class="nf">cost_func</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">list_coefficients</span><span class="p">,</span> <span class="n">list_labels</span><span class="p">,</span> <span class="n">ansatz</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">pm</span><span class="p">,</span> <span class="n">callback_dict</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cost_func</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">list_coefficients</span><span class="p">,</span> <span class="n">list_labels</span><span class="p">,</span> <span class="n">ansatz</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">pm</span><span class="p">,</span> <span class="n">callback_dict</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return cost function for optimization</span>
 
@@ -1167,7 +1167,7 @@ $P = 100 - 100\cdot\sum_{i\in \text{birds}} \frac{\vert (\langle \psi_i(\theta_{
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_VQC</span><span class="p">(</span><span class="n">list_coefficients</span><span class="p">,</span> <span class="n">list_labels</span><span class="p">,</span> <span class="n">ansatz</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">opt_params</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">pm</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_VQC</span><span class="p">(</span><span class="n">list_coefficients</span><span class="p">,</span> <span class="n">list_labels</span><span class="p">,</span> <span class="n">ansatz</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">opt_params</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">pm</span><span class="p">):</span>
 <span class="w">    </span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the performance of the classifier</span>
 
@@ -1215,7 +1215,7 @@ $P = 100 - 100\cdot\sum_{i\in \text{birds}} \frac{\vert (\langle \psi_i(\theta_{
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_performance</span><span class="p">(</span><span class="n">result_list</span><span class="p">,</span> <span class="n">list_labels</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_performance</span><span class="p">(</span><span class="n">result_list</span><span class="p">,</span> <span class="n">list_labels</span><span class="p">):</span>
 <span class="w">    </span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the performance of the classifier</span>
 
@@ -1320,7 +1320,7 @@ Performance for trial 4: 99.99999469572624
 <p>そのために <code class="docutils literal notranslate"><span class="pre">update_error_rate</span></code> というヘルパー関数を作ります。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_error_rate</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">error_rates</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">update_error_rate</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">error_rates</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Updates the error rates of the backend</span>
 
@@ -1487,7 +1487,7 @@ Performance for run 4: 99.530029296875
 <p>IBM Quantum backend を模倣したシミュレータを得るもう1つの方法は、 <code class="docutils literal notranslate"><span class="pre">qiskit_ibm_runtime.fake_provider.FakeBackend()</span></code> オブジェクトを使うことです。これも似たような構成のシミュレーターを自動的に作成しますが、ノイズモデルは現状サポートしていません。</p>
 <p>Lab のこのパートでは、アクセスできる実際の IBM Quantum backend を選択することをお勧めします。後で本物のバックエンドでコードを実行するためのガイドとして、このシミュレーションを利用するからです。デバイス毎に特性が大きく変わる可能性があるため、テストはデバイスによってはあまりうまくいかない可能性があることを考慮してください。</p>
 <p>我々は <a class="reference external" href="https://quantum.ibm.com/services/resources?system=ibm_sherbrooke">ibm_sherbrooke</a> を使用しました。IBM Quantum platform の <a class="reference external" href="https://quantum.ibm.com/services/resources?resourceType=current-instance&amp;amp;order=queue%20ASC&amp;amp;view=table">Systems タブ</a> でアクセスできるシステムのリストを見つけるか、以下のコードを実行してください：</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="kn">from</span> <span class="nn">qiskit_ibm_runtime</span> <span class="kn">import</span> <span class="n">QiskitRuntimeService</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_ibm_runtime</span><span class="w"> </span><span class="kn">import</span> <span class="n">QiskitRuntimeService</span>
 
     <span class="n">service</span> <span class="o">=</span> <span class="n">QiskitRuntimeService</span><span class="p">()</span>
     <span class="c1"># list all available systems</span>
@@ -1551,7 +1551,7 @@ Performance for run 4: 99.530029296875
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">amplitude_embedding</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">bird_index</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">amplitude_embedding</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">bird_index</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create amplitude embedding circuit</span>
 
 <span class="sd">    Parameters: </span>
@@ -1561,7 +1561,7 @@ Performance for run 4: 99.530029296875
 <span class="sd">    Returns:</span>
 <span class="sd">        qc (QuantumCircuit): Quantum circuit with amplitude embedding of the bird</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">generate_GHZ</span><span class="p">(</span><span class="n">qc</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_GHZ</span><span class="p">(</span><span class="n">qc</span><span class="p">):</span>
         <span class="c1">#GHZ state</span>
         <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">num_qubits</span><span class="p">)):</span>
@@ -1738,7 +1738,7 @@ def test_shallow_VQC(list_labels, ansatz, obs, opt_params, estimator, pm):
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_shallow_VQC</span><span class="p">(</span><span class="n">list_labels</span><span class="p">,</span> <span class="n">ansatz</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">opt_params</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">pm</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_shallow_VQC</span><span class="p">(</span><span class="n">list_labels</span><span class="p">,</span> <span class="n">ansatz</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">opt_params</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">pm</span><span class="p">):</span>
 <span class="w">    </span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the performance of the classifier</span>
 <span class="sd">    Parameters:</span>
@@ -2040,7 +2040,7 @@ def test_shallow_VQC_QPU(list_labels, ansatz, obs, opt_params, options, backend)
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_shallow_VQC_QPU</span><span class="p">(</span><span class="n">list_labels</span><span class="p">,</span> <span class="n">anstaz</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">opt_params</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_shallow_VQC_QPU</span><span class="p">(</span><span class="n">list_labels</span><span class="p">,</span> <span class="n">anstaz</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">opt_params</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">backend</span><span class="p">):</span>
 <span class="w">    </span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the performance of the classifier</span>
 
@@ -2113,7 +2113,7 @@ def test_shallow_VQC_QPU(list_labels, ansatz, obs, opt_params, options, backend)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">retrieve_job</span><span class="p">(</span><span class="n">job_id</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">retrieve_job</span><span class="p">(</span><span class="n">job_id</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&#39;&#39;&#39; Retrieve results from job_id &#39;&#39;&#39;</span>
 
