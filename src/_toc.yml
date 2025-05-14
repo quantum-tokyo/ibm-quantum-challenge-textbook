@@ -29,6 +29,8 @@ parts:
     title: 量子テレポーテーション (2023 Lab2)
   - file: 2020-w1-b-grover-ja
     title: Groverのアルゴリズム (2020 w1-B)
+  - file: 2023-spring-lab3-iqpe
+    title: 量子位相推定 (2023 Lab3)
 
 - caption: "Chapter3 量子コンピューターのエラー訂正・緩和"
   chapters:
