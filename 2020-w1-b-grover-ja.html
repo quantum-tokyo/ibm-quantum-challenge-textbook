@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Groverのアルゴリズム(2020年 Week1-B) &#8212; IBM Quantum Challengeで学ぶ量子コンピューティング</title>
+    <title>Groverのアルゴリズム(2020 Week1-B) &#8212; IBM Quantum Challengeで学ぶ量子コンピューティング</title>
   
   
   
@@ -390,7 +390,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Groverのアルゴリズム(2020年 Week1-B)</h1>
+    <h1>Groverのアルゴリズム(2020 Week1-B)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -400,17 +400,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">非構造化データの検索</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">オラクル</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#amplitude-amplification">振幅増幅（Amplitude amplification）</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-0">Step 0:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qiskit-2grover">Qiskitでの実装: 2量子ビットのGroverのアルゴリズム</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grover">補助量子ビットを用いた2量子ビットのGroverのアルゴリズム</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">TIPS: 繰り返しの回数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">量子計算を用いた検索の理論</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">非構造化データの検索</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oracle">オラクル （Oracle）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amplitude-amplification">振幅増幅（Amplitude amplification）</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-0">Step 0:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2:</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qiskit-2grover">Qiskitによる実装: 2量子ビットのGroverのアルゴリズム</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grover">補助量子ビットを用いた2量子ビットのGroverのアルゴリズム</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">(参考) 繰り返しの回数</a></li>
 </ul>
             </nav>
         </div>
@@ -423,60 +426,75 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="grover-2020-week1-b">
-<h1>Groverのアルゴリズム(2020年 Week1-B)<a class="headerlink" href="#grover-2020-week1-b" title="Link to this heading">#</a></h1>
-<p>このチュートリアルでは、量子アルゴリズムの一つであるGrover (グローバー) のアルゴリズムについて学びます。</p>
-<p>古典コンピューターを凌駕する量子コンピューターの数あるアドバンテージの１つに、データベース検索を高速に行えるというのを聞いたことがあるかも知れません。Groverのアルゴリズムはこの能力を実証します。Groverのアルゴリズムは、非構造化データの検索問題に対して二次のオーダーの高速化ができる（古典計算で<span class="math notranslate nohighlight">\(N\)</span>回の計算となる問題が、量子計算では約<span class="math notranslate nohighlight">\(\sqrt N\)</span>回になる）だけではなく、検索以外の用途でも利用することができます。つまり、その他様々のアルゴリズムの実行時間を二次のオーダーで改善する一般的なテクニック、もしくはサブルーチンとして利用することができます。これは振幅増幅テクニックと呼ばれています。</p>
-<p>このページでは、検索問題の詳細を説明し、検索問題用のオラクル(Oracle)を回路で作成した後にGroverのアルゴリズムをQiskitを利用して実装します。</p>
+<h1>Groverのアルゴリズム(2020 Week1-B)<a class="headerlink" href="#grover-2020-week1-b" title="Link to this heading">#</a></h1>
+<p>このLabでは量子アルゴリズムの一つであるGrover (グローバー) のアルゴリズムについて学びます。</p>
+<p>量子コンピューターの数ある優位性の１つに、データベース検索を高速に行えることを聞いたことがあるかも知れません。Groverのアルゴリズムはこの能力を実証します。
+Groverのアルゴリズムは、非構造化データの検索問題に対して二次のオーダーの高速化ができる（古典計算で<span class="math notranslate nohighlight">\(N\)</span>回の計算となる問題が、量子計算では約<span class="math notranslate nohighlight">\(\sqrt N\)</span>回になる）だけではなく、検索以外の様々の用途でアルゴリズムの実行時間を二次のオーダーで改善する一般的な技術・サブルーチンとして利用されているアルゴリズムです。これは振幅増幅技術と呼ばれています。</p>
+<p>このLabではGroverのアルゴリズムをQiskitを利用して実装します。</p>
 <section id="id1">
-<h2>非構造化データの検索<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<h2>量子計算を用いた検索の理論<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>非構造化データの検索<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(N\)</span>個の大きなアイテムリストがあるとします。その中で、一つだけアタリ<span class="math notranslate nohighlight">\(w\)</span>があるとします。</p>
 <p><img alt="" src="_images/2020-w1-b-unstructured_search.png" /></p>
-<p>アタリの箱（マークのついたアイテム）を見つけるためには、古典計算では平均で <span class="math notranslate nohighlight">\(N/2\)</span> 個の箱を探す必要があります。
-最悪の場合は、<span class="math notranslate nohighlight">\(N\)</span> 個探す必要があります。ところが、量子コンピューターでは Groverの振幅増幅のテクニックを使って、
-おおよそ <span class="math notranslate nohighlight">\(\sqrt N\)</span> ステップでマークされたアイテムを探し出すことができます。
-二次の高速化は、大きなリスト内のマークされたアイテムを探すためには実際の所、大きな時間の節約になります。
-さらに、このアルゴリズムはリスト自体の内部構造を利用しないので、一般化することができ、多くの古典の問題でも二次の速度向上をもたらしてくれます。</p>
+<p>アタリの箱を見つけるためには、古典計算では平均で <span class="math notranslate nohighlight">\(N/2\)</span> 個、最悪の場合は <span class="math notranslate nohighlight">\(N\)</span> 個の箱を探す必要があります。<br />
+ところが、量子コンピューターでは Groverの振幅増幅技術を使って、およそ <span class="math notranslate nohighlight">\(\sqrt N\)</span> ステップでマークされたアイテムを探し出すことができます。<br />
+二次の高速化は、現実で大きなリスト内のマークされたアイテムを探す際には大きな時間の節約になります。<br />
+さらに、このアルゴリズムはリスト自体の内部構造を利用しないので、一般化することが可能で、多くの古典問題に対して二次の速度向上をもたらしてくれます。</p>
 </section>
-<section id="id2">
-<h2>オラクル<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>量子コンピューターにこのようなリストをどのように提供すればいいでしょうか？このようなリストをエンコードするためによく用いられる手法としては、マークのついていない<span class="math notranslate nohighlight">\(x\)</span>には<span class="math notranslate nohighlight">\(f(x)=0\)</span>を返し、アタリ<span class="math notranslate nohighlight">\(w\)</span>に対しては<span class="math notranslate nohighlight">\(f(w)=1\)</span>を返すような関数<span class="math notranslate nohighlight">\(f\)</span>を定義する手法が挙げられます。この問題に対して量子コンピューターを使用するには、この関数に対して、重ね合わせ状態にあるアイテムを提供する必要があります。つまり、この関数をオラクルと呼ばれるユニタリー行列としてエンコードする必要があります。そのために、まず初めにアイテムをバイナリ表現にします。すなわち、<span class="math notranslate nohighlight">\(x,w \in \{0,1\}^n\)</span>で<span class="math notranslate nohighlight">\(N=2^n\)</span>です。このようにすると量子コンピューター上の量子ビットとして表現することができます。その後、オラクル行列<span class="math notranslate nohighlight">\(U_w\)</span>を任意の標準基底<span class="math notranslate nohighlight">\(|x\rangle\)</span>に対して<span class="math notranslate nohighlight">\(U_w |x\rangle =(-1)^{f(x)}|x\rangle\)</span>となるように定義します。</p>
-<p><span class="math notranslate nohighlight">\(x\)</span>がマークされていないアイテムの場合、オラクルは状態に対して何もしません。ところが、状態<span class="math notranslate nohighlight">\(|w\rangle\)</span>に対してオラクルを適用すると、<span class="math notranslate nohighlight">\(U_w |w\rangle = -|w\rangle\)</span>にマッピングします。幾何学的には、このユニタリー行列は<span class="math notranslate nohighlight">\(N=2^n\)</span>次元のベクトル空間において、マークされたアイテムを原点に対して反転する操作に対応しています。</p>
+<section id="oracle">
+<h3>オラクル （Oracle）<a class="headerlink" href="#oracle" title="Link to this heading">#</a></h3>
+<p>量子コンピューターに対して上記のようなリストをどのように渡せばいいでしょうか？エンコードによく用いられる手法として、ハズレの<span class="math notranslate nohighlight">\(x\)</span>には<span class="math notranslate nohighlight">\(f(x)=0\)</span>を返し、アタリ<span class="math notranslate nohighlight">\(w\)</span>に対しては<span class="math notranslate nohighlight">\(f(w)=1\)</span>を返すような関数<span class="math notranslate nohighlight">\(f\)</span>を定義する手法が挙げられます。この問題を量子コンピューターで扱うには、リストの要素（=アイテム）を重ね合わせの状態で表現したうえで、この関数に渡す必要があります。<br />
+数学的には、この関数はオラクルと呼ばれるユニタリー行列として定義されます。</p>
+<p>そのために、まず初めにアイテムをバイナリ表現 <span class="math notranslate nohighlight">\(x,w \in \{0,1\}^n\)</span>(<span class="math notranslate nohighlight">\(N=2^n\)</span>)で考えます。このように考えることで、アイテムを量子コンピューター上の量子ビットの状態として表現することができます。<br />
+その後、オラクル<span class="math notranslate nohighlight">\(U_w\)</span>を任意の標準基底<span class="math notranslate nohighlight">\(|x\rangle\)</span>に対して<span class="math notranslate nohighlight">\(U_w |x\rangle =(-1)^{f(x)}|x\rangle\)</span>となるように定義することで、先程の関数と同じような考え方が量子状態を表現した行列に対しても適用出来ていることが確認できます。</p>
+<p><span class="math notranslate nohighlight">\(x\)</span>がハズレアイテムの場合、オラクルは量子状態に対して何も操作しません。ところが、アタリの状態<span class="math notranslate nohighlight">\(|w\rangle\)</span>に対してオラクルを適用すると、<span class="math notranslate nohighlight">\(U_w |w\rangle = -|w\rangle\)</span>のように操作します。<br />
+このユニタリー行列の操作は幾何学的には、<span class="math notranslate nohighlight">\(N=2^n\)</span>次元のベクトル空間においてマークされたアイテムを原点に対して反転する操作に対応していると考えることが出来ます。</p>
 <p><img alt="" src="_images/2020-w1-b-oracle.png" /></p>
 </section>
 <section id="amplitude-amplification">
-<h2>振幅増幅（Amplitude amplification）<a class="headerlink" href="#amplitude-amplification" title="Link to this heading">#</a></h2>
-<p>では、アルゴリズムはどのように動作するのでしょう？リストを調べる前は、私たちはマークされたアイテムがどこにあるのか知りません。従って、下記の式で表される均一な重ね合わせ状態です。
+<h3>振幅増幅（Amplitude amplification）<a class="headerlink" href="#amplitude-amplification" title="Link to this heading">#</a></h3>
+<p>話をGroverのアルゴリズムに移します。私たちはリストを調べる前にアタリがどこにあるのか知りません。従って、下記のような均一な重ね合わせの量子状態で表現されると考えます。
 $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum_{x=0}^{N-1} |x\rangle \)</span>$</p>
-<p>もしこの時点で標準基底 <span class="math notranslate nohighlight">\(|x\rangle \)</span>でこの重ね合わせ状態を測定した場合、<span class="math notranslate nohighlight">\(\frac{1}{N} = \frac{1}{2^{n}} \)</span> の確率で、標準基底のうちの一つに収束します。予想通り、正しい<span class="math notranslate nohighlight">\(|w\rangle\)</span>を当てる確率は<span class="math notranslate nohighlight">\(\frac{1}{2^{n}}\)</span> です。従って、正しいアイテムを推測するには、平均<span class="math notranslate nohighlight">\(N=2^{n}\)</span>回トライする必要があります。</p>
-<p>そこで振幅増幅と呼ばれる処理を加えましょう。この処理により、量子コンピューターが正しいアイテムを見つける確率を大幅に高めることが出来ます。この処理では、マークされたアイテムの振幅を増幅し、その他のアイテムの振幅を小さくします。この結果、最終状態を測定すると、正しいアイテムをほぼ確実に取り出すことができるようになります。</p>
-<p>このアルゴリズムには２つの反転という面白い幾何学的解釈があり、２次元平面での回転として表せます。私たちが考慮すべきは、アタリ<span class="math notranslate nohighlight">\(|w\rangle\)</span> と均一な重ね合わせ状態<span class="math notranslate nohighlight">\(|s\rangle\)</span> の２つの特別な状態のみです。この２つのベクトルは、ベクトル空間 <span class="math notranslate nohighlight">\(\mathbb C^{N}\)</span> において、２次元の平面を張ります。<span class="math notranslate nohighlight">\(|w\rangle\)</span> 状態は、<span class="math notranslate nohighlight">\(N^{-1/2}\)</span> の振幅で重ね合わせ状態に入っているため、これら２つのベクトルは完全に直交しているわけではありません。</p>
-<p>しかし、<span class="math notranslate nohighlight">\(|s\rangle\)</span> から <span class="math notranslate nohighlight">\(|w\rangle\)</span> を削除し、正規化し直す事で<span class="math notranslate nohighlight">\(|w\rangle\)</span> に直交する追加の状態 <span class="math notranslate nohighlight">\(|s'\rangle\)</span> を導入することができます</p>
+<p>もしこの時点で標準基底 <span class="math notranslate nohighlight">\(|x\rangle \)</span>でこの重ね合わせ状態を測定した場合、<span class="math notranslate nohighlight">\(\frac{1}{N} = \frac{1}{2^{n}} \)</span> の確率で、標準基底のうちの一つに収束します。想像の通り、アタリ<span class="math notranslate nohighlight">\(|w\rangle\)</span>を引く確率は<span class="math notranslate nohighlight">\(\frac{1}{2^{n}}\)</span> です。従って、正しいアイテムを推測するには、平均<span class="math notranslate nohighlight">\(N=2^{n}\)</span>回試行する必要があります。</p>
+<p>そこで振幅増幅と呼ばれる技術を導入しましょう。この技術により、量子コンピューターがアタリを見つける確率を大幅に高めることが出来ます。<br />
+この処理ではマークされたアイテムの確率振幅を増幅し、その他のアイテムの確率振幅を小さくします。これを繰り返して十分にアタリの確率振幅が大きくなった最終状態を測定することで、ほぼ確実にアタリを取り出すことができるようになります。</p>
 <section id="step-0">
-<h3>Step 0:<a class="headerlink" href="#step-0" title="Link to this heading">#</a></h3>
-<p>振幅増幅は均一な重ね合わせ状態 <span class="math notranslate nohighlight">\(|s\rangle\)</span> から開始します。均一な重ね合わせ状態は、<span class="math notranslate nohighlight">\(|s\rangle = H^{\otimes n}|0\rangle^{n}\)</span> により簡単に作成できます。<span class="math notranslate nohighlight">\(t=0\)</span> の時、初期状態は <span class="math notranslate nohighlight">\(|\psi_{0}\rangle = |s\rangle\)</span> です。</p>
+<h4>Step 0:<a class="headerlink" href="#step-0" title="Link to this heading">#</a></h4>
+<p>振幅増幅は均一な重ね合わせ状態 <span class="math notranslate nohighlight">\(|s\rangle\)</span> から開始します。均一な重ね合わせ状態は、<span class="math notranslate nohighlight">\(|s\rangle = H^{\otimes n}|0\rangle^{n}\)</span> のようにアダマールゲートを使って簡単に作成できます。<br />
+初期状態は <span class="math notranslate nohighlight">\(|\psi_{0}\rangle = |s\rangle\)</span> です。</p>
 <p><img alt="" src="_images/2020-w1-b-step0.png" /></p>
-<p>左の図は、<span class="math notranslate nohighlight">\(|w\rangle, |s'\rangle\)</span> によって張られる、２次元平面に対応しています。右の図は、<span class="math notranslate nohighlight">\(N=2^n\)</span> の場合の、状態 <span class="math notranslate nohighlight">\(|\psi_{t}\rangle\)</span> の振幅を表す棒グラフです。振幅の平均値は破線で示されています。</p>
+<p>このアルゴリズムは、幾何学的に２次元平面での回転として解釈することができます。<br />
+今回私たちが関心があるのは、アタリ<span class="math notranslate nohighlight">\(|w\rangle\)</span> と均一な重ね合わせ状態<span class="math notranslate nohighlight">\(|s\rangle\)</span> という２つの特別な状態のみです。この２つはベクトル空間 <span class="math notranslate nohighlight">\(\mathbb C^{N}\)</span> において２次元の平面を張ります。アタリの状態<span class="math notranslate nohighlight">\(|w\rangle\)</span> は、<span class="math notranslate nohighlight">\(N^{-1/2}\)</span> の振幅で重ね合わせ状態に含まれるため、これら２つのベクトルは完全に直交しているわけではありません。<br />
+しかし、<span class="math notranslate nohighlight">\(|s\rangle\)</span> から <span class="math notranslate nohighlight">\(|w\rangle\)</span> を削除し、正規化し直す事で <span class="math notranslate nohighlight">\(|w\rangle\)</span> に直交する追加の状態 <span class="math notranslate nohighlight">\(|s'\rangle\)</span> を作り出すことができます。左の図は、<span class="math notranslate nohighlight">\(|w\rangle, |s'\rangle\)</span> によって張られる、２次元平面に対応しています。</p>
+<p>右の図は、<span class="math notranslate nohighlight">\(N=2^n\)</span> の場合の、状態 <span class="math notranslate nohighlight">\(|\psi_{t}\rangle\)</span> の振幅を表す棒グラフです。振幅の平均値は破線で示されています。</p>
 </section>
 <section id="step-1">
-<h3>Step 1:<a class="headerlink" href="#step-1" title="Link to this heading">#</a></h3>
-<p>反転のオラクル <span class="math notranslate nohighlight">\(U_{w}\)</span> を状態に適用します <span class="math notranslate nohighlight">\(U_{w}|\psi_{t}\rangle = |\psi_{t'}\rangle\)</span></p>
+<h4>Step 1:<a class="headerlink" href="#step-1" title="Link to this heading">#</a></h4>
+<p>オラクル <span class="math notranslate nohighlight">\(U_{w}\)</span> を状態に適用します <span class="math notranslate nohighlight">\(U_{w}|\psi_{t}\rangle = |\psi_{t'}\rangle\)</span><br />
+オラクルの状態操作は、幾何学的には状態 <span class="math notranslate nohighlight">\(|\psi_{t}\rangle\)</span> を <span class="math notranslate nohighlight">\(|s'\rangle\)</span> に対して反転させることに対応しています。この変換が意味することは、<span class="math notranslate nohighlight">\(|w\rangle\)</span> 状態の振幅が負の値になるということで、結果として平均振幅が低くなることを意味しています。<br />
+右側のグラフで破線が下がっていることに着目してください。</p>
 <p><img alt="" src="_images/2020-w1-b-step1.png" /></p>
-<p>幾何学的には、状態 <span class="math notranslate nohighlight">\(|\psi_{t}\rangle\)</span> を <span class="math notranslate nohighlight">\(|s'\rangle\)</span> に対して反転させることに対応しています。この変換が意味することは、<span class="math notranslate nohighlight">\(|w\rangle\)</span> 状態の振幅が負の値になるということで、結果として平均振幅が低くなることを意味しています。(右側のグラフで破線が下がっていることに着目してください）。</p>
 </section>
 <section id="step-2">
-<h3>Step 2:<a class="headerlink" href="#step-2" title="Link to this heading">#</a></h3>
-<p>次に、<span class="math notranslate nohighlight">\(|s\rangle\)</span> に対する追加の反転 <span class="math notranslate nohighlight">\(U_{s}\)</span> を適用します：<span class="math notranslate nohighlight">\(U_{s} = 2|s\rangle \langle s| - 1 \)</span> 。この変換の結果、状態は <span class="math notranslate nohighlight">\(U_{s}|\psi_{t'}\rangle\)</span> となり、変換 <span class="math notranslate nohighlight">\(|\psi_{t+1}\rangle = U_{s}U_{w}|\psi_{t}\rangle\)</span> が完了します。（右側のグラフで<span class="math notranslate nohighlight">\(|w\rangle\)</span>に対応する振幅が増幅されていることに着目してください）。</p>
+<h4>Step 2:<a class="headerlink" href="#step-2" title="Link to this heading">#</a></h4>
+<p>次に、<span class="math notranslate nohighlight">\(|s\rangle\)</span> に対して <span class="math notranslate nohighlight">\(U_{s}\)</span> を適用します：<span class="math notranslate nohighlight">\(U_{s} = 2|s\rangle \langle s| - 1 \)</span> 。この変換の結果、状態は <span class="math notranslate nohighlight">\(U_{s}|\psi_{t'}\rangle\)</span> となり、変換 <span class="math notranslate nohighlight">\(|\psi_{t+1}\rangle = U_{s}U_{w}|\psi_{t}\rangle\)</span> が完了します。<br />
+右側のグラフで<span class="math notranslate nohighlight">\(|w\rangle\)</span>に対応する振幅が増幅されていることに着目してください。</p>
 <p><img alt="" src="_images/2020-w1-b-step2.png" /></p>
-<p>２つの反転は常に回転と対応しています。<span class="math notranslate nohighlight">\( U_{s}U_{w}\)</span> による変換は、初期状態 <span class="math notranslate nohighlight">\(|s\rangle\)</span> をアタリ<span class="math notranslate nohighlight">\(|w\rangle\)</span> に近づけるような回転となります（Step 2の左側の図を参照)。<span class="math notranslate nohighlight">\(U_{s}\)</span> による反転の効果は、振幅の棒グラフにおいて、平均振幅での反転と解釈できます。最初の反転で平均振幅の値が低くなったので、この変換は、負の振幅をもった <span class="math notranslate nohighlight">\(|w\rangle\)</span> をオリジナルの値から大雑把にいって約３倍程度増幅し、他の振幅は小さくします。その後、<strong>Step １</strong> に戻ってこれを繰り返します。アタリ <span class="math notranslate nohighlight">\(w\)</span>に近くなるまで、この処理を何回か繰り返します。</p>
-<p><span class="math notranslate nohighlight">\(t\)</span> 回繰り返した後、状態は <span class="math notranslate nohighlight">\(|\psi_{t}\rangle = (U_{s}U_{w})^{t}|\psi_{0}\rangle \)</span> に変換されます。</p>
-<p>回転を何回適用する必要があるでしょうか？ おおよそ <span class="math notranslate nohighlight">\(\sqrt N\)</span> 回転で十分なことが分かっています。これは、状態 <span class="math notranslate nohighlight">\(|\psi_{t}\rangle\)</span> の振幅を調べることで明確になります。<span class="math notranslate nohighlight">\(|w\rangle\)</span> の振幅が適用回数と共に線型的（<span class="math notranslate nohighlight">\( \sim tN^{1/2}\)</span>）に増えていくことが見てとれます。確率ではなく振幅を扱っているので、ベクトル空間の値には平方根として入ります。そのため、この処理で増幅されるのは、ただの確率ではなく振幅です。</p>
-<p>もし解が複数、<span class="math notranslate nohighlight">\(M\)</span>個ある場合、おおよそ<span class="math notranslate nohighlight">\(\sqrt{(N/M)}\)</span> 回転で十分なことが分かっています。</p>
+<p>２つのStepにおける反転は2次元平面の回転と対応しています。<span class="math notranslate nohighlight">\( U_{s}U_{w}\)</span> による変換は、初期状態 <span class="math notranslate nohighlight">\(|s\rangle\)</span> をアタリ　<span class="math notranslate nohighlight">\(|w\rangle\)</span> に近づけるような回転となります（Step 2の左側の図を参照）。<span class="math notranslate nohighlight">\(U_{s}\)</span> による反転の効果は、振幅の棒グラフにおいて、平均振幅での反転と解釈できます。最初の反転で平均振幅の値が低くなったので、この変換は、負の振幅をもった <span class="math notranslate nohighlight">\(|w\rangle\)</span> をオリジナルの値から約３倍程度増幅し、他の振幅は小さくします。その後、Step1 に戻ってこれを繰り返します。アタリ <span class="math notranslate nohighlight">\(w\)</span> に近くなるまで、この処理を何回か繰り返します。</p>
+<p>この回転操作を <span class="math notranslate nohighlight">\(t\)</span> 回繰り返した後、状態は <span class="math notranslate nohighlight">\(|\psi_{t}\rangle = (U_{s}U_{w})^{t}|\psi_{0}\rangle \)</span> に変換されます。</p>
+<p>では回転操作は何回適用する必要があるでしょうか？<br />
+およそ <span class="math notranslate nohighlight">\(\sqrt N\)</span> 回（解が<span class="math notranslate nohighlight">\(M\)</span>個ある場合 <span class="math notranslate nohighlight">\(\sqrt{(N/M)}\)</span>）で十分なことが分かっています。これは、状態 <span class="math notranslate nohighlight">\(|\psi_{t}\rangle\)</span> の振幅を調べることで明確になります。<span class="math notranslate nohighlight">\(|w\rangle\)</span> の振幅が適用回数と共に線型（<span class="math notranslate nohighlight">\( \sim tN^{1/2}\)</span>）に増えていくことが見てとれます。</p>
+<blockquote>
+<div><p>確率ではなく振幅を扱っているので、ベクトル空間の値には平方根として入ります。そのため、この処理で増幅されるのは、ただの確率ではなく振幅です。</p>
+</div></blockquote>
 <p><img alt="" src="_images/2020-w1-b-grover_algorithm.png" /></p>
 </section>
+</section>
+</section>
 <section id="qiskit-2grover">
-<h3>Qiskitでの実装: 2量子ビットのGroverのアルゴリズム<a class="headerlink" href="#qiskit-2grover" title="Link to this heading">#</a></h3>
+<h2>Qiskitによる実装: 2量子ビットのGroverのアルゴリズム<a class="headerlink" href="#qiskit-2grover" title="Link to this heading">#</a></h2>
 <p>では、GroverのアルゴリズムをQiskitで実装してみましょう。今回は、2量子ビットを使って、<span class="math notranslate nohighlight">\(|11\rangle\)</span>を見つけるGroverのアルゴリズムを実装します。</p>
-<p>最初に環境を準備します。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">ClassicalRegister</span><span class="p">,</span> <span class="n">QuantumRegister</span>
@@ -484,7 +502,21 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 </div>
 </div>
 </div>
-<p>上のStep1で実施したように求めたい解（今回の場合、<span class="math notranslate nohighlight">\(|11\rangle\)</span>）の符号を反転するオラクルを作成します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">qiskit</span>
+<span class="n">qiskit</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1.4.2&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>上のStep1で実施したように求めたい解の符号を反転するオラクルを作成します。<br />
+つまり今回は <span class="math notranslate nohighlight">\(U_{w} |11\rangle = -|11\rangle\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oracleCircuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -494,22 +526,11 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bfb1e22c2bb4ba25fe7b279eba92a6b6da70908899e73cd2b4bc5ca12d2fbd38.png" src="_images/bfb1e22c2bb4ba25fe7b279eba92a6b6da70908899e73cd2b4bc5ca12d2fbd38.png" />
+<img alt="_images/31ad4f8b20a80551e266122d8b19202bc274a0f2c02ade2d0640e260755df567.png" src="_images/31ad4f8b20a80551e266122d8b19202bc274a0f2c02ade2d0640e260755df567.png" />
 </div>
 </div>
-<p>次にStep 2で実施した平均についての反転(inversion about averate)をする回路を作成します。この回路はDiffusion回路と呼ばれることもあります。</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oracleCircuit</span><span class="o">.</span><span class="n">qubits</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Qubit(QuantumRegister(2, &#39;q&#39;), 0), Qubit(QuantumRegister(2, &#39;q&#39;), 1)]
-</pre></div>
-</div>
-</div>
-</div>
+<p>次にStep 2で実施した平均についての反転(inversion about averate)をする回路を作成します。<br />
+この回路はDiffusion回路と呼ばれることもあります。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inversion_about_average</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -528,10 +549,11 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6b4989a603a461a399451b41c9a5eb669b2a8f482beed72ae4a301748d6255a2.png" src="_images/6b4989a603a461a399451b41c9a5eb669b2a8f482beed72ae4a301748d6255a2.png" />
+<img alt="_images/4909eecff6202874461a403e1764896bbda2c5b0c6d9db9fe066c6c0f4c74b2b.png" src="_images/4909eecff6202874461a403e1764896bbda2c5b0c6d9db9fe066c6c0f4c74b2b.png" />
 </div>
 </div>
-<p>回路の初めで均一な重ね合わせ状態を準備し、今まで作成した部品を合わせ、最後に測定を行います。四つの可能性のうち解は一つなので、繰り返し回数は一回であることに注意してください。</p>
+<p>回路の初めで均一な重ね合わせ状態を準備し、上記の部品を合わせて最後に測定を行います。<br />
+2量子ビットなので4つの可能性のうちから1つの解を選ぶ問題と考えられるので、繰り返し回数は一回であることに注意してください。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groverCircuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -546,7 +568,7 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9404461a4a0dcbea4a7b0bc474f7b42aed85db534c855d4b57c3d5ee3d7d6f79.png" src="_images/9404461a4a0dcbea4a7b0bc474f7b42aed85db534c855d4b57c3d5ee3d7d6f79.png" />
+<img alt="_images/327d5d134c3a01eab1b7af183f9bf4105f430e187c33b12ac34057d132ec6d97.png" src="_images/327d5d134c3a01eab1b7af183f9bf4105f430e187c33b12ac34057d132ec6d97.png" />
 </div>
 </div>
 <p>上記の回路をシミュレーターで実行してみます。</p>
@@ -563,13 +585,13 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/692252a1cb3031585837e0ee35db8979cf91a2935cf60ddd8f1eacf105d9bedc.png" src="_images/692252a1cb3031585837e0ee35db8979cf91a2935cf60ddd8f1eacf105d9bedc.png" />
+<img alt="_images/a8f2e44463eb4e80056d4cae024581d9144827990cb76578b4f332f0d0ddfe7d.png" src="_images/a8f2e44463eb4e80056d4cae024581d9144827990cb76578b4f332f0d0ddfe7d.png" />
 </div>
 </div>
 <p>実行結果から分かるようにGroverのアルゴリズムは解を発見しています。</p>
 </section>
 <section id="grover">
-<h3>補助量子ビットを用いた2量子ビットのGroverのアルゴリズム<a class="headerlink" href="#grover" title="Link to this heading">#</a></h3>
+<h2>補助量子ビットを用いた2量子ビットのGroverのアルゴリズム<a class="headerlink" href="#grover" title="Link to this heading">#</a></h2>
 <p>同じ<span class="math notranslate nohighlight">\(|11\rangle\)</span>を見つける2量子ビットのGroverのアルゴリズムですが、補助量子ビットを用いることで、量子ビットの数が増えた際や問題が難しい際に複雑なオラクルを実装しやすくなります。</p>
 <p>求めたい解（今回の場合、<span class="math notranslate nohighlight">\(|11\rangle\)</span>）の符号を反転するオラクルを作成します。ただし、今回は補助量子ビットを用いて<span class="math notranslate nohighlight">\(|11\rangle\)</span>の場合に符号が反転するようにします。この際、正しく符号を反転させるためには事前に補助ビットを<span class="math notranslate nohighlight">\(|1\rangle\)</span>にする必要があることに注意してください。</p>
 <div class="cell docutils container">
@@ -593,7 +615,7 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a0e1643a7b5a95c27c1f5ebaf32c01278858a6c9fbcaf6a6116d47794337b0e6.png" src="_images/a0e1643a7b5a95c27c1f5ebaf32c01278858a6c9fbcaf6a6116d47794337b0e6.png" />
+<img alt="_images/4bad0c771a82d18481f41d6503525350fc825939fd53248f10b5ab0b3230502a.png" src="_images/4bad0c771a82d18481f41d6503525350fc825939fd53248f10b5ab0b3230502a.png" />
 </div>
 </div>
 <p>次に、Diffusion回路を準備します。Diffusion回路は補助ビットには作用しないようにしてください。</p>
@@ -615,7 +637,7 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6b4989a603a461a399451b41c9a5eb669b2a8f482beed72ae4a301748d6255a2.png" src="_images/6b4989a603a461a399451b41c9a5eb669b2a8f482beed72ae4a301748d6255a2.png" />
+<img alt="_images/4909eecff6202874461a403e1764896bbda2c5b0c6d9db9fe066c6c0f4c74b2b.png" src="_images/4909eecff6202874461a403e1764896bbda2c5b0c6d9db9fe066c6c0f4c74b2b.png" />
 </div>
 </div>
 <p>補助ビットなしで作成した回路と同じように、回路の最初で均一な重ね合わせ状態を作成し（この際、補助ビットにHゲートをかけないように注意してください）、変換を適用し、最後に測定をします。</p>
@@ -641,7 +663,7 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7bbae1dae4d5c5893c2239466ab8e92b5cf2b08ec50d1884acdbcd0746e3d594.png" src="_images/7bbae1dae4d5c5893c2239466ab8e92b5cf2b08ec50d1884acdbcd0746e3d594.png" />
+<img alt="_images/dd1da0f6fcdc17cd36b6c3e0d0ed9798b800f27d6d0b5e6c00e06751fb5685fa.png" src="_images/dd1da0f6fcdc17cd36b6c3e0d0ed9798b800f27d6d0b5e6c00e06751fb5685fa.png" />
 </div>
 </div>
 <p>上記の回路をシミュレーターで実行してみます。</p>
@@ -657,15 +679,15 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/94e07f1b9b4c920216f28d54f3b0938ff65551fd7e92d5e4dbdf5c4f9f356dbf.png" src="_images/94e07f1b9b4c920216f28d54f3b0938ff65551fd7e92d5e4dbdf5c4f9f356dbf.png" />
+<img alt="_images/9781f8785ee512c58ac5c296bf7031a7eae8a2cac196718d38cc86c44ee35316.png" src="_images/9781f8785ee512c58ac5c296bf7031a7eae8a2cac196718d38cc86c44ee35316.png" />
 </div>
 </div>
 <p>補助ビットなしで作成した回路と同じように<span class="math notranslate nohighlight">\(|11\rangle\)</span>の状態の確率が増幅されていることが確認できます。最上位ビットの1は補助量子ビットのものなので無視して問題ありません。</p>
 </section>
-<section id="tips">
-<h3>TIPS: 繰り返しの回数<a class="headerlink" href="#tips" title="Link to this heading">#</a></h3>
-<p>先ほど、グローバーのアルゴリズムは、解が完全に増幅されるまで約<span class="math notranslate nohighlight">\(\sqrt{N}\)</span>回繰り返しますと述べましたが、最も解が大きくなる繰り返し回数について考えてみましょう。</p>
-<p>例えば、<span class="math notranslate nohighlight">\(N = 2^4\)</span>のデータベースにおいてグローバーのアルゴリズムを実行させるとき、その回の測定確率は以下のように繰り返しの回数によって変化します。</p>
+<section id="id3">
+<h2>(参考) 繰り返しの回数<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Groverのアルゴリズムは、解が完全に増幅されるまで約<span class="math notranslate nohighlight">\(\sqrt{N}\)</span>回繰り返しますと述べましたが、最も解が大きくなる繰り返し回数について考えてみましょう。</p>
+<p>例えば、<span class="math notranslate nohighlight">\(N = 2^4\)</span> のデータベースにGroverのアルゴリズムを実行させるとき、その回の測定確率は以下のように繰り返しの回数によって変化します。</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prob_of_ans</span> <span class="o">=</span> <span class="p">[]</span>
@@ -730,15 +752,9 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;# of times the solution was obtained&#39;)
 </pre></div>
 </div>
-<img alt="_images/e0957986cbec44b4e2cf0cc8310bdb77d8248976f6437632e7b1f9cd13dd6d71.png" src="_images/e0957986cbec44b4e2cf0cc8310bdb77d8248976f6437632e7b1f9cd13dd6d71.png" />
+<img alt="_images/39a8e0d5d0f2daef201e3b09e22643eb8a394d2d1057d86ca1a323934466408b.png" src="_images/39a8e0d5d0f2daef201e3b09e22643eb8a394d2d1057d86ca1a323934466408b.png" />
 </div>
 </div>
-<div class="admonition-exercise admonition">
-<p class="admonition-title">Exercise: 最大振幅を得る繰り返し回数</p>
-<p><span class="math notranslate nohighlight">\(N = 2 ^ 7\)</span>のデータベースにおいてグローバーのアルゴリズムを実行するときに最大振幅を得る繰り返しの回数を答えよ。<br />
-上の例で示したように、繰り返し回数を変えて、振幅を調べよ。解答は整数である必要があります。(ヒント: 答えは、15回以下です。)</p>
-</div>
-</section>
 </section>
 </section>
 
@@ -751,16 +767,16 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "iqc2024-performance"
+            mode: "python"
         },
         kernelOptions: {
-            name: "iqc2024-performance",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'iqc2024-performance'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -806,17 +822,20 @@ $<span class="math notranslate nohighlight">\( |s\rangle = \frac{1}{\sqrt N}\sum
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">非構造化データの検索</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">オラクル</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#amplitude-amplification">振幅増幅（Amplitude amplification）</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-0">Step 0:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qiskit-2grover">Qiskitでの実装: 2量子ビットのGroverのアルゴリズム</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grover">補助量子ビットを用いた2量子ビットのGroverのアルゴリズム</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">TIPS: 繰り返しの回数</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">量子計算を用いた検索の理論</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">非構造化データの検索</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oracle">オラクル （Oracle）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amplitude-amplification">振幅増幅（Amplitude amplification）</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-0">Step 0:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2:</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qiskit-2grover">Qiskitによる実装: 2量子ビットのGroverのアルゴリズム</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grover">補助量子ビットを用いた2量子ビットのGroverのアルゴリズム</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">(参考) 繰り返しの回数</a></li>
 </ul>
   </nav></div>
 
