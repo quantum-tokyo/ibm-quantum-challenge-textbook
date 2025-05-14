@@ -39,6 +39,9 @@ parts:
   - file: 2024-spring-lab4-vqc-hw-ja
     title: 実機上でのVQCのテスト (2024 Lab4)
 
-# - caption: "Chapter4 量子コンピューターの応用"
+- caption: "Chapter4 量子コンピューターの応用"
+  chapters:
+  - file: 2021-spring-lab2-shor-ja
+    title: ショアのアルゴリズム
 
 
