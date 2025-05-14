@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ショアのアルゴリズム &#8212; IBM Quantum Challengeで学ぶ量子コンピューティング</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2021-spring-lab2-shor-ja';</script>
+    <link rel="icon" href="_static/quantum-tokyo-icon.ico"/>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="prev" title="実際のバックエンドでVQCをテストする(2024年 Lab4)" href="2024-spring-lab4-vqc-hw-ja.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-light" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>
+    <script>document.write(`<img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-dark" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    IBM Quantum Challengeで学ぶ量子コンピューティング
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter1 Qiskit 101</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab0-welcome-ja.html">ようこそ、そしてハローワールド(2024春 Lab0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab1-qiskit10-ja.html">Qiskit 1.0入門(2024春 Lab1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2022-autumn-lab1-runtime-ja.html">Qiskit Runtime Primitives入門(2022秋 Lab1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab1-dynamic-ja.html">Dynamic Circuits入門 (2023春 Lab1)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab2-transpilation-ja.html">Transpiler入門(2024 Lab2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-ai-transpiler-ja.html">Transpiler powere by AI(2024 Lab3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-circuit-knitting-ja.html">Circuit Knittingの紹介(2024 Lab3)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter2 量子回路の構築</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-a-adder-ja.html">量子回路の基礎 (2020 w1-A)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab2-teleportation-ja.html">量子テレポーテーション (2023 Lab2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-b-grover-ja.html">Groverのアルゴリズム (2020 w1-B)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab3-iqpe.html">量子位相推定 (2023 Lab3)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter3 量子コンピューターのエラー訂正・緩和</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab3-error-ja.html">量子エラー訂正 (2021春 Lab3)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab4-vqc-hw-ja.html">実機上でのVQCのテスト (2024 Lab4)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter4 量子コンピューターの応用</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ショアのアルゴリズム</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/quantum-tokyo/ibm-quantum-challenge-textbook/blob/main/src/2021-spring-lab2-shor-ja.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/quantum-tokyo/ibm-quantum-challenge-textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="ソースリポジトリ"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2021-spring-lab2-shor-ja.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ショアのアルゴリズム</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">歴史的背景</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ショアのアルゴリズムの概要</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qiskit">Qiskitによるショアのアルゴリズム回路の作成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-u">Exercise: <span class="math notranslate nohighlight">\(U\)</span>回路の作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-u-2">Exercise: <span class="math notranslate nohighlight">\(U^2\)</span>回路の作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-u-4">Exercise: <span class="math notranslate nohighlight">\(U^4\)</span>回路の作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise: ショアのアルゴリズム回路の作成</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ショアのアルゴリズムで35を素因数分解する</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>ショアのアルゴリズム<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>歴史的背景<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>多くの計算問題は、入力となる問題の大きさに応じて計算量がどのように増大するかでアルゴリズムの性能を測ります。例えば、足し算のアルゴリズムは足す数字の大きさに応じて線形に計算量が増大しますが、中には入力の大きさに応じて計算量が指数関数的に成長するものもあります。こうした指数関数的に計算量が増大する計算問題は、地球上のどのコンピューターを使っても解けないほど大きくなることがあります。代表的な例としてインターネットのセキュリティは、解読に必要な計算問題が現実的な時間内では解決できないことによって担保されています。</p>
+<p>そのような中1994年、ピーター・ショアは、量子コンピューター上で整数を効率的に素因数分解できることを示しました。[1]　これは大きなニュースです。 というのも、この問題を解く最良の古典アルゴリズムは、指数関数的に成長するアルゴリズムだからです。実際、先ほどの例の<a class="reference external" href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA暗号</a>は、ある一定以上の大きな数を素因数分解することが不可能であることを前提にしてセキュリティを担保しています。</p>
+<p>現在の古典コンピューターには大きすぎる整数を素因数分解するには何百万もの量子ビットとゲートが必要になりますが、これらの回路は現在の量子コンピューターで正常に動作させるにはまだ大きすぎます。<br />
+では、Lieven M.K. Vandersypen、Matthias Steffen、Gregory Breyta、Costantino S. Yannoni、Mark H. Sherwood、Isaac L. Chuangは、2001年に量子コンピューターで15の因数分解をどうやって成功させたのでしょうか？[2]</p>
+<p>ショアのアルゴリズムの回路を作る上での課題は <span class="math notranslate nohighlight">\(ay \bmod N\)</span> を計算する回路を作ることです。多項式のゲート数で回路を作る方法は分かっていますが、現在のコンピューターではそれでも大きすぎます。一方で、問題に関する情報が事前にわかっていれば、ちょっと「ズル」をしてより効率的な回路を作ることができる場合があります。</p>
+<p>上記の論文の著者は、他の多くの科学的進歩に加えて、<span class="math notranslate nohighlight">\(7y \bmod 15\)</span> を実行する非常にシンプルな回路を発見しました。これにより、現状のハードウェアでも動作させるのに十分なサイズの回路ができました。今回のChallengeではショアのアルゴリズムに使用する <span class="math notranslate nohighlight">\(35y \bmod N\)</span> の回路を作成してみましょう。</p>
+<blockquote>
+<div><p>参考文献</p>
+<ol class="arabic simple">
+<li><p>Shor, Peter W. &quot;Algorithms for quantum computation: discrete logarithms and factoring.&quot; Proceedings 35th annual symposium on foundations of computer science. Ieee, 1994.</p></li>
+<li><p>Vandersypen, Lieven MK, et al. &quot;Experimental realization of Shor's quantum factoring algorithm using nuclear magnetic resonance.&quot; Nature 414.6866 (2001): 883-887.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="id3">
+<h2>ショアのアルゴリズムの概要<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>量子位相推定アルゴリズムは、ある量子状態にゲートをかけることで位相を求めてくれます。位相推定アルゴリズムの入力は、状態 <span class="math notranslate nohighlight">\(|1\rangle\)</span> とゲート <span class="math notranslate nohighlight">\(Z\)</span> であり、 <span class="math notranslate nohighlight">\(Z\)</span> ゲートが状態 <span class="math notranslate nohighlight">\(|1\rangle\)</span> に作用すると、同じ状態にグローバル位相 <span class="math notranslate nohighlight">\(\pi\)</span> が追加された状態になります。</p>
+<div class="math notranslate nohighlight">
+\[
+Z|1\rangle = -|1\rangle = e^{i\pi} |1\rangle
+\]</div>
+<p>量子位相推定アルゴリズムがこれを解くための手法を提供します。<br />
+ショアは、<span class="math notranslate nohighlight">\(U|y\rangle = |a y\bmod N\rangle\)</span>という振る舞いをするゲート<span class="math notranslate nohighlight">\(U\)</span>に対して位相推定を行うと、<span class="math notranslate nohighlight">\(N\)</span>の因子についての情報が得られることを示しました。</p>
+</section>
+<section id="qiskit">
+<h2>Qiskitによるショアのアルゴリズム回路の作成<a class="headerlink" href="#qiskit" title="Link to this heading">#</a></h2>
+<p>この課題では、<span class="math notranslate nohighlight">\(13y \bmod 35\)</span> を実装した回路で位相推定を行い、35を因数分解します。ノーヒントで取り組みのは難しいので、まず最初にちょっとした「ズル」をしておきます。</p>
+<p>ショアのアルゴリズムは、初期量子状態 <span class="math notranslate nohighlight">\(|1\rangle\)</span> に <span class="math notranslate nohighlight">\(U\)</span> を適用して到達できる状態でのみ動作すればよいので、このような動作をする回路であれば、どんな回路でも問題ありません。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+U|1\rangle &amp;= |13\rangle \\
+UU|1\rangle &amp;= |29\rangle \\
+UUU|1\rangle &amp;= |27\rangle \\
+UUUU|1\rangle &amp;= |1\rangle \\
+\end{aligned}
+\end{split}\]</div>
+<p>では、上記を簡単に行うにはどうすればよいのでしょうか。4つの異なる量子状態を正しく変換すればよいのですから、これを2量子ビットにエンコードすればよいことになります。今回の課題では、2量子ビットの計算基底の状態を、次のように数字にマッピングすることにします：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+|1\rangle &amp;\rightarrow |00\rangle \\
+|13\rangle &amp;\rightarrow |01\rangle \\
+|29\rangle &amp;\rightarrow |10\rangle \\
+|27\rangle &amp;\rightarrow |11\rangle \\
+\end{aligned}
+\end{split}\]</div>
+<p>なぜこれが「ズル」なのでしょう？なぜなら、この最適化を利用するためには、「<span class="math notranslate nohighlight">\(U\)</span>が影響を与える状態を事前にすべて知っておく必要がある」からです。つまり、再び1に戻るまで <span class="math notranslate nohighlight">\(ay \bmod N\)</span> を計算して、 <span class="math notranslate nohighlight">\(a^x \bmod N\)</span> の周期を把握しておくことで、 <span class="math notranslate nohighlight">\(N\)</span> の因子を得ることができます。このように、周期の情報を使って最適化することは古典コンピューターでは解決できない問題には当然応用できません。</p>
+<p>しかし、この課題の目的は、あくまで、ショアのアルゴリズムが意図したとおりに動作することを検証することであり、<span class="math notranslate nohighlight">\(U\)</span>の回路を得るためにちょっとしたズルを行ったという事実を気にするつもりはありません。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">qiskit</span>
+<span class="n">qiskit</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1.4.2&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="exercise-u">
+<h3>Exercise: <span class="math notranslate nohighlight">\(U\)</span>回路の作成<a class="headerlink" href="#exercise-u" title="Link to this heading">#</a></h3>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>下記の変換を行い、別の量子ビットによって制御される回路(<span class="math notranslate nohighlight">\(U\)</span>)を作成してください。この回路は'target'という名前の2量子ビットのターゲットレジスタに作用し、'control'という名前の別の1量子ビットのレジスタによって制御されます。完成した回路を変数'<code class="docutils literal notranslate"><span class="pre">cu</span></code>'に割り当ててください。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+U|00\rangle &amp;= |01\rangle \\
+U|01\rangle &amp;= |10\rangle \\
+U|10\rangle &amp;= |11\rangle \\
+U|11\rangle &amp;= |00\rangle \\
+\end{aligned}
+\end{split}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">QuantumCircuit</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+<span class="n">cu</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Controlled 13^x mod 35&quot;</span><span class="p">)</span>
+
+<span class="c1"># コードを記入ください - 開始</span>
+
+
+
+
+
+<span class="c1"># コードを記入ください - 終了</span>
+
+<span class="n">cu</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">QuantumCircuit</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+<span class="n">cu</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Controlled 13^x mod 35&quot;</span><span class="p">)</span>
+
+<span class="n">cu</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">cu</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">cu</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/845e5fe0f3e931e1e923610ff370d410adf26cdbb664194e3bc58ed6791aed48.png" src="_images/845e5fe0f3e931e1e923610ff370d410adf26cdbb664194e3bc58ed6791aed48.png" />
+</div>
+</div>
+<p>位相推定アルゴリズムの出力は量子ビットを測定して読み取るので、<code class="docutils literal notranslate"><span class="pre">counting</span></code>レジスタに <span class="math notranslate nohighlight">\(r\)</span> を読み取るのに十分な量子ビットが存在する必要があります。ここでは、 <span class="math notranslate nohighlight">\(r=4\)</span> なので、 <span class="math notranslate nohighlight">\(\log_2(4) = 2\)</span> 個の量子ビットがあればよいことになります（<span class="math notranslate nohighlight">\(r\)</span>を事前に知っているのでここでもちょっとズルしています）。</p>
+<p><span class="math notranslate nohighlight">\(U\)</span> の位相推定を行うためには、 <span class="math notranslate nohighlight">\(n\)</span> 個の<code class="docutils literal notranslate"><span class="pre">counting</span></code>レジスタの各量子ビット（添字 <span class="math notranslate nohighlight">\(x\)</span>）に対して <span class="math notranslate nohighlight">\(U^{2^x}\)</span> を実行する回路を作る必要があります。<br />
+そのためには以下の3つの回路が必要になります：</p>
+<div class="math notranslate nohighlight">
+\[ U, \; U^2, \; U^4 \]</div>
+<p>そこで次は、<span class="math notranslate nohighlight">\(U^2\)</span>を実行する回路（つまり、<span class="math notranslate nohighlight">\(U\)</span>を2回適用することに相当する回路）を作ります。</p>
+</section>
+<section id="exercise-u-2">
+<h3>Exercise: <span class="math notranslate nohighlight">\(U^2\)</span>回路の作成<a class="headerlink" href="#exercise-u-2" title="Link to this heading">#</a></h3>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>下記の変換を行い、別の量子ビットによって制御される回路(<span class="math notranslate nohighlight">\(U^2\)</span>)を作成してください。この回路は'target'という名前の2量子ビットのターゲットレジスタに作用し、'control'という名前の別の1量子ビットのレジスタによって制御されます。完成した回路を変数'<code class="docutils literal notranslate"><span class="pre">cu2</span></code>'に割り当ててください。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+U|00\rangle &amp;= |10\rangle \\
+U|01\rangle &amp;= |11\rangle \\
+U|10\rangle &amp;= |00\rangle \\
+U|11\rangle &amp;= |01\rangle \\
+\end{aligned}
+\end{split}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+<span class="n">cu2</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="c1"># コードを記入ください - 開始</span>
+
+
+
+
+
+<span class="c1"># コードを記入ください - 終了</span>
+
+<span class="n">cu2</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+<span class="n">cu2</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="n">cu2</span> <span class="o">=</span> <span class="n">cu</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">cu</span><span class="p">)</span>
+
+<span class="n">cu2</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/791f89e0c7b30165ee57a134652e1e8bb636963ceb92b978cf193439d37ad8eb.png" src="_images/791f89e0c7b30165ee57a134652e1e8bb636963ceb92b978cf193439d37ad8eb.png" />
+</div>
+</div>
+</section>
+<section id="exercise-u-4">
+<h3>Exercise: <span class="math notranslate nohighlight">\(U^4\)</span>回路の作成<a class="headerlink" href="#exercise-u-4" title="Link to this heading">#</a></h3>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>下記の変換を行い、別の量子ビットによって制御される回路(<span class="math notranslate nohighlight">\(U^4\)</span>)を作成してください。この回路は'target'という名前の2量子ビットのターゲットレジスタに作用し、'control'という名前の別の1量子ビットのレジスタによって制御されます。完成した回路を変数'<code class="docutils literal notranslate"><span class="pre">cu4</span></code>'に割り当ててください。</p>
+<p>ヒント：最適解はシンプルです。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+U|00\rangle &amp;= |00\rangle \\
+U|01\rangle &amp;= |01\rangle \\
+U|10\rangle &amp;= |10\rangle \\
+U|11\rangle &amp;= |11\rangle \\
+\end{aligned}
+\end{split}\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+<span class="n">cu4</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="c1"># コードを記入ください - 開始</span>
+
+
+
+
+
+<span class="c1"># コードを記入ください - 終了</span>
+
+<span class="n">cu4</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+<span class="n">cu4</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="n">cu4</span> <span class="o">=</span> <span class="n">cu2</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">cu2</span><span class="p">)</span>
+
+<span class="n">cu4</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bce2fa86d64c224882117b6dee0ed259aae7d607e429363671a3a9e2b579cf01.png" src="_images/bce2fa86d64c224882117b6dee0ed259aae7d607e429363671a3a9e2b579cf01.png" />
+</div>
+</div>
+</section>
+<section id="exercise">
+<h3>Exercise: ショアのアルゴリズム回路の作成<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>れで<span class="math notranslate nohighlight">\(U\)</span>, <span class="math notranslate nohighlight">\(U^2\)</span>, <span class="math notranslate nohighlight">\(U^4\)</span>を制御できるようになったので、これらを組み合わせてショアのアルゴリズムの量子部分を実行する回路を作ることができます。</p>
+<p>初期化は簡単です。カウントレジスタを<span class="math notranslate nohighlight">\(|{+}{+}{+}\rangle\)</span>の状態にし（3つのHゲートで可能です）、ターゲットレジスタを<span class="math notranslate nohighlight">\(|1\rangle\)</span>の状態にします（計算基底の状態<span class="math notranslate nohighlight">\(|00\rangle\)</span>にマッピングしたので、ここでは何もする必要はありません）。ここまでの部分はこちらで作っておきます。</p>
+<p>あなたの仕事は、初期化と逆量子フーリエ変換の間に使用される、制御された<span class="math notranslate nohighlight">\(U\)</span>を実行する回路を作ることです。より正確に記述すると、以下の回路を作っていただきたいと思います。</p>
+<div class="math notranslate nohighlight">
+\[
+CU_{c_0 t}CU^2_{c_1 t}CU^4_{c_2 t}
+\]</div>
+<p>ここで、<span class="math notranslate nohighlight">\(c_0\)</span>、<span class="math notranslate nohighlight">\(c_1\)</span>、<span class="math notranslate nohighlight">\(c_2\)</span>は'counting'レジスタの3つの量子ビット、<span class="math notranslate nohighlight">\(t\)</span>は'target'レジスタ、<span class="math notranslate nohighlight">\(U\)</span>はこの課題の最初の部分で定義したとおりです。この表記では、<span class="math notranslate nohighlight">\(CU_{a b}\)</span>は、<span class="math notranslate nohighlight">\(CU\)</span>が<span class="math notranslate nohighlight">\(a\)</span>によって制御され、<span class="math notranslate nohighlight">\(b\)</span>に作用することを意味します。この問題を解決する簡単な方法は、上で作成した回路 <code class="docutils literal notranslate"><span class="pre">cu</span></code>, <code class="docutils literal notranslate"><span class="pre">cu2</span></code>, <code class="docutils literal notranslate"><span class="pre">cu4</span></code> を単純に組み合わせることですが、おそらく同じ動作をするより効率的な回路を見つけることができるでしょう。</p>
+<p>作成される回路には、CNOTしか使用できません。多量子ビットゲートは、1量子ビットゲートに比べて、ハードウェア上で実行するのが難しいため、あなたのスコアは使用したCNOTの数になります（少なければ少ないほどよい）。この条件の対応に戸惑いそうであれば、回路をこの形式に変換するコードを提出書類の横に記載しています。ただ、手計算の方が恐らくうまくいくでしょう。</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># これまでのソリューションを最終的な提出物にまとめるためのコード</span>
+<span class="n">cqr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<span class="n">tqr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+<span class="n">cux</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">cqr</span><span class="p">,</span> <span class="n">tqr</span><span class="p">)</span>
+<span class="n">solutions</span> <span class="o">=</span> <span class="p">[</span><span class="n">cu</span><span class="p">,</span> <span class="n">cu2</span><span class="p">,</span> <span class="n">cu4</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">cux</span> <span class="o">=</span> <span class="n">cux</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">solutions</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="n">cqr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tqr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tqr</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">cux</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6915fb7a3b515494cef9c4e681a9e845e36730ad7a3e43ed9349e76c568936ec.png" src="_images/6915fb7a3b515494cef9c4e681a9e845e36730ad7a3e43ed9349e76c568936ec.png" />
+</div>
+</div>
+<p>おめでとうございます！あなたはこのチャレンジを終えました。あなたが作成した回路で、35を素因数分解されるのをみてみましょう。</p>
+</section>
+</section>
+<section id="id4">
+<h2>ショアのアルゴリズムで35を素因数分解する<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>以下のコードセルは <span class="math notranslate nohighlight">\(\tfrac{s}{r}\)</span> を得るための回路を作成します。ここでは <span class="math notranslate nohighlight">\(s\)</span> は <span class="math notranslate nohighlight">\(0\)</span> と <span class="math notranslate nohighlight">\(r-1\)</span> 間のランダムな整数であり、 <span class="math notranslate nohighlight">\(r\)</span> は <span class="math notranslate nohighlight">\(f(x) = 13^x \bmod 35\)</span> の周期になります。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.circuit.library</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFT</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassicalRegister</span>
+<span class="c1"># 回路オブジェクトの作成</span>
+<span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">shor_circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">cqr</span><span class="p">,</span> <span class="n">tqr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+
+<span class="c1"># 量子ビットの初期化</span>
+<span class="n">shor_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">cqr</span><span class="p">)</span>
+
+<span class="c1"># 回路の追加</span>
+<span class="n">shor_circuit</span> <span class="o">=</span> <span class="n">shor_circuit</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">cux</span><span class="p">)</span>
+
+<span class="c1"># inverse QFT で出力を抽出</span>
+<span class="n">shor_circuit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QFT</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">cqr</span><span class="p">)</span>
+<span class="n">shor_circuit</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">cqr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+<span class="n">shor_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7e4ad858d143a146eaae256038045bba0991ef0bc0fd1da086e8f62b9a062302.png" src="_images/7e4ad858d143a146eaae256038045bba0991ef0bc0fd1da086e8f62b9a062302.png" />
+</div>
+</div>
+<p>この回路をトランスパイルして、回路がどのくらいの大きさで、何個のCNOTを使っているのか見てみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">transpile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_histogram</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">AerSimulator</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span>
+<span class="n">tqc</span> <span class="o">=</span> <span class="n">transpile</span><span class="p">(</span><span class="n">shor_circuit</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">basis_gates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;cx&#39;</span><span class="p">],</span> <span class="n">optimization_level</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;circuit depth: </span><span class="si">{</span><span class="n">tqc</span><span class="o">.</span><span class="n">depth</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Circuit contains </span><span class="si">{</span><span class="n">tqc</span><span class="o">.</span><span class="n">count_ops</span><span class="p">()[</span><span class="s1">&#39;cx&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> CNOTs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>circuit depth: 77
+Circuit contains 41 CNOTs
+</pre></div>
+</div>
+</div>
+</div>
+<p>結果をみてみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tqc</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3f6bf74754a15b6986d88bd293bce6dfd3496d33e5e34b28a29ec32c9f350796.png" src="_images/3f6bf74754a15b6986d88bd293bce6dfd3496d33e5e34b28a29ec32c9f350796.png" />
+</div>
+</div>
+<p>すべてが正しく動作した場合は、 <span class="math notranslate nohighlight">\(0\)</span>, <span class="math notranslate nohighlight">\(2\)</span>, <span class="math notranslate nohighlight">\(4\)</span>, <span class="math notranslate nohighlight">\(6\)</span> の数字を等確率で測定することができるはずです。 これは、位相推定によって、 <span class="math notranslate nohighlight">\(2^n \cdot \tfrac{s}{r}\)</span> が得られるからです。<br />
+ここで <span class="math notranslate nohighlight">\(n\)</span> はカウントレジスタの量子ビット数（ここでは、<span class="math notranslate nohighlight">\(n = 3\)</span>）、 <span class="math notranslate nohighlight">\(s\)</span> は<span class="math notranslate nohighlight">\(0\)</span> から<span class="math notranslate nohighlight">\(r-1\)</span>の間のランダムな整数、 <span class="math notranslate nohighlight">\(r\)</span>は計算しようとしている数です。これを、<span class="math notranslate nohighlight">\(s/r\)</span>を表す分数に変換してみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fractions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fraction</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">cqr</span><span class="o">.</span><span class="n">size</span>  <span class="c1"># nは`counting`レジスタの量子ビットの数</span>
+<span class="c1"># 各測定ストリングを循環させる</span>
+<span class="k">for</span> <span class="n">measurement</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="c1"># バイナリ文字列を`int`に変換して、2^nで割る</span>
+    <span class="n">decimal</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">measurement</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span>
+    <span class="c1"># 続分数のアルゴリズムを使用して、a/bの形式に変換します</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">Fraction</span><span class="p">(</span><span class="n">decimal</span><span class="p">)</span><span class="o">.</span><span class="n">limit_denominator</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1/4
+0
+3/4
+1/2
+</pre></div>
+</div>
+</div>
+</div>
+<p>いくつかの結果の分母を見れば、正解の周期は <span class="math notranslate nohighlight">\(r = 4\)</span> がわかることがわかります。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">13</span><span class="o">**</span><span class="mi">4</span> <span class="o">%</span> <span class="mi">35</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<p>では、ここからどうやって因数を求めたらよいでしょうか。<br />
+<span class="math notranslate nohighlight">\(N\)</span> と <span class="math notranslate nohighlight">\(a^{r/2}-1\)</span> または <span class="math notranslate nohighlight">\(a^{r/2}+1\)</span> の最大公約数が <span class="math notranslate nohighlight">\(N\)</span> の因数である可能性が高く、最大公約数も古典的に簡単に計算できることを利用します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">gcd</span> <span class="c1"># greatest common divisor</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Guessed factor: </span><span class="si">{</span><span class="n">gcd</span><span class="p">(</span><span class="mi">13</span><span class="o">**</span><span class="p">(</span><span class="mi">4</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">35</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Guessed factor: 7
+Guessed factor: 5
+</pre></div>
+</div>
+</div>
+</div>
+<p>これにより、1つの因数を見つければそれを使って <span class="math notranslate nohighlight">\(N\)</span> を割ることでもう1つの因数を見つけることができます。<br />
+しかし、この場合は、 <span class="math notranslate nohighlight">\(a^{r/2}-1\)</span> と <span class="math notranslate nohighlight">\(a^{r/2}+1\)</span> のどちらも <span class="math notranslate nohighlight">\(35\)</span> の因数を与えます。これが正しいかどうか確認してください。</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2024-spring-lab4-vqc-hw-ja.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">実際のバックエンドでVQCをテストする(2024年 Lab4)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">歴史的背景</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ショアのアルゴリズムの概要</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qiskit">Qiskitによるショアのアルゴリズム回路の作成</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-u">Exercise: <span class="math notranslate nohighlight">\(U\)</span>回路の作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-u-2">Exercise: <span class="math notranslate nohighlight">\(U^2\)</span>回路の作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-u-4">Exercise: <span class="math notranslate nohighlight">\(U^4\)</span>回路の作成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise: ショアのアルゴリズム回路の作成</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ショアのアルゴリズムで35を素因数分解する</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Quantum Tokyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

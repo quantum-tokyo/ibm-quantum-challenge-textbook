@@ -116,9 +116,6 @@
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
-<aside class="bd-header-announcement" aria-label="Announcement">
-  <div class="bd-header-announcement__content">📢 Quantum Challenge 2024 Lab0-3 を公開しました 📢</div>
-</aside>
 
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
@@ -202,11 +199,16 @@
 <li class="toctree-l1"><a class="reference internal" href="2020-w1-a-adder-ja.html">量子回路の基礎 (2020 w1-A)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2023-spring-lab2-teleportation-ja.html">量子テレポーテーション (2023 Lab2)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2020-w1-b-grover-ja.html">Groverのアルゴリズム (2020 w1-B)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab3-iqpe.html">量子位相推定 (2023 Lab3)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter3 量子コンピューターのエラー訂正・緩和</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2021-spring-lab3-error-ja.html">量子エラー訂正 (2021春 Lab3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2024-spring-lab4-vqc-hw-ja.html">実機上でのVQCのテスト (2024 Lab4)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter4 量子コンピューターの応用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab2-shor-ja.html">ショアのアルゴリズム</a></li>
 </ul>
 
     </div>
@@ -370,8 +372,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-new">What's NEW</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">目次</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab">Labを始める前に</a></li>
@@ -388,19 +389,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ibm-quantum-challenge">
 <h1>IBM Quantum Challengeで学ぶ量子コンピューティング<a class="headerlink" href="#ibm-quantum-challenge" title="Link to this heading">#</a></h1>
-<p>このページは Quantum Tokyoコミュニティが作成した、IBM Quantum Challenge を題材とした量子コンピューティングの学習教材です。</p>
+<p>このページは <a class="reference external" href="https://github.com/quantum-tokyo">Quantum Tokyo</a> コミュニティが作成した、IBM Quantum Challenge を題材とした量子コンピューティングの学習教材です。</p>
 <p>IBM Quantum Challenge は2019年から IBM 主催で開催されている量子コンピュータのイベントです。<br />
 オープンソース開発キットの Qiskit を使って、量子コンピューティングに関する問題に取り組みます。</p>
-<p>本教材では過去の Quantum Challenge の問題を扱いながら量子コンピューティングの基礎を学部ことが出来ます</p>
-<section id="what-s-new">
-<h2>What's NEW<a class="headerlink" href="#what-s-new" title="Link to this heading">#</a></h2>
-<p>2024/6/20 Quantum Challenge2024 (Lab4) を追加しました。<br />
-2024/6/18 Qiskit Runtime PrimitivesのLabをPrimitivesV2に対応させました。<br />
-2024/6/15 Quantum Challenge2024 (Lab0-3) を追加しました。</p>
+<p>本教材では過去の Quantum Challenge の問題を扱いながら量子コンピューティングの基礎を学ぶことが出来ます。</p>
 <p><img alt="" src="_images/group-working.png" /></p>
-</section>
-<section id="id1">
-<h2>目次<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter1 Qiskit 101</span></p>
 <ul>
@@ -419,6 +414,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="2020-w1-a-adder-ja.html">量子回路の基礎 (2020 w1-A)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2023-spring-lab2-teleportation-ja.html">量子テレポーテーション (2023 Lab2)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2020-w1-b-grover-ja.html">Groverのアルゴリズム (2020 w1-B)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab3-iqpe.html">量子位相推定 (2023 Lab3)</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -426,6 +422,12 @@ document.write(`
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="2021-spring-lab3-error-ja.html">量子エラー訂正 (2021春 Lab3)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2024-spring-lab4-vqc-hw-ja.html">実機上でのVQCのテスト (2024 Lab4)</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter4 量子コンピューターの応用</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab2-shor-ja.html">ショアのアルゴリズム</a></li>
 </ul>
 </div>
 </section>
@@ -501,8 +503,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-new">What's NEW</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">目次</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab">Labを始める前に</a></li>
