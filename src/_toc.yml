@@ -4,33 +4,26 @@ root: intro
 defaults: # The defaults key will be applied to all chapters and sub-sections
   titlesonly: True
 parts:
-- caption: "Chapter1 Qiskit 101"
+- caption: "Chapter0 イントロダクション"
   chapters:
   - file: 2024-spring-lab0-welcome-ja
     title: ようこそ、そしてハローワールド(2024春 Lab0)
-  - file: 2024-spring-lab1-qiskit10-ja
-    title: Qiskit 1.0入門(2024春 Lab1)
-  - file: 2022-autumn-lab1-runtime-ja
-    title: Qiskit Runtime Primitives入門(2022秋 Lab1)
-  - file: 2023-spring-lab1-dynamic-ja
-    title: Dynamic Circuits入門 (2023春 Lab1)
-  - file: 2024-spring-lab2-transpilation-ja
-    title: Transpiler入門(2024 Lab2)
-  - file: 2024-spring-lab3-ai-transpiler-ja
-    title: Transpiler powere by AI(2024 Lab3)
-  - file: 2024-spring-lab3-circuit-knitting-ja
-    title: Circuit Knittingの紹介(2024 Lab3)
 
-- caption: "Chapter2 量子回路の構築"
+- caption: "Chapter1 量子回路の構築"
   chapters:
   - file: 2020-w1-a-adder-ja
     title: 量子回路の基礎 (2020 w1-A)
   - file: 2023-spring-lab2-teleportation-ja
     title: 量子テレポーテーション (2023 Lab2)
   - file: 2020-w1-b-grover-ja
-    title: Groverのアルゴリズム (2020 w1-B)
+    title: 振幅増幅（Groverのアルゴリズム） (2020 w1-B)
   - file: 2023-spring-lab3-iqpe
     title: 量子位相推定 (2023 Lab3)
+
+- caption: "Chapter2 量子コンピューターの応用"
+  chapters:
+  - file: 2021-spring-lab2-shor-ja
+    title: ショアのアルゴリズム
 
 - caption: "Chapter3 量子コンピューターのエラー訂正・緩和"
   chapters:
@@ -39,9 +32,17 @@ parts:
   - file: 2024-spring-lab4-vqc-hw-ja
     title: 実機上でのVQCのテスト (2024 Lab4)
 
-- caption: "Chapter4 量子コンピューターの応用"
+- caption: "ChapterX Qiskitを学ぶ"
   chapters:
-  - file: 2021-spring-lab2-shor-ja
-    title: ショアのアルゴリズム
-
-
+  - file: 2024-spring-lab1-qiskit10-ja
+    title: Qiskit 1.0入門(2024春 Lab1)
+  - file: 2022-autumn-lab1-runtime-ja
+    title: Qiskit Runtime Primitives(2022秋 Lab1)
+  - file: 2023-spring-lab1-dynamic-ja
+    title: Dynamic Circuits (2023春 Lab1)
+  - file: 2024-spring-lab2-transpilation-ja
+    title: Transpiler (2024 Lab2)
+  - file: 2024-spring-lab3-ai-transpiler-ja
+    title: AIを活用したTranspiler (2024 Lab3)
+  - file: 2024-spring-lab3-circuit-knitting-ja
+    title: Circuit Knitting (2024 Lab3)
