@@ -7,44 +7,44 @@ parts:
 - caption: "Chapter0 イントロダクション"
   chapters:
   - file: 2024-spring-lab0-welcome-ja
-    title: ようこそ、そしてハローワールド(2024春 Lab0)
+    title: ようこそ、そしてハローワールド(2024)
 
 - caption: "Chapter1 量子回路の構築"
   chapters:
   - file: 2020-w1-a-adder-ja
-    title: 量子回路の基礎 - 加算器 (2020 w1-A)
+    title: 量子回路の基礎 - 加算器 (2020)
   - file: 2021-spring-lab1-toffoli
-    title: 量子回路の基礎 - 加算器 (2021春 Lab1)
+    title: 量子回路の基礎 - 加算器 (2021)
   - file: 2023-spring-lab2-teleportation-ja
-    title: 量子テレポーテーション (2023 Lab2)
+    title: 量子テレポーテーション (2023)
   - file: 2020-w1-b-grover-ja
-    title: 振幅増幅（Groverのアルゴリズム） (2020 w1-B)
+    title: 振幅増幅 (Groverのアルゴリズム) (2020)
   - file: 2023-spring-lab3-iqpe
-    title: 量子位相推定 (2023 Lab3)
+    title: 量子位相推定 (2023)
 
 - caption: "Chapter2 量子コンピューターの応用"
   chapters:
   - file: 2021-spring-lab2-shor-ja
-    title: ショアのアルゴリズム
+    title: ショアのアルゴリズム (2021)
 
 - caption: "Chapter3 量子コンピューターのエラー訂正・緩和"
   chapters:
   - file: 2021-spring-lab3-error-ja
-    title: 量子エラー訂正 (2021春 Lab3)
+    title: 量子エラー訂正 (2021)
   - file: 2024-spring-lab4-vqc-hw-ja
-    title: 実機上でのVQCのテスト (2024 Lab4)
+    title: 実機上でのVQCのテスト (2024)
 
 - caption: "ChapterX Qiskitを学ぶ"
   chapters:
   - file: 2024-spring-lab1-qiskit10-ja
-    title: Qiskit 1.0入門(2024春 Lab1)
+    title: Qiskit 1.0入門(2024)
   - file: 2022-autumn-lab1-runtime-ja
-    title: Qiskit Runtime Primitives(2022秋 Lab1)
+    title: Qiskit Runtime Primitives(2022)
   - file: 2023-spring-lab1-dynamic-ja
-    title: Dynamic Circuits (2023春 Lab1)
+    title: Dynamic Circuits (2023)
   - file: 2024-spring-lab2-transpilation-ja
-    title: Transpiler (2024 Lab2)
+    title: Transpiler (2024)
   - file: 2024-spring-lab3-ai-transpiler-ja
-    title: AIを活用したTranspiler (2024 Lab3)
+    title: AIを活用したTranspiler (2024)
   - file: 2024-spring-lab3-circuit-knitting-ja
-    title: Circuit Knitting (2024 Lab3)
+    title: Circuit Knitting (2024)
