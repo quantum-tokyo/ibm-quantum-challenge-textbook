@@ -12,7 +12,9 @@ parts:
 - caption: "Chapter1 量子回路の構築"
   chapters:
   - file: 2020-w1-a-adder-ja
-    title: 量子回路の基礎 (2020 w1-A)
+    title: 量子回路の基礎 - 加算器 (2020 w1-A)
+  - file: 2021-spring-lab1-toffoli
+    title: 量子回路の基礎 - 加算器 (2021春 Lab1)
   - file: 2023-spring-lab2-teleportation-ja
     title: 量子テレポーテーション (2023 Lab2)
   - file: 2020-w1-b-grover-ja
