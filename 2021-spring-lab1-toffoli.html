@@ -1,0 +1,1194 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>量子回路の基礎 - トフォリゲート &#8212; IBM Quantum Challengeで学ぶ量子コンピューティング</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"005ed033e79e4c91906ce462f1d08f39": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[1];\\n\\nrz(pi/2) q[0];\\nsx q[0];\\nrz(pi/2) q[0];\"", "editable": true, "layout": "IPY_MODEL_b645d55afc6649dd807e38ab30da764b", "qiskit_code_cell_index": -1}}, "00687b8b531246e18e62ef79ad5c6970": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "058c0ab1f10246ce985c0d6923f85ea6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"grid_template_areas": "\n                                       \". . . . right \"\n                                        ", "grid_template_columns": "20% 20% 20% 20% 20%", "width": "100%"}}, "058e7134ba8d42448de67dec87d4f5f5": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\ncx q[0],q[1];\\ncx q[1],q[0];\\ncx q[0],q[1];\\nrz(pi) q[2];\"", "editable": true, "layout": "IPY_MODEL_e61dea173c9a4870a47e6a93f3be63b9", "qiskit_code_cell_index": 58}}, "06e4de917d1b4c46bc108eacc4daee76": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_11ede97ae89842c6b1732fd28f999ed8", "qiskit_code_cell_index": -1}}, "070fe16ae3524f3e9e9fbaaf9e43e662": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\nswap q[0],q[1];\\nrz(pi/2) q[2];\"", "editable": true, "layout": "IPY_MODEL_74519cce23de44ca8ee162293804ce2c", "qiskit_code_cell_index": 54}}, "07fd227e7fcf4dd1860ffb8ebd34b4d2": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "091123743b774ed39186e57d7a6db20a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "098146a76288479d8f34020f737f6605": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "0ab79d11ac1f44dfbbf2bafdac27f926": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_4700a02cfb7b4ac39225242433cd7711", "IPY_MODEL_25192d15e13a4389a20ff624c2705f55", "IPY_MODEL_16ae250874e04ab4b4bd906333443214", "IPY_MODEL_b445f0e465864ce282896f13ec86a2b1", "IPY_MODEL_1c050fce70034ed7bab1bc571055a895"], "layout": "IPY_MODEL_8b3a8e1e875840d1b5f26a70860cfb00"}}, "0c2790117be5423b9b19274d3a3c386a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "115e321a54064c15af84960de9afcd39": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_18b47e3100be465abf040e6e432af411", "style": "IPY_MODEL_f656da7b0e564e1eb512c2058b0bdc65", "value": "<h5>Queue</h5>"}}, "11ede97ae89842c6b1732fd28f999ed8": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "126994084b7f4f81bdff9facbcd3bddb": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q2[3];\\ncreg c2[3];\\n\\ncx q2[1],q2[2];\\ncx q2[0],q2[2];\\nccx q2[0],q2[1],q2[2];\\nmeasure q2[2] -> c2[0];\\nx q2[2];\\nmeasure q2[2] -> c2[0];\"", "editable": true, "layout": "IPY_MODEL_4c5850b093234f35bf5afe995313fe91", "qiskit_code_cell_index": -1}}, "131291ce9e3f45fc82895be047bf656e": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_ece0b69da4ef42e89e2399b90ef89a51", "qiskit_code_cell_index": -1}}, "148d5853e7934d2eaa27c5607540d375": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q0[3];\\ncreg c0[3];\\n\\ncx q0[1],q0[2];\\ncx q0[0],q0[2];\\nccx q0[0],q0[1],q0[2];\"", "editable": true, "layout": "IPY_MODEL_baf8a86c6f7c4fd98bf0e0f0ea0aa3cb", "qiskit_code_cell_index": -1}}, "16ae250874e04ab4b4bd906333443214": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_ee01cfa5318f49bbb51da895d9cbfe98", "style": "IPY_MODEL_8c8ebb9ab7814f49b7f124610764c2a1", "value": "<h5>Status</h5>"}}, "173a109f9c714f3f9bbbf01294cc4a4b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "18a91f3d40c4476b8b1891c2bfd3e25d": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\nswap q[0],q[1];\\nz q[2];\"", "editable": true, "layout": "IPY_MODEL_3c34729028824a69ab2e3998c1c73b89", "qiskit_code_cell_index": 54}}, "18b47e3100be465abf040e6e432af411": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "70px"}}, "190ab006afe144f38c0f9abe87812c1c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "19a85304b4f2488fa6d1714369f1e0a9": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_be119dbd25db4e1bae2fc6935a3478a3", "qiskit_code_cell_index": -1}}, "1bb0bd14b17c43fdb984eb3c70c2cef6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "1bdc1f0e036e4e28b74d6d141034bfe8": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_3008efe61d4e4458a8deb713662f4e8e", "qiskit_code_cell_index": -1}}, "1c050fce70034ed7bab1bc571055a895": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_8b98c82060564483b39a625bdccd5376", "style": "IPY_MODEL_7da40d40aaf44de5bee9dde02e9d3ae5", "value": "<h5>Message</h5>"}}, "1cba501f75bd4a2da9f0fbe8ce460347": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q4[3];\\ncreg c3[3];\\n\\ncx q4[1],q4[2];\\ncx q4[0],q4[2];\\nccx q4[0],q4[1],q4[2];\"", "editable": true, "layout": "IPY_MODEL_3e431b46e6564178a35fee7efc7bd715", "qiskit_code_cell_index": 47}}, "1d98343600cd4098b9b788327fe207ff": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_e7cc84e132ee485d935102b3c198d255", "style": "IPY_MODEL_71b76fdeebd543f2a86f657a6e7a31c9", "value": "<h5>Status</h5>"}}, "25192d15e13a4389a20ff624c2705f55": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_7fb7467660ba4818b224a760bf18d2d4", "style": "IPY_MODEL_00687b8b531246e18e62ef79ad5c6970", "value": "<h5>Backend</h5>"}}, "26ca92d21d6149828724dd6d4b588389": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"button_style": "primary", "description": "Clear", "layout": "IPY_MODEL_50b875d9ab2d4acaa815061f478fbf47", "style": "IPY_MODEL_b08b187f73454353a24f8751a6892126"}}, "275e96c24bb045cdaeb001306313a482": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"margin": "0px 0px 10px 0px"}}, "2af0523c340145e1bfd0029d8ad6a853": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\nx q[0];\\nrz(pi/2) q[0];\\ncx q[2],q[1];\"", "editable": true, "layout": "IPY_MODEL_5ea9466bb7114fb085a065ae44e374e6", "qiskit_code_cell_index": 43}}, "2afb6579aec34ebe93556f1b7df10c0b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_ec3d6cec43f64d109cce41e91a207abf", "style": "IPY_MODEL_90cd23bb0ffe4124af34bee073d37774", "value": "<p style='font-family: IBM Plex Sans, Arial, Helvetica, sans-serif; font-size: 20px; font-weight: medium;'>Circuit Properties</p>"}}, "3008efe61d4e4458a8deb713662f4e8e": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "30ba74b5cbbe4c95b5c8afb17631bc86": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "190px"}}, "338a750d86c34cd6842713614c3f386c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"margin": "0px 0px 0px 37px", "width": "600px"}}, "33e5c437cd6949e4b1fc9b6de04f30af": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "3420bbc7352f48d4a23dadc9ba0df71a": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_e99a25578a3a413ab0b267672b43f72b", "qiskit_code_cell_index": -1}}, "37b7d129f94342e1abcce40399056637": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "381788a926d744ae8cb7edf5993b71d5": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\nswap q[0],q[1];\\nz q[2];\"", "editable": true, "layout": "IPY_MODEL_dd55d56845324b43a32881e7e6333e38", "qiskit_code_cell_index": -1}}, "398571c7156041b5bdbebc3b04974e2f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "GridBoxModel", "state": {"children": ["IPY_MODEL_fd9e1e3b36b04bf191eb9f11ed9fba6e"], "layout": "IPY_MODEL_058c0ab1f10246ce985c0d6923f85ea6"}}, "3b9ee684c0b444be9b23282f91770fcf": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\ncx q[1],q[0];\\ncx q[0],q[1];\\ncx q[1],q[0];\\ncx q[2],q[1];\\nrz(pi) q[2];\"", "editable": true, "layout": "IPY_MODEL_4261461ae4cc4835a4c7277f6ca7de3f", "qiskit_code_cell_index": 44}}, "3c34729028824a69ab2e3998c1c73b89": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "3e174dd3d8544ac88043f17a5ecc8500": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_6f05f9fe4c734814ae7c24818dd8c8e4", "style": "IPY_MODEL_d00d6210a81d40af8b725a661b8be93b", "value": "<h5>Job ID</h5>"}}, "3e431b46e6564178a35fee7efc7bd715": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "40efb9a1549147f1ad1f826f3d7905f6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "145px"}}, "414a1068e8f64ea38065b2c17a5219bb": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"grid_template_areas": "\n                                       \". . . . right \"\n                                        ", "grid_template_columns": "20% 20% 20% 20% 20%", "width": "100%"}}, "4261461ae4cc4835a4c7277f6ca7de3f": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "42dbbbccda4d499694c43f824f861d75": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_ed9909234c0b4720b1ef938213c784b5", "qiskit_code_cell_index": -1}}, "42f3b30f55f64d82b1c6439cd4367cb8": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "4400777ab0fe475b8bf004b489e25a8a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"margin": "0px 0px 0px 37px", "width": "600px"}}, "44a79fd77b9e477684de365174366130": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "467754524cdf4049b19bd6ea03eca647": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "4700a02cfb7b4ac39225242433cd7711": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_30ba74b5cbbe4c95b5c8afb17631bc86", "style": "IPY_MODEL_07fd227e7fcf4dd1860ffb8ebd34b4d2", "value": "<h5>Job ID</h5>"}}, "4c5850b093234f35bf5afe995313fe91": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "50091921f7684addb5afd14d51d0de14": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "50b875d9ab2d4acaa815061f478fbf47": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"grid_area": "right", "padding": "0px 0px 0px 0px", "width": "70px"}}, "512ecf2552b446b09dd0d4623e53676f": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "539edb2fa7d64f7d8fc82c8a6c9ca8f8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "548e972a51da40e59bfaef01d57be088": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\nswap q[0],q[1];\\nz q[2];\"", "editable": true, "layout": "IPY_MODEL_faab740a976848f08ac890a0120e954c", "qiskit_code_cell_index": -1}}, "58df896f45dd4fc480852242017408a4": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"button_style": "primary", "description": "Clear", "layout": "IPY_MODEL_708f57cb5f17430db0df148fcad6d731", "style": "IPY_MODEL_b09656910fce43c2aa88f441e8ae49b1"}}, "5e0164820c4e4fe19740e00a387699ca": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q2[3];\\ncreg c1[3];\\n\\ncx q2[1],q2[2];\\ncx q2[0],q2[2];\\nccx q2[0],q2[1],q2[2];\\nx q2[2];\\nmeasure q2[2] -> c1[0];\"", "editable": true, "layout": "IPY_MODEL_190ab006afe144f38c0f9abe87812c1c", "qiskit_code_cell_index": 47}}, "5ea9466bb7114fb085a065ae44e374e6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "5fa5e5ac4e9f420dbd2c859eeed13c74": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q3[3];\\ncreg c3[3];\\n\\ncx q3[1],q3[2];\\ncx q3[0],q3[2];\\nccx q3[0],q3[1],q3[2];\\nx q3[2];\\nmeasure q3[2] -> c3[0];\"", "editable": true, "layout": "IPY_MODEL_0c2790117be5423b9b19274d3a3c386a", "qiskit_code_cell_index": 34}}, "602fd472a90e4e0881c932ac3137a452": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "95px"}}, "63250eaac69b49b3bb8906e8b51782f8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_711101cbd9724bfc9741364f1ee35bf6", "IPY_MODEL_9195aa3bf23a4f1db12c184ef545292c", "IPY_MODEL_1d98343600cd4098b9b788327fe207ff", "IPY_MODEL_692243ec871840548696b28ef1a71b0f", "IPY_MODEL_d49fb7f7f12c494aba1cead52c0259ff"], "layout": "IPY_MODEL_338a750d86c34cd6842713614c3f386c"}}, "63b9f8f7a3e04a5cb8bf7488f1d8cc75": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_512ecf2552b446b09dd0d4623e53676f", "qiskit_code_cell_index": -1}}, "692243ec871840548696b28ef1a71b0f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_6e4aa442580040c4a11667fa19022af5", "style": "IPY_MODEL_467754524cdf4049b19bd6ea03eca647", "value": "<h5>Queue</h5>"}}, "6b4e274670fe40068558a248feeffa6a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "6ba14da99fbb492d8c19ed1663b0c316": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "6deb558b337f49df897c73c33b6260bf": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q3[3];\\ncreg c3[3];\\n\\ncx q3[1],q3[2];\\ncx q3[0],q3[2];\\nccx q3[0],q3[1],q3[2];\\nmeasure q3[2] -> c3[0];\"", "editable": true, "layout": "IPY_MODEL_6b4e274670fe40068558a248feeffa6a", "qiskit_code_cell_index": -1}}, "6e4aa442580040c4a11667fa19022af5": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "70px"}}, "6f05f9fe4c734814ae7c24818dd8c8e4": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "190px"}}, "6fffde7c383f4bbeb8ebb3faea17920e": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "145px"}}, "708f57cb5f17430db0df148fcad6d731": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"grid_area": "right", "padding": "0px 0px 0px 0px", "width": "70px"}}, "711101cbd9724bfc9741364f1ee35bf6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_77119a792e294ddbbee08fcc30379c05", "style": "IPY_MODEL_6ba14da99fbb492d8c19ed1663b0c316", "value": "<h5>Job ID</h5>"}}, "71b76fdeebd543f2a86f657a6e7a31c9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "74519cce23de44ca8ee162293804ce2c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "77119a792e294ddbbee08fcc30379c05": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "190px"}}, "7da40d40aaf44de5bee9dde02e9d3ae5": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "7fb7467660ba4818b224a760bf18d2d4": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "145px"}}, "80ad5a6c1fc94be9b43465cfd51d345a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "87e5b80d6e534ef79b8c1311e137fd98": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "8b3a8e1e875840d1b5f26a70860cfb00": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"margin": "0px 0px 0px 37px", "width": "600px"}}, "8b98c82060564483b39a625bdccd5376": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "8c70f0a9bbdf4282abc5ebed499d2b3d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "8c8ebb9ab7814f49b7f124610764c2a1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "8fd2ff76c6d6443f893204196915d077": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q1[3];\\ncreg c1[3];\\n\\ncx q1[1],q1[2];\\ncx q1[0],q1[2];\\nccx q1[0],q1[1],q1[2];\\nmeasure q1[2] -> c1[0];\\nx q1[2];\\nmeasure q1[2] -> c1[0];\"", "editable": true, "layout": "IPY_MODEL_098146a76288479d8f34020f737f6605", "qiskit_code_cell_index": -1}}, "90cd23bb0ffe4124af34bee073d37774": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "9195aa3bf23a4f1db12c184ef545292c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_6fffde7c383f4bbeb8ebb3faea17920e", "style": "IPY_MODEL_80ad5a6c1fc94be9b43465cfd51d345a", "value": "<h5>Backend</h5>"}}, "93bcccc0815f47f880a809b94c71b54b": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\nswap q[0],q[1];\\ncx q[1],q[2];\\nz q[2];\"", "editable": true, "layout": "IPY_MODEL_a59c703276e04f1caaf8770a25e129c9", "qiskit_code_cell_index": 41}}, "986764d62f5b4e28b358ca5b8203b672": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q3[1];\\ncreg c2[1];\\n\\nrz(pi/2) q3[0];\\nsx q3[0];\\nrz(pi/2) q3[0];\"", "editable": true, "layout": "IPY_MODEL_8c70f0a9bbdf4282abc5ebed499d2b3d", "qiskit_code_cell_index": -1}}, "9c807f2134484e25b0b289d4aafb00c0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "GridBoxModel", "state": {"children": ["IPY_MODEL_26ca92d21d6149828724dd6d4b588389"], "layout": "IPY_MODEL_d769842e39214aae9fed90fe36b450b7"}}, "a05c2cdb2ee446548fa484374b05f26d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_3e174dd3d8544ac88043f17a5ecc8500", "IPY_MODEL_c562f2f16b5c438fa3272c4a145e7d01", "IPY_MODEL_a3c65616f3d94913b0115577bf2f6ac4", "IPY_MODEL_115e321a54064c15af84960de9afcd39", "IPY_MODEL_d85f26eaecff4d26964747f7489a1573"], "layout": "IPY_MODEL_4400777ab0fe475b8bf004b489e25a8a"}}, "a3c65616f3d94913b0115577bf2f6ac4": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_602fd472a90e4e0881c932ac3137a452", "style": "IPY_MODEL_fc6e67828b47492caa52c2d91c372fe7", "value": "<h5>Status</h5>"}}, "a59c44990a98430687a0f4ea958a0fd6": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_ede3b422e153430b9b0b630a174ce576", "qiskit_code_cell_index": -1}}, "a59c703276e04f1caaf8770a25e129c9": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "a6bb9f421d4a4d178256237cd4c276bd": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q2[3];\\ncreg c1[3];\\n\\ncx q2[1],q2[2];\\ncx q2[0],q2[2];\\nccx q2[0],q2[1],q2[2];\\nmeasure q2[2] -> c1[0];\"", "editable": true, "layout": "IPY_MODEL_37b7d129f94342e1abcce40399056637", "qiskit_code_cell_index": -1}}, "a81e101e4e1d4190bd0ed8ca09dd418c": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_33e5c437cd6949e4b1fc9b6de04f30af", "qiskit_code_cell_index": 44}}, "a84b961d485f4979be26e7f5f4734196": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_275e96c24bb045cdaeb001306313a482", "style": "IPY_MODEL_f656665ee2a843408b8bff659ada0675", "value": "<p style='font-family: IBM Plex Sans, Arial, Helvetica, sans-serif; font-size: 20px; font-weight: medium;'>Circuit Properties</p>"}}, "b08b187f73454353a24f8751a6892126": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "b09656910fce43c2aa88f441e8ae49b1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "b1db84f3cc4a4066a8df14637419630c": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\nswap q[0],q[1];\\nz q[2];\"", "editable": true, "layout": "IPY_MODEL_50091921f7684addb5afd14d51d0de14", "qiskit_code_cell_index": -1}}, "b445f0e465864ce282896f13ec86a2b1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_c2775f83dbed4958a11efd55ffe7046a", "style": "IPY_MODEL_539edb2fa7d64f7d8fc82c8a6c9ca8f8", "value": "<h5>Queue</h5>"}}, "b5220d3a2d054a719cbff07cd8281971": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[1];\\ncreg c[1];\\n\\nrz(pi/2) q[0];\\nsx q[0];\\nrz(pi/2) q[0];\"", "editable": true, "layout": "IPY_MODEL_44a79fd77b9e477684de365174366130", "qiskit_code_cell_index": -1}}, "b645d55afc6649dd807e38ab30da764b": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "b92aa6be60ee4e899137ad65127f76fd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "ba9ec7881d914d3aa50939e451533e0c": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q2[3];\\ncreg c1[3];\\n\\ncx q2[1],q2[2];\\ncx q2[0],q2[2];\\nccx q2[0],q2[1],q2[2];\"", "editable": true, "layout": "IPY_MODEL_091123743b774ed39186e57d7a6db20a", "qiskit_code_cell_index": -1}}, "baf8a86c6f7c4fd98bf0e0f0ea0aa3cb": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "bb1a35f52d3c480f8a893f487356cefd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "be119dbd25db4e1bae2fc6935a3478a3": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "be299f6812f34f87a5d2e5aa345c86d4": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "bef9ce11be074a00a12303925868a1fa": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "c0379b36527e43a193afc697783d883c": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q0[3];\\ncreg c0[3];\\n\\ncx q0[1],q0[2];\\ncx q0[0],q0[2];\\nccx q0[0],q0[1],q0[2];\\nx q0[2];\\nmeasure q0[2] -> c0[0];\"", "editable": true, "layout": "IPY_MODEL_87e5b80d6e534ef79b8c1311e137fd98", "qiskit_code_cell_index": -1}}, "c2775f83dbed4958a11efd55ffe7046a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "70px"}}, "c562f2f16b5c438fa3272c4a145e7d01": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_40efb9a1549147f1ad1f826f3d7905f6", "style": "IPY_MODEL_b92aa6be60ee4e899137ad65127f76fd", "value": "<h5>Backend</h5>"}}, "c6d3436b35f34d3e9949f934ac549e3f": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"grid_area": "right", "padding": "0px 0px 0px 0px", "width": "70px"}}, "c707cc74eaa540be9be0d25c7d82210e": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q1[3];\\ncreg c1[3];\\n\\ncx q1[1],q1[2];\\ncx q1[0],q1[2];\\nccx q1[0],q1[1],q1[2];\\nx q1[2];\\nmeasure q1[2] -> c1[2];\"", "editable": true, "layout": "IPY_MODEL_42f3b30f55f64d82b1c6439cd4367cb8", "qiskit_code_cell_index": -1}}, "cb2e28b8ce1a470fb9844e83bb73ac68": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "d00d6210a81d40af8b725a661b8be93b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "d49fb7f7f12c494aba1cead52c0259ff": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_1bb0bd14b17c43fdb984eb3c70c2cef6", "style": "IPY_MODEL_173a109f9c714f3f9bbbf01294cc4a4b", "value": "<h5>Message</h5>"}}, "d769842e39214aae9fed90fe36b450b7": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"grid_template_areas": "\n                                       \". . . . right \"\n                                        ", "grid_template_columns": "20% 20% 20% 20% 20%", "width": "100%"}}, "d85f26eaecff4d26964747f7489a1573": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_bef9ce11be074a00a12303925868a1fa", "style": "IPY_MODEL_e23c8382adf6402bbe6ed5b67d9d6d6e", "value": "<h5>Message</h5>"}}, "d9f4ed545e1e4d67a63d38461a778ecf": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "dbb0f858e4f447f38357cbb52d1d1fd3": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\n\"", "editable": true, "layout": "IPY_MODEL_cb2e28b8ce1a470fb9844e83bb73ac68", "qiskit_code_cell_index": -1}}, "dd55d56845324b43a32881e7e6333e38": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "e23c8382adf6402bbe6ed5b67d9d6d6e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "e61dea173c9a4870a47e6a93f3be63b9": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "e7c83160618343cdaa1e31c63f8b6d31": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q[3];\\ncreg c[3];\\n\\ncx q[1],q[0];\\ncx q[0],q[1];\\ncx q[1],q[0];\\nrz(pi) q[2];\"", "editable": true, "layout": "IPY_MODEL_f4e84c75810e4d50ab8af126a25c72b6", "qiskit_code_cell_index": -1}}, "e7cc84e132ee485d935102b3c198d255": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "95px"}}, "e99a25578a3a413ab0b267672b43f72b": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "ebe184443e454b59be0306a688d93a1c": {"model_module": "@quantum/ibm-q-lab-widgets", "model_module_version": "^1.0.3", "model_name": "CircuitComposerModel", "state": {"_model_module_version": "^1.0.3", "_view_module_version": "^1.0.3", "circuit": "\"OPENQASM 2.0;\\ninclude \\\"qelib1.inc\\\";\\n\\nqreg q19[3];\\ncreg c0[3];\\n\\ncx q19[1],q19[2];\\ncx q19[0],q19[2];\\nccx q19[0],q19[1],q19[2];\"", "editable": true, "layout": "IPY_MODEL_d9f4ed545e1e4d67a63d38461a778ecf", "qiskit_code_cell_index": -1}}, "ec3d6cec43f64d109cce41e91a207abf": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"margin": "0px 0px 10px 0px"}}, "ece0b69da4ef42e89e2399b90ef89a51": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "ed9909234c0b4720b1ef938213c784b5": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "ede3b422e153430b9b0b630a174ce576": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "ee01cfa5318f49bbb51da895d9cbfe98": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "95px"}}, "f4e84c75810e4d50ab8af126a25c72b6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "f64858edb52d4e3a9934dcb4eaa0a453": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"margin": "0px 0px 10px 0px"}}, "f656665ee2a843408b8bff659ada0675": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "f656da7b0e564e1eb512c2058b0bdc65": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "f81b69eec4564499b601fd0884079b3d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "GridBoxModel", "state": {"children": ["IPY_MODEL_58df896f45dd4fc480852242017408a4"], "layout": "IPY_MODEL_414a1068e8f64ea38065b2c17a5219bb"}}, "faab740a976848f08ac890a0120e954c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "fb4bb909935b4f20b1a5d18b2851389e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_f64858edb52d4e3a9934dcb4eaa0a453", "style": "IPY_MODEL_be299f6812f34f87a5d2e5aa345c86d4", "value": "<p style='font-family: IBM Plex Sans, Arial, Helvetica, sans-serif; font-size: 20px; font-weight: medium;'>Circuit Properties</p>"}}, "fc6e67828b47492caa52c2d91c372fe7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "fd9e1e3b36b04bf191eb9f11ed9fba6e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"button_style": "primary", "description": "Clear", "layout": "IPY_MODEL_c6d3436b35f34d3e9949f934ac549e3f", "style": "IPY_MODEL_bb1a35f52d3c480f8a893f487356cefd"}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2021-spring-lab1-toffoli';</script>
+    <link rel="icon" href="_static/quantum-tokyo-icon.ico"/>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="量子テレポーテーション（2023年 Lab2）" href="2023-spring-lab2-teleportation-ja.html" />
+    <link rel="prev" title="量子回路の基礎 - 加算器" href="2020-w1-a-adder-ja.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-light" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>
+    <script>document.write(`<img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-dark" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    IBM Quantum Challengeで学ぶ量子コンピューティング
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter0 イントロダクション</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab0-welcome-ja.html">ようこそ、そしてハローワールド(2024)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter1 量子回路の構築</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-a-adder-ja.html">量子回路の基礎 - 加算器 (2020)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">量子回路の基礎 - 加算器 (2021)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab2-teleportation-ja.html">量子テレポーテーション (2023)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-b-grover-ja.html">振幅増幅 (Groverのアルゴリズム) (2020)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab3-iqpe.html">量子位相推定 (2023)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter2 量子コンピューターの応用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab2-shor-ja.html">ショアのアルゴリズム (2021)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter3 量子コンピューターのエラー訂正・緩和</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab3-error-ja.html">量子エラー訂正 (2021)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab4-vqc-hw-ja.html">実機上でのVQCのテスト (2024)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">ChapterX Qiskitを学ぶ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab1-qiskit10-ja.html">Qiskit 1.0入門(2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2022-autumn-lab1-runtime-ja.html">Qiskit Runtime Primitives(2022)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab1-dynamic-ja.html">Dynamic Circuits (2023)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab2-transpilation-ja.html">Transpiler (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-ai-transpiler-ja.html">AIを活用したTranspiler (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-circuit-knitting-ja.html">Circuit Knitting (2024)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/quantum-tokyo/ibm-quantum-challenge-textbook/blob/main/src/2021-spring-lab1-toffoli.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/quantum-tokyo/ibm-quantum-challenge-textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="ソースリポジトリ"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2021-spring-lab1-toffoli.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>量子回路の基礎 - トフォリゲート</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">歴史的背景</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">古典論理ゲート</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">量子回路</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#x">Xゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sx">SXゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rz">RZゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h">Hゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cx-cnot">CXゲート(CNOTゲート)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccx">CCXゲート (トフォリゲート)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">量子ゲートで古典論理ゲートを作る</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not">NOTゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#and">ANDゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or">ORゲート</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">量子ゲートの組み合わせとコスト</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">例:アダマールゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">制御回転ゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#excercise">Excercise: トフォリゲート</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>量子回路の基礎 - トフォリゲート<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>歴史的背景<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>40年前、50人の思想家からなるグループがMITのエンディコット・ハウスの芝生で写真を撮るために並びました。1981年に開催された、MITとIBMが共同で開催した計算物理に関する会議(Physics of Computation Conference)において、歴史を作っていると思った人はその時、ほとんどいませんでした。そこは、コンピューティングの物理、特に今、急成長中の分野で、教科書や大学のコースにふさわしい重要な科目である、量子コンピューティングが間違いなく誕生した場所であったのです。</p>
+<p>この会議で、ファインマンがあの有名な言葉を述べました：「自然は古典的ではない。自然のシミュレーションをしたいなら、量子力学的にしなければならない。なんと、それは素晴らしい問題だ。なぜなら、そう簡単な問題には見えないからだ。」[1] 今月初めに、我々は、この重要な会議の40周年を祝いました。<a class="reference external" href="https://youtu.be/GR6ANm6Z0yk">こちら</a>でその詳細を読むことができます。</p>
+<p><img alt="" src="_images/2021-spring-lab1_conference-photo.jpeg" /></p>
+<p>この会議で議論されたテーマのうちの一つに、可逆計算がありました。それは、MITのトマソ・トフォリとエドワード・フレドキンがその過去数年にわたりすでに考えていたことでした。[2-3] トフォリは、AND/NANDゲートの可逆バージョンを思いつきました(これは現在トフォリゲートまたは制御制御NOTゲートと呼ばれています)。NANDゲートは古典コンピューターでは普遍的であるので、トフォリゲートは、普遍的で可逆な論理ゲートになります。</p>
+<p>量子コンピューティングは、可逆コンピューティングの特別な形です：量子コンピューター上ではどんな可逆なゲートも実装でき、よってトフォリゲートも量子論理ゲートとなります。<br />
+しかし、トフォリゲートのみでは、量子コンューティングにおける普遍的なゲートとはなりません。</p>
+<p>この演習では、トフォリゲート、また、量子コンピューターにおける普遍的なゲートセットについて探究します。</p>
+<blockquote>
+<div><p>参考文献</p>
+<ol class="arabic simple">
+<li><p>Feynman, Richard P. &quot;Simulating physics with computers.&quot; Int. J. Theor. Phys 21.6/7 (1982).</p></li>
+<li><p>Toffoli, Tommaso. &quot;Reversible computing.&quot; International colloquium on automata, languages, and programming. Springer, Berlin, Heidelberg, 1980.</p></li>
+<li><p>Fredkin, Edward, and Tommaso Toffoli. &quot;Conservative logic.&quot; International Journal of theoretical physics 21.3 (1982): 219-253.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="id3">
+<h2>古典論理ゲート<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>古典計算でよく使用されるモデルの1つは、ブール論理ゲートまたは古典論理ゲートです。このゲートはブール関数、つまりバイナリー（0,1）の入力と出力のみを持つ関数を表します。<br />
+ブール論理の興味深い側面の1つは、とり得る全てのバイナリ―関数を少数の異なる論理ゲートの組み合わせで表現できることです。<br />
+これは機能的に完全なセットと呼ばれます。有名なセットの1つは <code class="docutils literal notranslate"><span class="pre">AND</span></code> と <code class="docutils literal notranslate"><span class="pre">NOT</span></code> です。この2つのゲートは、すべての機能を表現するのに十分です。 <code class="docutils literal notranslate"><span class="pre">OR</span></code> と <code class="docutils literal notranslate"><span class="pre">NOT</span></code> についても同じことが言えます。 <code class="docutils literal notranslate"><span class="pre">NAND</span></code> や <code class="docutils literal notranslate"><span class="pre">NOR</span></code> などは単体で普遍性をもつ小さなセットですが、関数 <code class="docutils literal notranslate"><span class="pre">AND</span></code> 、<code class="docutils literal notranslate"><span class="pre">NOT</span></code> 、<code class="docutils literal notranslate"><span class="pre">OR</span></code> は、古典的な計算の基本ブロックとして見なされることがよくあります。</p>
+<p>このLabでは量子ゲートの基本的な概念を学び、トフォリゲートを題材として量子回路の構築方法を学びましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">qiskit</span>
+<span class="n">qiskit</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1.4.2&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.quantum_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pauli</span><span class="p">,</span> <span class="n">Statevector</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_ibm_runtime</span><span class="w"> </span><span class="kn">import</span> <span class="n">SamplerV2</span> <span class="k">as</span> <span class="n">Sampler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">StatevectorSimulator</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="n">pi</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>量子回路<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>量子回路とは計算が一連の量子ゲートによって行われる計算モデルです。量子ゲートはしばしば数学的にブロッホ球における回転として表現されます。<br />
+よく知られている量子ゲートをいくつか見てみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_bloch_sphere</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simulate the circuit and plot the Bloch sphere.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Simulate the circuit</span>
+    <span class="n">backend</span> <span class="o">=</span> <span class="n">StatevectorSimulator</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    
+    <span class="c1"># Get the statevector</span>
+    <span class="n">statevector</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span>
+    
+    <span class="c1"># Plot on a Bloch sphere</span>
+    <span class="k">return</span> <span class="n">plot_bloch_multivector</span><span class="p">(</span><span class="n">statevector</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="x">
+<h3>Xゲート<a class="headerlink" href="#x" title="Link to this heading">#</a></h3>
+<p>Xゲートは、パウリのX行列によって表されます：</p>
+<p><span class="math notranslate nohighlight">\(X = \begin{pmatrix}
+0 &amp; 1 \\
+1 &amp; 0 \\
+\end{pmatrix}\)</span></p>
+<p>Xゲートは、ブロッホ球でのX軸まわりの<span class="math notranslate nohighlight">\(\pi\)</span>の回転と等しいです。 <span class="math notranslate nohighlight">\(|0\rangle\)</span> を <span class="math notranslate nohighlight">\(|1\rangle\)</span> へ、 <span class="math notranslate nohighlight">\(|1\rangle\)</span> を <span class="math notranslate nohighlight">\(|0\rangle\)</span> へマップします。<br />
+古典コンピューターにおけるNOTゲートの量子版であり、ビットフリップとも呼ばれます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_gate</span><span class="o">=</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 量子ビット1で量子回路を作ります</span>
+<span class="n">x_gate</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/dd4e9ca4d65c1d4790bff47f55ce4ab2f87c734a2885ec4bccf98c6a790b4fe3.png" src="_images/dd4e9ca4d65c1d4790bff47f55ce4ab2f87c734a2885ec4bccf98c6a790b4fe3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulate_bloch_sphere</span><span class="p">(</span><span class="n">x_gate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/156a994719d08712dd9afa5397a01e07aeb0493642e2c88a815d1a30f8cd58e7.png" src="_images/156a994719d08712dd9afa5397a01e07aeb0493642e2c88a815d1a30f8cd58e7.png" />
+</div>
+</div>
+</section>
+<section id="sx">
+<h3>SXゲート<a class="headerlink" href="#sx" title="Link to this heading">#</a></h3>
+<p>SXゲートは、ブロッホ球のX軸を中心とした𝜋 / 2の回転に相当します。Xゲートの平方根であることを示すためにSXゲートと呼ばれます。このゲートを2回続けて適用すると、標準のパウリXゲートが生成されます。SXの逆はSXダガーで、反対方向に<span class="math notranslate nohighlight">\(\pi/2\)</span>回転します。</p>
+<p><span class="math notranslate nohighlight">\(SX = \frac{1}{2}\begin{pmatrix}
+1+i &amp; 1-i \\
+1-i &amp; 1+i \\
+\end{pmatrix}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sx_gate</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sx_gate</span><span class="o">.</span><span class="n">sx</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  
+<span class="n">sx_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/20900e74d34faa272b3532146ada36e4ab87f3883329550f86b7bb6441154ad5.png" src="_images/20900e74d34faa272b3532146ada36e4ab87f3883329550f86b7bb6441154ad5.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulate_bloch_sphere</span><span class="p">(</span><span class="n">sx_gate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/35e954060a24cae47520848400b601ec26691dd2e7b008a74a22bce29ee5c440.png" src="_images/35e954060a24cae47520848400b601ec26691dd2e7b008a74a22bce29ee5c440.png" />
+</div>
+</div>
+</section>
+<section id="rz">
+<h3>RZゲート<a class="headerlink" href="#rz" title="Link to this heading">#</a></h3>
+<p>Rzゲートは、Z軸のまわりに<span class="math notranslate nohighlight">\(\phi\)</span> 回転します(ここで、<span class="math notranslate nohighlight">\(\phi\)</span> は実数です)。行列は以下のようになります：</p>
+<p><span class="math notranslate nohighlight">\(RZ = \begin{pmatrix}
+1 &amp; 0 \\
+0 &amp; e ^{i \phi } \\
+\end{pmatrix}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rz_gate</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rz_gate</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">rz_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bc82c7adb96313b2e865b23a463a47ed3bb27d27e78e3c2fb9aaaa9272b1d344.png" src="_images/bc82c7adb96313b2e865b23a463a47ed3bb27d27e78e3c2fb9aaaa9272b1d344.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulate_bloch_sphere</span><span class="p">(</span><span class="n">rz_gate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a728a45597fb49820f315029936563d91171b615a036756f0cdba789f53fc828.png" src="_images/a728a45597fb49820f315029936563d91171b615a036756f0cdba789f53fc828.png" />
+</div>
+</div>
+<p>Z軸まわりの回転のため、デフォルトの状態<span class="math notranslate nohighlight">\(|0\rangle\)</span>に適用しても違いがわかりません。
+SXゲートを適用して生成された状態を代わりに使用し、そこにRZを適用してみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rz_gate</span><span class="o">.</span><span class="n">sx</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">rz_gate</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">rz_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/47a3637553be2953c8f80d41e7418a798ed0644612ff126d5e05a2236bb0c3b8.png" src="_images/47a3637553be2953c8f80d41e7418a798ed0644612ff126d5e05a2236bb0c3b8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulate_bloch_sphere</span><span class="p">(</span><span class="n">rz_gate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9c79aa07bd3cee4588c7edbe25bf83afe00e7a921154c42e73e309f7ba800027.png" src="_images/9c79aa07bd3cee4588c7edbe25bf83afe00e7a921154c42e73e309f7ba800027.png" />
+</div>
+</div>
+</section>
+<section id="h">
+<h3>Hゲート<a class="headerlink" href="#h" title="Link to this heading">#</a></h3>
+<p>アダマールゲートは、<span class="math notranslate nohighlight">\(X\)</span>軸と<span class="math notranslate nohighlight">\(Z\)</span>軸の間の軸の周りに<span class="math notranslate nohighlight">\(\pi\)</span>回転します。
+基本状態<span class="math notranslate nohighlight">\(|0\rangle\)</span>を<span class="math notranslate nohighlight">\(\frac{|0\rangle + |1\rangle}{\sqrt{2}}\)</span>にマップします。この状態は<span class="math notranslate nohighlight">\(|+\rangle\)</span>とも書かれます。これは、量子状態の測定値が<code class="docutils literal notranslate"><span class="pre">1</span></code>または<code class="docutils literal notranslate"><span class="pre">0</span></code>になる確率が等しいということです。<br />
+つまり状態の「重ね合わせ」が作られることを意味します。</p>
+<p>アダマールは、<span class="math notranslate nohighlight">\(|0\rangle\)</span> <span class="math notranslate nohighlight">\(|1\rangle\)</span>基底と<span class="math notranslate nohighlight">\(|+\rangle\)</span> <span class="math notranslate nohighlight">\(|-\rangle\)</span>基底を変換します。</p>
+<p><span class="math notranslate nohighlight">\(H = \frac{1}{\sqrt{2}}\begin{pmatrix}
+1 &amp; 1 \\
+1 &amp; -1 \\
+\end{pmatrix}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># |0&gt;の量子ビットにHゲートをかけてみます</span>
+<span class="n">h_gate</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">h_gate</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">h_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a9d19f25c0fb55877381adcac2b41ebdbdb81154513ac7dd76841b89def1bd62.png" src="_images/a9d19f25c0fb55877381adcac2b41ebdbdb81154513ac7dd76841b89def1bd62.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulate_bloch_sphere</span><span class="p">(</span><span class="n">h_gate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9c79aa07bd3cee4588c7edbe25bf83afe00e7a921154c42e73e309f7ba800027.png" src="_images/9c79aa07bd3cee4588c7edbe25bf83afe00e7a921154c42e73e309f7ba800027.png" />
+</div>
+</div>
+</section>
+<section id="cx-cnot">
+<h3>CXゲート(CNOTゲート)<a class="headerlink" href="#cx-cnot" title="Link to this heading">#</a></h3>
+<p>制御NOT(またはCNOT、またはCX)ゲートは、2量子ビットに作用します。<br />
+最初の量子ビットが<span class="math notranslate nohighlight">\(|1\rangle\)</span>の時のみ、2個目の量子ビットにNOT演算(Xゲートをかけるのと等しい)を適用し、それ以外の場合は何もしません。</p>
+<blockquote>
+<div><p>注意：Qiskitでは、文字列のビットに、右から左へ向かって番号を付けます。</p>
+</div></blockquote>
+<p><span class="math notranslate nohighlight">\(CX = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0  \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+\end{pmatrix}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cx_gate</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">cx_gate</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cx_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4f5216746f6cb0f1ba5dcf1accda0ee4e9f464354289b378af980b91ebc2df55.png" src="_images/4f5216746f6cb0f1ba5dcf1accda0ee4e9f464354289b378af980b91ebc2df55.png" />
+</div>
+</div>
+</section>
+<section id="ccx">
+<h3>CCXゲート (トフォリゲート)<a class="headerlink" href="#ccx" title="Link to this heading">#</a></h3>
+<p>CCXゲート(制御制御Xゲート)は、トフォリゲートとも呼ばれます。<br />
+CCXゲートは3量子ビットゲートで、2個の制御ビットと1個の目標ビットがそれぞれ入力と出力として使われます。<br />
+最初の2ビットが<span class="math notranslate nohighlight">\(|1\rangle\)</span>の状態にある時、パウリX(またはNOT)を3番目のビットに適用します。それ以外の場合は、何もしません。</p>
+<p><span class="math notranslate nohighlight">\(CCX = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+\end{pmatrix}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ccx_gate</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ccx_gate</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ccx_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e02f5f5721511fe0163c36ec41ee099ba49182d67e01c4132a4e169dd69f682e.png" src="_images/e02f5f5721511fe0163c36ec41ee099ba49182d67e01c4132a4e169dd69f682e.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2>量子ゲートで古典論理ゲートを作る<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<section id="not">
+<h3>NOTゲート<a class="headerlink" href="#not" title="Link to this heading">#</a></h3>
+<p>古典NOTゲートはビットの値を反転し、先ほどのXゲートは古典NOTゲートとみなすことができます。<br />
+NOTゲートの真理値表は以下のようになります：</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>入力</p></th>
+<th class="head"><p>出力</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">not_gate</span><span class="o">=</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># １量子ビットと1古典ビットで量子回路を作ります</span>
+<span class="n">not_gate</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">not_gate</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">not_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1c44f85e1f9ae58d2916f94b11cb75b28470932bbac6fd6285d770d0307fc5ac.png" src="_images/1c44f85e1f9ae58d2916f94b11cb75b28470932bbac6fd6285d770d0307fc5ac.png" />
+</div>
+</div>
+</section>
+<section id="and">
+<h3>ANDゲート<a class="headerlink" href="#and" title="Link to this heading">#</a></h3>
+<p>ANDの出力は、入力が両方とも真であった時のみ真になります。<br />
+ANDゲートの真理値表は以下のようになります：</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>A (入力)</p></th>
+<th class="head"><p>B (入力)</p></th>
+<th class="head"><p>出力</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>トフォリゲートを使って、2つの制御ビットを入力ビット、目標ビットを出力ビットとみなすことで、ANDゲートの解を得ることができます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">and_gate</span><span class="o">=</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 3量子ビットと1古典ビットで量子回路を作ります</span>
+<span class="n">and_gate</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">and_gate</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">and_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e521faa5b41fb5e7929cfd92c6b8b856084ddbc1fc6a6655d7882ec4e214afef.png" src="_images/e521faa5b41fb5e7929cfd92c6b8b856084ddbc1fc6a6655d7882ec4e214afef.png" />
+</div>
+</div>
+</section>
+<section id="or">
+<h3>ORゲート<a class="headerlink" href="#or" title="Link to this heading">#</a></h3>
+<p>ORゲートは、少なくとも一つの入力が真であった時に真を返すゲートです。<br />
+真理値表は、以下のようになります：</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>A (入力)</p></th>
+<th class="head"><p>B (入力)</p></th>
+<th class="head"><p>出力</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">or_gate</span><span class="o">=</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 3量子ビットと1古典ビットで量子回路を作ります</span>
+<span class="n">or_gate</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">or_gate</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">or_gate</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">or_gate</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">or_gate</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1f222d325d2c289c319cffe3eefcc0431f8e019407651e2a838a57cc49cb47dc.png" src="_images/1f222d325d2c289c319cffe3eefcc0431f8e019407651e2a838a57cc49cb47dc.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>量子ゲートの組み合わせとコスト<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>実際の量子コンピューターはすべてのゲートが物理的に実装されていることは通常ありません。代わりに、ユニバーサル・ゲートセットを構成する基本ゲートの組み合わせで代替しています。ユニバーサル・ゲートセットは古典ゲートでも同様で、すべての撮り得る演算を実装することができるゲートのセットです。</p>
+<p>このため、Qiskitは、構築した回路を基本ゲートセットのみを使った回路に分解しなければなりません。通常量子回路がハードウェアに送られる際に、トランスパイラーで自動的に実行されます。しかし、ここでは学習のため、主導で回路を基本ゲートのみで構築してみましょう。例えばIBM Quantumの基本ゲートは、通常、CX, ID, RZ, SX, Xゲートです。</p>
+<p>では、以下の回路をみてみましょう：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">sxdg</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c86e140d26d533dae850c7dd0e2ef240a7ca9b0468d73ab5be994f88cfea8d1b.png" src="_images/c86e140d26d533dae850c7dd0e2ef240a7ca9b0468d73ab5be994f88cfea8d1b.png" />
+</div>
+</div>
+<p>次に、基本ゲートのみを使って、上記の回路をどのように分解すればよいか考えてみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">sx</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">sx</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">sx</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b6d0d7f46b3b44fbfc105720a57b7c24541cce0e7ff1e96f9e28db73af4d3d6c.png" src="_images/b6d0d7f46b3b44fbfc105720a57b7c24541cce0e7ff1e96f9e28db73af4d3d6c.png" />
+</div>
+</div>
+<p>ご覧の通り、基本ゲートのみを使いましたが、そのためにより多くのゲートが必要になりました。<br />
+ご想像の通り、より多くのゲートを使った回路は実行時により複雑になっていきます。そのため、回路内のゲート数をコストとして考えて考慮することが必要となります。</p>
+<p>しかし、すべてのゲートが等しい価値とはみなされないため、回路のコストを計算する時、以下の式を使います：</p>
+<p>*<em>コスト =(CXゲートの数)<em>10 + (その他の基本ゲートの数)</em></em></p>
+<section id="id7">
+<h3>例:アダマールゲート<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>ここでは例としてアダマールゲートを基本ゲートセットのみを用いて構築してみます。
+<span class="math notranslate nohighlight">\(X\)</span>軸と<span class="math notranslate nohighlight">\(Z\)</span>軸の中間の軸にそって回転する基本ゲートはないため、代わりに<span class="math notranslate nohighlight">\(X\)</span>軸のまわりの回転と<span class="math notranslate nohighlight">\(Z\)</span>軸のまわりの回転を使って同じ結果を得るようにします。</p>
+<p>どのような回転が必要だと思いますか？</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span><span class="o">=</span><span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">c</span><span class="o">=</span><span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">=</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">sx</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/05694a7ca6938b1a809af5ab7bfdae563da06aa62fee904bb57e21f924d3577f.png" src="_images/05694a7ca6938b1a809af5ab7bfdae563da06aa62fee904bb57e21f924d3577f.png" />
+</div>
+</div>
+<p>覚えているかもしれませんが、これはさきほどRZゲートの回転を表示したときの回路です。
+さきほど、<span class="math notranslate nohighlight">\(|0\rangle\)</span>または<span class="math notranslate nohighlight">\(|1\rangle\)</span>の状態にあるとき、最初のRZは何もしないことがわかりました。そのため、少し役に立たないと感じるかもしれません。
+しかし、<span class="math notranslate nohighlight">\(|+\rangle\)</span>と<span class="math notranslate nohighlight">\(|-\rangle\)</span>の状態では、最初の回転は効果があります。逆のシナリオは、SXゲートを適用した後、再び<span class="math notranslate nohighlight">\(|0\rangle\)</span>または<span class="math notranslate nohighlight">\(|1\rangle\)</span>の状態になり、2回目のRZは効果がないというものです。</p>
+</section>
+<section id="id8">
+<h3>制御回転ゲート<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>先ほど制御NOTの働きを見ましたが、<span class="math notranslate nohighlight">\(Y\)</span>軸まわりの制御回転をどのように構築するかという例を示しましょう。回転<span class="math notranslate nohighlight">\(\theta\)</span>はどの角度でもよく、<span class="math notranslate nohighlight">\(\pi\)</span>である必要はありません。以下は例です。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="c1"># thetaは何度でもよいです (任意の値としてpiを選択)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3fb2dde43d8c16e560613fce27f083a01b69abc9c93e8ced1d315c589d08f889.png" src="_images/3fb2dde43d8c16e560613fce27f083a01b69abc9c93e8ced1d315c589d08f889.png" />
+</div>
+</div>
+<p>この回路を見てみると、最初の量子ビットが0の場合、2つの回転がキャンセルされ何も起こらないことが分かります。</p>
+<p>一方、最初の量子ビットが1の場合、<span class="math notranslate nohighlight">\(\theta / 2\)</span>回転を２回適用し、<span class="math notranslate nohighlight">\(\theta\)</span>回転となる状態を得ます。これは、<span class="math notranslate nohighlight">\(X\)</span>軸と<span class="math notranslate nohighlight">\(Y\)</span>軸が直行しているために起こります。</p>
+</section>
+<section id="excercise">
+<h3>Excercise: トフォリゲート<a class="headerlink" href="#excercise" title="Link to this heading">#</a></h3>
+<div class="admonition-excercise admonition">
+<p class="admonition-title">Excercise</p>
+<p>先ほど、我々の基本ゲートセットでアダマールゲートをどのように構築するか見ましたが、今度は、トフォリゲートを同じように構築したいと思います。<br />
+なぜトフォリゲートなのでしょうか？</p>
+<p>上記で述べたように、トフォリゲートは、古典コンピューターにおいてNANDゲートと同じように、ユニバーサル・ゲートでありますが、可逆的です。<br />
+さらに、アダマールゲートとともに量子コンピューターではユニバーサル・ゲートを構築します。</p>
+<p>基本ゲートを使ってより複雑なゲートを表現するいくつかの例を見てきました。今回は、得られた知識を使って、我々の基本ゲートのみを使ってトフォリゲートを構築します。<br />
+このために、先ほどの例である、制御回転を構築し使う方法が重宝するでしょう。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>IBM Quantumシステムの基本ゲートはCX、RZ、SX、Xであり、そのほかのゲートは使えないことを覚えておいてください。</p>
+<p>もちろん、コストの最小化にもトライしてください。(コストは <strong>CNOT</strong> の数の <strong>10倍</strong> <strong>プラス</strong> <strong>その他のゲート</strong> の数です。)</p>
+<div class="math notranslate nohighlight">
+\[
+Cost = 10 N_{CNOT} + N_{other}
+\]</div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># この下にコードを書いてください</span>
+
+
+
+
+
+<span class="c1"># この上にコードを書いてください</span>
+
+<span class="n">circuit</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span> <span class="c1"># すべて量子ビットを測定します</span>
+
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span> <span class="c1"># 任意の値</span>
+
+<span class="c1"># circuit.h(2)の置換</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">sx</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># 既に基本ゲート</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># circuit.tdg(2)の置換</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="mi">7</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># 既に基本ゲート</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># circuit.t(2)の置換</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># 既に基本ゲート</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># circuit.tdg(2)の置換</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="mi">7</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># 既に基本ゲート</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># circuit.t(1)の置換</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># circuit.t(2)の置換</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># circuit.h(2)の置換</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">sx</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># 既に基本ゲート</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># circuit.t(0)の置換</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c1"># circuit.tdg(1)の置換</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># 既に基本ゲート</span>
+<span class="n">circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">circuit</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span> <span class="c1"># すべての量子ビットを測定します</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">circuit</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/400bd9001ee61cd89ee05d6d476b587aef5845695e65b2b9d03ad21ff8dfa5f7.png" src="_images/400bd9001ee61cd89ee05d6d476b587aef5845695e65b2b9d03ad21ff8dfa5f7.png" />
+</div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">解説</p>
+<p>トフォリゲートの構築はいくつかの説明が可能ですが、そのうちの一つである最も簡易なアダマールゲートとTゲートから構成する方法が掲載されています。</p>
+<p><img alt="トフォリゲートのイラスト" src="_images/2021-spring-lab1_toffoli.png" /></p>
+<p>この回路の最後に2つのSWAP操作があることがわかります。これは<code class="docutils literal notranslate"><span class="pre">q0</span></code>が<code class="docutils literal notranslate"><span class="pre">q1</span></code>と接続されていないことに起因し、一般的には実機のカップリング・マップに依存するので、SWAPを省く(CXとTダガーは<code class="docutils literal notranslate"><span class="pre">q2</span></code>ではなく<code class="docutils literal notranslate"><span class="pre">q1</span></code>にある）ことができます。</p>
+<p>SWAPを除くと、回路は4つのゲート（アダマール、CX、TとTの共役転置）で構成されていることがわかります。Tゲートを調べると、実際にはZ軸周りに<span class="math notranslate nohighlight">\(\pi/4\)</span>の回転であり、<span class="math notranslate nohighlight">\(\phi=\pi/4\)</span>のRz(<span class="math notranslate nohighlight">\(\phi\)</span>)ゲートとみなせます。Tダガーを構成するには、逆の回転を持つRzゲートを用います。</p>
+<p>また、アダマールゲートは2つのRzゲートと1つのSXゲートを使って構成できます。以上、すべてのアダマールゲートとTゲート、Tダガーゲートを4つのゲートに分解すると回答のような回路が得られます。</p>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2020-w1-a-adder-ja.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">量子回路の基礎 - 加算器</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2023-spring-lab2-teleportation-ja.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">量子テレポーテーション（2023年 Lab2）</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">歴史的背景</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">古典論理ゲート</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">量子回路</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#x">Xゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sx">SXゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rz">RZゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h">Hゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cx-cnot">CXゲート(CNOTゲート)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ccx">CCXゲート (トフォリゲート)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">量子ゲートで古典論理ゲートを作る</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not">NOTゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#and">ANDゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or">ORゲート</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">量子ゲートの組み合わせとコスト</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">例:アダマールゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">制御回転ゲート</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#excercise">Excercise: トフォリゲート</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Quantum Tokyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
