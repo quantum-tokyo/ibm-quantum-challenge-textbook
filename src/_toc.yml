@@ -15,6 +15,8 @@ parts:
     title: 量子回路の基礎 - 加算器 (2020)
   - file: 2021-spring-lab1-toffoli
     title: 量子回路の基礎 - 加算器 (2021)
+  - file: 2022-autumn-lab1-bernstein-vazirani
+    title: 重ね合わせと干渉の利用 (2022)
   - file: 2023-spring-lab2-teleportation-ja
     title: 量子テレポーテーション (2023)
   - file: 2020-w1-b-grover-ja
