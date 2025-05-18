@@ -36,10 +36,12 @@ parts:
 
 - caption: "ChapterX Qiskitを学ぶ"
   chapters:
-  - file: 2024-spring-lab1-qiskit10-ja
-    title: Qiskit 1.0入門(2024)
+  - file: 2024-spring-lab1-qiskit10-ja-part1
+    title: 量子状態の構築と測定 (2024)
+  - file: 2024-spring-lab1-qiskit10-ja-part2
+    title: Qiskit Runtime (2024)
   - file: 2022-autumn-lab1-runtime-ja
-    title: Qiskit Runtime Primitives(2022)
+    title: (参考) Qiskit Runtime Primitives (2022)
   - file: 2023-spring-lab1-dynamic-ja
     title: Dynamic Circuits (2023)
   - file: 2024-spring-lab2-transpilation-ja
