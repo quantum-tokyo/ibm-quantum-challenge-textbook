@@ -28,6 +28,8 @@ parts:
   chapters:
   - file: 2021-spring-lab2-shor-ja
     title: ショアのアルゴリズム (2021)
+  - file: 2021-autumn-lab3-qml-ja
+    title: 量子機械学習による画像分類 (2021)
 
 - caption: "Chapter3 量子コンピューターのエラー訂正・緩和"
   chapters:
