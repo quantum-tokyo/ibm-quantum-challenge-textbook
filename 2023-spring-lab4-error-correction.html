@@ -1,0 +1,1503 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>量子エラー訂正 &#8212; IBM Quantum Challengeで学ぶ量子コンピューティング</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2023-spring-lab4-error-correction';</script>
+    <link rel="icon" href="_static/quantum-tokyo-icon.ico"/>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="実際のバックエンドでVQCをテストする(2024年 Lab4)" href="2024-spring-lab4-vqc-hw-ja.html" />
+    <link rel="prev" title="量子エラー訂正(2021年春 Lab3)" href="2021-spring-lab3-error-ja.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-light" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>
+    <script>document.write(`<img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-dark" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    IBM Quantum Challengeで学ぶ量子コンピューティング
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter0 イントロダクション</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab0-welcome-ja.html">ようこそ、そしてハローワールド(2024)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter1 量子回路の構築</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-a-adder-ja.html">量子回路の基礎 - 加算器 (2020)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab1-toffoli.html">量子回路の基礎 - 加算器 (2021)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2022-autumn-lab1-bernstein-vazirani.html">重ね合わせと干渉の利用 (2022)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab2-teleportation-ja.html">量子テレポーテーション (2023)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-b-grover-ja.html">振幅増幅 (Groverのアルゴリズム) (2020)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab3-iqpe.html">量子位相推定 (2023)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter2 量子コンピューターの応用</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab2-shor-ja.html">ショアのアルゴリズム (2021)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2021-autumn-lab3-qml-ja.html">量子機械学習による画像分類 (2021)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter3 量子コンピューターのエラー訂正・緩和</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab3-error-ja.html">量子エラー訂正 (2021)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">量子エラー訂正 (2023)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab4-vqc-hw-ja.html">実機上でのVQCのテスト (2024)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">ChapterX Qiskitを学ぶ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab1-qiskit10-ja-part1.html">量子状態の構築と測定 (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2022-autumn-lab1-runtime-ja.html">Qiskit Runtime Primitives (2022)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab1-qiskit10-ja-part2.html">Qiskit Runtime (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab1-dynamic-ja.html">Dynamic Circuits (2023)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab2-transpilation-ja.html">Transpiler (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-ai-transpiler-ja.html">AIを活用したTranspiler (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-circuit-knitting-ja.html">Circuit Knitting (2024)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/quantum-tokyo/ibm-quantum-challenge-textbook/blob/main/src/2023-spring-lab4-error-correction.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/quantum-tokyo/ibm-quantum-challenge-textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="ソースリポジトリ"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2023-spring-lab4-error-correction.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>量子エラー訂正</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">古典エラー訂正</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise: 3量子ビットデコード回路の実装</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">量子エラー訂正</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ビット反転反復符号の実装</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">量子ビットの初期化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">量子ビットのエンコード</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">デコード回路の準備</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">スタビライザーの測定</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise: スタビライザーを利用したエンコード時のエラー検知</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">エラー訂正</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Exercise: エンコード時のエラー修正</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">テストの準備</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#excersise">Excersise: 任意のノイズを量子回路に追加する</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">補足: エラー訂正とハードウェアレイアウト</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>量子エラー訂正<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>このLabは2023年Challenge Spring Lab4 を基に作成しました。</p>
+</div></blockquote>
+<p>量子コンピューターでは、物理的な量子ビットがノイズの影響を受けやすいためエラー訂正が重要です。これは回路を実行すると常に小さな確率でエラーが発生することを意味します。<br />
+エラー訂正は、発生したエラーを修正することでこの小さな確率の事象に対処し、最終的に正しい結果を得ることを可能にします。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">qiskit</span>
+<span class="n">qiskit</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;1.4.2&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing all the parts we will need.</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">transpile</span><span class="p">,</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_ibm_runtime.fake_provider</span><span class="w"> </span><span class="kn">import</span> <span class="n">FakeManilaV2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">QasmSimulator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_histogram</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h2>古典エラー訂正<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>そもそも、なぜエラー訂正が生まれたのでしょうか？</p>
+<p>例えば、電波が悪い時に電話で誰かと話すシーンを考えてみてください。せっかくはっきり話そうとしているのに、メッセージが変わってしまったり、台無しになってしまったりすることがあります。「フレッドとのランチを金曜の予定に入れよう(Let's put lunch with Fred)」が、「金曜にフレッドを殴ろう(Let's punch Fred)」に変わってしまうのです。フレッドの週末は一気に悪くなってしまいました。</p>
+<p>メッセージを送るとき、たとえビットのような単純なものであっても、常に小さなエラーが発生する可能性があります。1ビットのデータを有線で送信する場合、ビットが反転してしまい、受信者が「0」の代わりに「1」を受け取るという可能性が少しはあるかもしれません。ケーブルが古く、腐食している場合、このようなことが起こりやすくなります。また、データを保存する際にも、CDに傷がつくのと同じようなことが起こる可能性があります。最悪の場合、プロセッサーで計算中にエラーが発生することもあります。</p>
+<p>このようなエラーの可能性は、古典情報の問題として知られています。</p>
+<p>ビットが誤って反転する（AKAエラーが発生する）確率を10％とします。これは、1ビットのデータを送信するごとに、1/10の確率で受信したビットが正しくないことを意味します。<code class="docutils literal notranslate"><span class="pre">0</span></code>のメッセージを10回送信しても、受信したメッセージは「<code class="docutils literal notranslate"><span class="pre">0001000000</span></code>」と表示されるかもしれないのです。これが問題なのはもうお分かりですね。</p>
+<p>最も簡単な解決策の1つは繰り返すことです。ビットデータ<code class="docutils literal notranslate"><span class="pre">1</span></code>は<code class="docutils literal notranslate"><span class="pre">111</span></code>とエンコードされ、同様に<code class="docutils literal notranslate"><span class="pre">0</span></code>は<code class="docutils literal notranslate"><span class="pre">000</span></code>とエンコードされます。各ビットのデータは、1ビットではなく3ビットでエンコードされます。</p>
+<p>これが何の役に立つのでしょう？</p>
+<p>もし今、<code class="docutils literal notranslate"><span class="pre">000</span></code>を送信してエラーが発生した場合、受信者には<code class="docutils literal notranslate"><span class="pre">001</span></code>と表示されるかもしれません。受信者は<code class="docutils literal notranslate"><span class="pre">000</span></code>か<code class="docutils literal notranslate"><span class="pre">111</span></code>のどちらかが送られてくるはずだと知っているので、おそらく送られたのは<code class="docutils literal notranslate"><span class="pre">000</span></code>で、1ビットだけ反転したのだろうと推測することができます。こうすればエラーが修正できます！</p>
+<p>しかし、複数のエラーが発生した場合はどうでしょう？メッセージは<code class="docutils literal notranslate"><span class="pre">011</span></code>に変わり、受信者は私たちが<code class="docutils literal notranslate"><span class="pre">111</span></code>を送るつもりだったと思い込んでしまいます。これは本当のエラーです！<br />
+繰り返しを使うことで、そのようなことが起こる可能性を減らすことはできますが、ゼロにするわけではありません。では、具体的にどれくらいの確率でエラーを減らすことができるのでしょうか？調べてみましょう！</p>
+<p>以下のコードで、エラーがどのように変化するか、自分で確率を求めることができます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Probability for a 000 message to contain one error:</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="mf">0.10</span>
+
+<span class="c1"># Calculating the probability of a message containing 2 or 3 errors:</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p1</span><span class="p">)</span> <span class="o">+</span> <span class="n">p1</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">*</span> <span class="n">p1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Percent chance the 000 message has one error: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p1</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Percent chance the 000 message has 2 or 3 errors: </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p3</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Percent chance the 000 message has one error: 10.0
+Percent chance the 000 message has 2 or 3 errors: 2.8000
+</pre></div>
+</div>
+</div>
+</div>
+<p>反復を用いることで、メッセージを台無しにするエラー（2ビット以上が反転した場合）の可能性を2.8％にまで減らすことができます。これは、1ビットしか使わない場合の10％よりもずっと良い結果です。しかし、これは10％という作り出したエラーに過ぎません。エラーの割合<code class="docutils literal notranslate"><span class="pre">p1</span></code>を変えて、2つ以上のエラーが発生する確率にどのような影響を与えるか見てみましょう。</p>
+<p>繰り返しがどのように役立つかを知っている私たちは、上のメッセージを1ビットを3ビットに「エンコード」する簡単なプログラムを実装することができます。そして、3ビットを1ビットに戻す、つまり「デコード」するプログラムも作れます。</p>
+<section id="exercise-3">
+<h3>Exercise: 3量子ビットデコード回路の実装<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>入門編として、量子ビット0、1、2を使った3ビットの状態を、以下のルールに従って量子ビット4の1ビットにデコードする「デコーダー」を作ってみましょう。</p>
+<ul class="simple">
+<li><p>000-&gt;0</p></li>
+<li><p>001-&gt;0</p></li>
+<li><p>010-&gt;0</p></li>
+<li><p>100-&gt;0</p></li>
+<li><p>111-&gt;1</p></li>
+<li><p>110-&gt;1</p></li>
+<li><p>101-&gt;1</p></li>
+<li><p>011-&gt;1</p></li>
+</ul>
+<p><em>ヒント: ビットを反転させるだけなので、位相を導入するようなゲートは必要ありません。必要なのは<strong>基本ゲート</strong>だけです。</em></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a simple decoder for the classical case</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_decoder</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuantumCircuit</span><span class="p">:</span>
+    <span class="c1"># Expect a bit being encoded in the first 3 qubits and decode it into the 4th qubit</span>
+    <span class="c1"># Make sure values of the first 3 qubit stays the same</span>
+
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+    <span class="n">q0</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">qr</span>
+    <span class="p">(</span><span class="n">c0</span><span class="p">,)</span> <span class="o">=</span> <span class="n">cr</span>
+
+    <span class="c1">####### your code goes here #######</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_decoder</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuantumCircuit</span><span class="p">:</span>
+    <span class="c1"># Expect a bit being encoded in the first 3 qubits and decode it into the 4th qubit</span>
+    <span class="c1"># Make sure values of the first 3 qubit stays the same</span>
+
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+    <span class="n">q0</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">qr</span>
+    <span class="p">(</span><span class="n">c0</span><span class="p">,)</span> <span class="o">=</span> <span class="n">cr</span>
+
+    <span class="c1">####### your code goes here #######</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">q0</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="n">q3</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="n">q0</span><span class="p">,</span> <span class="n">q3</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">解説</p>
+<p>Exercise1は <strong>エンコードされた3つの量子ビットの内、「0」と「1」の多い状態をデコードの結果</strong> として4つ目の量子ビットに反映する問題です。</p>
+<p>これは単純に考えるならば実際に量子ビットを測定し、その結果の「0」の個数が個数が多ければ0、「1」の個数が多ければ1とすれば良いわけですが、量子ビットは一度測定してしまうと重ね合わせ状態が壊れてしまうため問題文上の「最初の3つのqubitの状態は同じままであること」という条件を満たせなくなります。
+そこで制御ビットの量子状態を変化させない複数量子ビットゲートを使用することを検討します。ターゲットビットの「0」と「1」を入れ替えるという意味で使えそうな複数量子ビットゲートには、制御xゲート(cxゲート)とToffoliゲート(ccxゲート)の2つがあります。まず制御xゲートの場合、つまりデコード対象の各量子ビットの状態が「1」の時、デコード結果の量子ビットの状態を入れ替えるため、</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>デコード対象</p></th>
+<th class="head"><p>デコード結果</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>000</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>001</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>010</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>100</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>111</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>110</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>101</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>011</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>といった結果になります。(デコード対象に奇数回「1」があればデコード結果は「1」、偶数回「1」があればデコード結果は「0」)これはデコードできていません。
+次にToffoliゲートの場合、3つの量子ビットの中から2つの量子ビットを取り出し、共に「1」であった場合デコード結果の量子ビットの状態を入れ替えるため、</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>デコード対象</p></th>
+<th class="head"><p>デコード結果</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>000</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>001</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>010</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>100</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>111</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>110</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>101</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>011</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>といった結果になります。これは今回求めたいデコード結果に相当しており、こちらを解として記載しています。</p>
+</div>
+<p>以下のコードを使用すれば、作成したデコーダーで1をエンコードした場合のデコードの様子を確認することができます。</p>
+<p>いろいろな入力（エラーも含む）で遊んでみて、エラー訂正回路がどのような動作をするのか試してみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We expect a bit being encoded in the first 3 qubits and decode it into the 4th qubit</span>
+<span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">q0</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">qr</span>
+
+<span class="c1"># To encode a 1. Change them to test the other encodings.</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">q0</span><span class="p">)</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">create_decoder</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+<span class="n">qc1</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">decoder</span><span class="p">)</span>
+
+<span class="n">qc1</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2a130c3eebe24d90d3bfcc69244cb0d2bdadd49910ceda7ce3cc46e1b2996a26.png" src="_images/2a130c3eebe24d90d3bfcc69244cb0d2bdadd49910ceda7ce3cc46e1b2996a26.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h2>量子エラー訂正<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>古典の場合、このような誤り訂正符号を持つことは、ビットを数回繰り返すだけなので比較的簡単です。<br />
+もちろん、もっと複雑な符号も存在しますが、最終的にはすべての符号が情報を繰り返すことによってある種の冗長性を持つことになります。</p>
+<p>しかし量子の場合、以下の2つの理由から<strong>ビットの繰り返しを実現することができません</strong>。</p>
+<ol class="arabic simple">
+<li><p>量子ビットのコピーは原理的に不可能（複製不可能定理）</p></li>
+<li><p>量子ビットを測定すると、その状態が崩れてしまうのでエンタングルした量子ビットの扱いが難しい</p></li>
+</ol>
+<p>これは少しがっかりするような話ですが、それでもエラー訂正は可能です。<br />
+しかし、情報を保存するための量子ビットが必要なだけでなく、いわゆる<strong>スタビライザー</strong>として使用する、追加のアンシラ（補助）量子ビットが必要です。<br />
+スタビライザーが作用する補助量子ビット自体は量子状態を変化させることはありませんが、それ故にエラーが発生した場合のヒントを与えてくれます。</p>
+<p>以降は2種類の量子ビットを使用します。エンコードに使用するものと、スタビライザーに使用するものです。</p>
+</section>
+<section id="id4">
+<h2>ビット反転反復符号の実装<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setup a base quantum circuit for our experiments</span>
+<span class="n">encoding</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">stabilizer</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">encoding_q0</span><span class="p">,</span> <span class="n">encoding_q1</span><span class="p">,</span> <span class="n">encoding_q2</span> <span class="o">=</span> <span class="n">encoding</span>
+<span class="n">stabilizer_q0</span><span class="p">,</span> <span class="n">stabilizer_q1</span> <span class="o">=</span> <span class="n">stabilizer</span>
+
+<span class="c1"># Results of the encoding</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">result_b0</span><span class="p">,</span> <span class="n">result_b1</span><span class="p">,</span> <span class="n">result_b2</span> <span class="o">=</span> <span class="n">results</span>
+
+<span class="c1"># For measuring the stabilizer</span>
+<span class="n">syndrome</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">syndrome_b0</span><span class="p">,</span> <span class="n">syndrome_b1</span> <span class="o">=</span> <span class="n">syndrome</span>
+
+<span class="c1"># The actual qubit which is encoded</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">encoding</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># The ancillas used for encoding the state</span>
+<span class="n">ancillas</span> <span class="o">=</span> <span class="n">encoding</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+
+<span class="c1"># Initializing</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">initialize_circuit</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">QuantumCircuit</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">stabilizer</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id5">
+<h3>量子ビットの初期化<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>量子状態をエラーから守るために、最初に備えておく必要があります。
+一般に状態$<span class="math notranslate nohighlight">\(|\Psi_0\rangle \rightarrow |\Psi_1\rangle = (\alpha |0\rangle + \beta |1\rangle)\)</span><span class="math notranslate nohighlight">\(を作り出すことが可能です。
+以下の回路で状態\)</span><span class="math notranslate nohighlight">\(|\Psi_1\rangle = |1\rangle\)</span>$を準備します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">initial_state</span> <span class="o">=</span> <span class="n">initialize_circuit</span><span class="p">()</span>
+
+<span class="n">initial_state</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">encoding</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">initial_state</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9829888d7703ae1ba834a0d543ba13da01eec969f9ef5e604594b15f0d6ebd62.png" src="_images/9829888d7703ae1ba834a0d543ba13da01eec969f9ef5e604594b15f0d6ebd62.png" />
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>量子ビットのエンコード<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>古典の場合と同様に初期化された量子ビットを保存するために繰り返しを用いたくなります。<br />
+状態 <span class="math notranslate nohighlight">\(|\Psi_1\rangle = (\alpha |0\rangle + \beta |1\rangle)\)</span> から <span class="math notranslate nohighlight">\( (\alpha |000\rangle + \beta |111\rangle)\)</span> へのマッピングをエンコーディング<span class="math notranslate nohighlight">\(U_{en}|\Psi_0\rangle\)</span>で実行してみましょう。</p>
+<p>この状態はエンタングルした状態で、1つの量子ビットが測定されると他の2つの量子ビットの出力も確定する性質を持ちます。<br />
+初めの1量子ビット状態から3量子ビットのエンタングル状態を作るためにCXゲートを使います。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Encoding using bit flip code</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">encode_bit_flip</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">ancillas</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="o">*</span><span class="n">ancillas</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ancilla</span> <span class="ow">in</span> <span class="n">ancillas</span><span class="p">:</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">ancilla</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qc</span>
+
+
+<span class="c1"># The circuit encoding our qubit</span>
+<span class="n">encoding_circuit</span> <span class="o">=</span> <span class="n">encode_bit_flip</span><span class="p">(</span><span class="n">initialize_circuit</span><span class="p">(),</span> <span class="n">state</span><span class="p">,</span> <span class="n">ancillas</span><span class="p">)</span>
+
+<span class="c1"># The circuit including all parts so far</span>
+<span class="n">complete_circuit</span> <span class="o">=</span> <span class="n">initial_state</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">encoding_circuit</span><span class="p">)</span>
+<span class="n">complete_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/056b1005eaf89ed05b316a16056dab374c8c02597529438c83151d416a8d0a95.png" src="_images/056b1005eaf89ed05b316a16056dab374c8c02597529438c83151d416a8d0a95.png" />
+</div>
+</div>
+</section>
+<section id="id7">
+<h3>デコード回路の準備<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>元の状態へデコードするために、逆の操作を実行するデコーダーを構築しなければなりません。<br />
+つまり<span class="math notranslate nohighlight">\( (\alpha |000\rangle + \beta |111\rangle)\)</span>を<span class="math notranslate nohighlight">\(|\Psi_1\rangle = (\alpha |0\rangle + \beta |1\rangle)\)</span> へマッピングするデコーダー<span class="math notranslate nohighlight">\(U_{de}|\Psi_0\rangle\)</span>です。</p>
+<p>全く逆の操作なので、エンコーダーを逆転（<span class="math notranslate nohighlight">\(U_{de} = U_{en}^\dagger\)</span>）させればよいです。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Decoding (doing the reverse)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">decode_bit_flip</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">ancillas</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="o">*</span><span class="n">ancillas</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ancilla</span> <span class="ow">in</span> <span class="n">ancillas</span><span class="p">:</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">ancilla</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qc</span>
+
+
+<span class="n">decoding_circuit</span> <span class="o">=</span> <span class="n">decode_bit_flip</span><span class="p">(</span><span class="n">initialize_circuit</span><span class="p">(),</span> <span class="n">state</span><span class="p">,</span> <span class="n">ancillas</span><span class="p">)</span>
+
+<span class="n">decoding_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a9ec26a5fa77efba201fea3c7966c5c6c8459d2b90069f5e301b831b752c1577.png" src="_images/a9ec26a5fa77efba201fea3c7966c5c6c8459d2b90069f5e301b831b752c1577.png" />
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>スタビライザーの測定<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(A\)</span>をターゲット、<span class="math notranslate nohighlight">\(B\)</span>をソースとするCXゲートを用いることで、量子ビット<span class="math notranslate nohighlight">\(A\)</span>を別の量子ビット<span class="math notranslate nohighlight">\(B\)</span>とエンタングルさせることができることを先ほど確認しました（<span class="math notranslate nohighlight">\(B\)</span>がすでに重ね合わせやエンタングル状態にある場合）。<br />
+その後、<span class="math notranslate nohighlight">\(A\)</span>をターゲットとして、<span class="math notranslate nohighlight">\(B\)</span>（あるいは、<span class="math notranslate nohighlight">\(A\)</span>と完全にエンタングルした別の量子ビット）をソースとする別のCXゲートを使うことで、再びエンタングルメントを解くことができます。</p>
+<p>スタビライザーを測定して、発生した潜在的なエラーを把握したいので、スタビライザーが状態をエンコードする量子ビットとエンタングルしていないことが重要です。<br />
+この事実から、各スタビライザーに偶数個のCXゲートを適用する必要があることは明らかです。スタビライザーを使ってビット反転エラーが発生したかどうか、そして3つのエンコーディング量子ビットのうちどの量子ビットで発生したかを測定する必要があります。</p>
+<section id="exercise">
+<h4>Exercise: スタビライザーを利用したエンコード時のエラー検知<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h4>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>測定から単一ビット反転エラーを検出できるように、シンドロームビットを計算してください。<br />
+シンドロームビットを測定し、スタビライザー量子ビットを<code class="docutils literal notranslate"><span class="pre">0</span></code>状態にリセットするコードを用意しました。</p>
+<p>さまざまな方法があるので、できるだけ単純な符号化でスタビライザーを手に入れましょう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">00</span></code> -&gt; エラーなし</p>
+<p><code class="docutils literal notranslate"><span class="pre">01</span></code> -&gt; 量子ビット0（1番目の量子ビット）にエラーあり</p>
+<p><code class="docutils literal notranslate"><span class="pre">10</span></code> -&gt; 量子ビット1（2番目の量子ビット）にエラーあり</p>
+<p><code class="docutils literal notranslate"><span class="pre">11</span></code> -&gt; 量子ビット2（3番目の量子ビット）にエラーあり</p>
+<p><em>ヒント：3つのエンコーディング量子ビットは完全に相関しているはずですが、もしそうでない場合、そのうちの1つにビット反転エラーが発生しています。</em></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add functions such that the classical bits can be used to see which qubit is flipped in the case a single qubit is flipped.</span>
+<span class="c1"># Use 2 classical bits for it.</span>
+<span class="c1"># 0 = 00 = no qubit flipped</span>
+<span class="c1"># 1 = 01 = first qubit (qubit 0) flipped</span>
+<span class="c1"># 2 = 10 second qubit (qubit 1) flipped</span>
+<span class="c1"># 3 = 11 = third qubit (qubit 2) flipped</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">measure_syndrome_bit</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">stabilizer</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+    <span class="n">encoding_q0</span><span class="p">,</span> <span class="n">encoding_q1</span><span class="p">,</span> <span class="n">encoding_q2</span> <span class="o">=</span> <span class="n">encoding</span>
+    <span class="n">stabilizer_q0</span><span class="p">,</span> <span class="n">stabilizer_q1</span> <span class="o">=</span> <span class="n">stabilizer</span>
+
+    <span class="c1">####### your code goes here #######</span>
+
+    <span class="c1">####### don&#39;t edit the code below #######</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">stabilizer</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">syndrome_b0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">stabilizer_q0</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">syndrome_b1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">stabilizer_q1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+
+
+<span class="n">syndrome_circuit</span> <span class="o">=</span> <span class="n">measure_syndrome_bit</span><span class="p">(</span><span class="n">initialize_circuit</span><span class="p">(),</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">stabilizer</span><span class="p">)</span>
+
+<span class="n">complete_circuit</span> <span class="o">=</span> <span class="n">initial_state</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">encoding_circuit</span><span class="p">)</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">syndrome_circuit</span><span class="p">)</span>
+<span class="n">complete_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add functions such that the classical bits can be used to see which qubit is flipped in the case a single qubit is flipped.</span>
+<span class="c1"># Use 2 classical bits for it.</span>
+<span class="c1"># 0 = 00 = no qubit flipped</span>
+<span class="c1"># 1 = 01 = first qubit (qubit 0) flipped</span>
+<span class="c1"># 2 = 10 second qubit (qubit 1) flipped</span>
+<span class="c1"># 3 = 11 = third qubit (qubit 2) flipped</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">measure_syndrome_bit</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">stabilizer</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+    <span class="n">encoding_q0</span><span class="p">,</span> <span class="n">encoding_q1</span><span class="p">,</span> <span class="n">encoding_q2</span> <span class="o">=</span> <span class="n">encoding</span>
+    <span class="n">stabilizer_q0</span><span class="p">,</span> <span class="n">stabilizer_q1</span> <span class="o">=</span> <span class="n">stabilizer</span>
+
+    <span class="c1">####### your code goes here #######</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">encoding_q0</span><span class="p">,</span> <span class="n">stabilizer_q0</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">encoding_q1</span><span class="p">,</span> <span class="n">stabilizer_q1</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">encoding_q2</span><span class="p">,</span> <span class="n">stabilizer_q0</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">encoding_q2</span><span class="p">,</span> <span class="n">stabilizer_q1</span><span class="p">)</span>
+
+    <span class="c1">####### don&#39;t edit the code below #######</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">stabilizer</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">syndrome_b0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">stabilizer_q0</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">syndrome_b1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">stabilizer_q1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+
+
+<span class="n">syndrome_circuit</span> <span class="o">=</span> <span class="n">measure_syndrome_bit</span><span class="p">(</span><span class="n">initialize_circuit</span><span class="p">(),</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">stabilizer</span><span class="p">)</span>
+
+<span class="n">complete_circuit</span> <span class="o">=</span> <span class="n">initial_state</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">encoding_circuit</span><span class="p">)</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">syndrome_circuit</span><span class="p">)</span>
+<span class="n">complete_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/563efe93b0b0e5a38fc412f3021058d778e2132144873367bf219d8a6484c252.png" src="_images/563efe93b0b0e5a38fc412f3021058d778e2132144873367bf219d8a6484c252.png" />
+</div>
+</details>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">解説</p>
+<p>Exercise2は、Exercise1でデコードされる3つの量子ビットをエンタングルメントによるエンコードで作成したとき、そのエンコード後の量子ビットにエラーが生じているかをスタビライザーを使用して検証する問題です。</p>
+<p>エンコードした3つの量子ビットは、仮にエラーが無ければ1番目の量子ビット(encoding_q0)に依存しており、encoding_q0が「0」ならば、「000」、「1」ならば「111」となります。つまり考えるべき結果は「000」または「111」の2パターンだけになります。
+また、2量子ビット以上のエラーについて考えなくていいのかという点については、2量子ビット以上のエラーが生じてしまうと別の値として解釈することになり正しくデコードできないため、今回の問いとしては考えなくて問題ありません。</p>
+<p>以上のことを踏まえると、各エンコード対象の量子ビットと、エラーの状態によって反転しているスタビライザーの間でcxゲートを適用すれば良いです。表にまとめると、下の表のようになります。</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>スタビライザーの値</p></th>
+<th class="head"><p>意味</p></th>
+<th class="head"><p>操作</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>エラー無し</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>量子ビット0がエラー</p></td>
+<td><p>量子ビット0とスタビライザー0にcxゲート</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>量子ビット1がエラー</p></td>
+<td><p>量子ビット1とスタビライザー1にcxゲート</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>量子ビット2がエラー</p></td>
+<td><p>量子ビット2とスタビライザー0,1にcxゲート</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>（上記が正しいことは「000」の場合を考えると想像しやすいかと思います。）</p>
+</div>
+<p>以下のExercise2用のgraderはチャレンジ期間外では起動しないためコメントアウトします。</p>
+</section>
+</section>
+<section id="id9">
+<h3>エラー訂正<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>これでスタビライザーを構築し、それを測定することでエラーシンドロームを取得できるようになりました。<br />
+もちろん、エラーが発生したことを示すだけでなく、エラーの修正もできるようにしたいです。</p>
+<p>そこで Dynamic Circuit の機能を使ってシンドロームの測定値を用いて、潜在的なエラーを修正することにします。古典のケースと同様に、最大でも1つのエラーしか修正できません。それ以上のエラーを修正したい場合は、5つのエンコード量子ビット以上の長いコードが必要です。</p>
+<p>上記のようにうまい方法のシンドローム測定を選んだので、1つのエラーの場合、どの量子ビットが反転しているかが正確に分かるので、エラーを修正するのは非常に簡単です。</p>
+<section id="id10">
+<h4>Exercise: エンコード時のエラー修正<a class="headerlink" href="#id10" title="Link to this heading">#</a></h4>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>測定されたシンドロームに応じてエラーを修正してください。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correct the errors, remember how we encoded the errors above!</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_correction_bit</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+    <span class="n">encoding_q0</span><span class="p">,</span> <span class="n">encoding_q1</span><span class="p">,</span> <span class="n">encoding_q2</span> <span class="o">=</span> <span class="n">encoding</span>
+
+    <span class="c1">####### your code goes here #######</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+
+
+<span class="n">correction_circuit</span> <span class="o">=</span> <span class="n">apply_correction_bit</span><span class="p">(</span><span class="n">initialize_circuit</span><span class="p">(),</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">)</span>
+<span class="n">complete_circuit</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">initial_state</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">encoding_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">syndrome_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">correction_circuit</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">complete_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correct the errors, remember how we encoded the errors above!</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_correction_bit</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+    <span class="n">encoding_q0</span><span class="p">,</span> <span class="n">encoding_q1</span><span class="p">,</span> <span class="n">encoding_q2</span> <span class="o">=</span> <span class="n">encoding</span>
+
+    <span class="c1">####### your code goes here #######</span>
+    <span class="n">syndrome_b0</span><span class="p">,</span> <span class="n">syndrome_b1</span> <span class="o">=</span> <span class="n">syndrome</span>
+    <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">syndrome_b0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">syndrome_b1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="k">as</span> <span class="n">else_</span><span class="p">:</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">encoding_q2</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">else_</span><span class="p">:</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">encoding_q0</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">syndrome_b1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">if_test</span><span class="p">((</span><span class="n">syndrome_b0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">encoding_q1</span><span class="p">)</span>
+			
+    <span class="k">return</span> <span class="n">qc</span>
+
+
+<span class="n">correction_circuit</span> <span class="o">=</span> <span class="n">apply_correction_bit</span><span class="p">(</span><span class="n">initialize_circuit</span><span class="p">(),</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">)</span>
+<span class="n">complete_circuit</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">initial_state</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">encoding_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">syndrome_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">correction_circuit</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">complete_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6f4408c343d1a86446ff209d9f449868e4180fb0e0f6a1bb91503597df8f8959.png" src="_images/6f4408c343d1a86446ff209d9f449868e4180fb0e0f6a1bb91503597df8f8959.png" />
+</div>
+</details>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">解説</p>
+<p>Exercise3は、エンコードした3つの量子ビットからエラーを取り除く問題です。</p>
+<p>Exercise2の結果から、エラーとなっている部分は以下の表のようになります。</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>スタビライザーの値</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>エラー無し</p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>量子ビット0がエラー</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>量子ビット1がエラー</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>量子ビット2がエラー</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>スタビライザーを適用した際の結果に応じて、エラーとなっているの量子ビットにxゲートを適用すれば問題としては完了です。</p>
+</div>
+<p>あとは、エンコード量子ビットを測定するのみです。測定前にデコーダー回路を適用して、初期状態を復元します。</p>
+<p>もし、何もエラーがなく完璧に動作するのであれば、最初の量子ビットを測定するだけでよいのですが、必ずしもそうではないので、すべての量子ビットを測定して、何か悪いことが起きていないかどうかを確認します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">apply_final_readout</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qc</span>
+
+
+<span class="n">measuring_circuit</span> <span class="o">=</span> <span class="n">apply_final_readout</span><span class="p">(</span><span class="n">initialize_circuit</span><span class="p">(),</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+<span class="n">complete_circuit</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">initial_state</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">encoding_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">syndrome_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">correction_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">decoding_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">measuring_circuit</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">complete_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a0a487c9472324488c2285397ffea84a461b89646d0f1b6bd077c09219fd7509.png" src="_images/a0a487c9472324488c2285397ffea84a461b89646d0f1b6bd077c09219fd7509.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id11">
+<h3>テストの準備<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>これですべてが揃ったので、正しい出力が得られるかどうかをテストすることができます。</p>
+<p>実装が正しいことを確認するために、エラーなしで最初のテストを行います。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We first choose a simulator as our backend without any noise</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">QasmSimulator</span><span class="p">()</span>
+<span class="c1"># We run the simulation and get the counts</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">complete_circuit</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="c1"># And now we plot a histogram to see the possible outcomes and corresponding probabilities</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a74c4caad543e93acade73863f35fcc683b53117f1142691151c38839605055e.png" src="_images/a74c4caad543e93acade73863f35fcc683b53117f1142691151c38839605055e.png" />
+</div>
+</div>
+<p>正しい結果が得られていることがわかります（初期量子ビットを1の状態で初期化したので、<code class="docutils literal notranslate"><span class="pre">00</span> <span class="pre">001</span></code>が得られるはずです）。</p>
+<p>エンコードに使用した他の量子ビットは、予想通り処理後<code class="docutils literal notranslate"><span class="pre">0</span></code>の状態になっているのがわかりますね。</p>
+<p>さて、この回路がノイズなしで動作することがわかったので、ノイズを追加してみましょう！</p>
+<p>そのために、ノイズを含むibm_manilaバックエンドをシミュレートするシミュレータを使用します：</p>
+<p>*注：このバックエンドはレイアウトが単純なので選びました。レイアウトについては、後ほど詳しく見ていきます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We choose a simulator for Manila a 5 qubit device, includes errors</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">FakeManilaV2</span><span class="p">()</span>
+<span class="c1"># We run the simulation and get the counts</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">complete_circuit</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="c1"># We plot a histogram to see the possible outcomes and corresponding probabilities</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5ab0120ad5597dfac43522073718ee25c7c2a10de3ebeb520ed17ff7e5a77102.png" src="_images/5ab0120ad5597dfac43522073718ee25c7c2a10de3ebeb520ed17ff7e5a77102.png" />
+</div>
+</div>
+<p>間違った結果も出ますが、全体としてはほとんどの結果が正しいです。これは良い兆候であり、ノイズがあっても我々のコードが動作することを意味します。</p>
+<p>しかし、エラー訂正なしの場合との比較がないのでこのスキームの良さはわかりません。なのでエラー訂正のステップがない場合どの程度の性能があるのかを見てみましょう：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc3</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">initial_state</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">encoding_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">syndrome_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">decoding_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">measuring_circuit</span><span class="p">)</span>
+<span class="p">)</span>
+
+
+<span class="c1"># We choose a again FakeManila</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">FakeManilaV2</span><span class="p">()</span>
+<span class="c1"># let the simulation run</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc3</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="c1"># and plot our results</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/be79d7501aba56378a69819ce89ce40471288c578e30c45ea3c759287bb99850.png" src="_images/be79d7501aba56378a69819ce89ce40471288c578e30c45ea3c759287bb99850.png" />
+</div>
+</div>
+<p>結果はほぼ同じか、あるいは若干悪くなっていることがわかります。これはエンコード量子ビットを作成後、使用していないためです。<br />
+通常量子ビットを使って計算をすると、何らかのエラーが生じますが、今回はそのようなことはありません。</p>
+<p>一方、エラー訂正の部分は、時間のかかる演算を行うため、エラーが発生する可能性があります。
+テスト目的に、制御された方法でエラーを発生させる回路を作成してみましょう。</p>
+<ul class="simple">
+<li><p>修正対象であるビット反転エラーを導入する</p></li>
+<li><p>3エンコード量子ビットのエラーが互いに独立であるようにする</p></li>
+<li><p>エラーが発生する確率を選択できるようにする</p></li>
+<li><p>入力はパーセンテージで、出力はその確率でエラーを発生させる回路にする</p></li>
+</ul>
+<section id="excersise">
+<h4>Excersise: 任意のノイズを量子回路に追加する<a class="headerlink" href="#excersise" title="Link to this heading">#</a></h4>
+<div class="admonition-excersise admonition">
+<p class="admonition-title">Excersise</p>
+<p>上で定義したノイズを追加する回路を構築してください。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add some errors as defined above (only add errors to the encoding qubits)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_some_noise</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">,</span> <span class="n">error_percentage</span><span class="p">):</span>
+    <span class="n">encoding_q0</span><span class="p">,</span> <span class="n">encoding_q1</span><span class="p">,</span> <span class="n">encoding_q2</span> <span class="o">=</span> <span class="n">encoding</span>
+    <span class="n">syndrome_b0</span><span class="p">,</span> <span class="n">syndrome_b1</span> <span class="o">=</span> <span class="n">syndrome</span>
+
+    <span class="c1">####### your code goes here #######</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+
+
+<span class="c1"># Constructing a circuit with 10% error rate (for each of the encoding qubit)</span>
+<span class="n">noise_circuit</span> <span class="o">=</span> <span class="n">make_some_noise</span><span class="p">(</span><span class="n">initialize_circuit</span><span class="p">(),</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">noise_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add some errors as defined above (only add errors to the encoding qubits)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_some_noise</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">,</span> <span class="n">error_percentage</span><span class="p">):</span>
+    <span class="n">encoding_q0</span><span class="p">,</span> <span class="n">encoding_q1</span><span class="p">,</span> <span class="n">encoding_q2</span> <span class="o">=</span> <span class="n">encoding</span>
+    <span class="n">syndrome_b0</span><span class="p">,</span> <span class="n">syndrome_b1</span> <span class="o">=</span> <span class="n">syndrome</span>
+
+    <span class="c1">####### your code goes here #######</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">error_percentage</span> <span class="o">/</span> <span class="mi">100</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="n">qc</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">encoding_q0</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">encoding_q1</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">encoding_q2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+
+
+<span class="c1"># Constructing a circuit with 10% error rate (for each of the encoding qubit)</span>
+<span class="n">noise_circuit</span> <span class="o">=</span> <span class="n">make_some_noise</span><span class="p">(</span><span class="n">initialize_circuit</span><span class="p">(),</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">syndrome</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">noise_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7809d932e41e8b23aeb5093166b768a2c28c74bd4780c9937285cb08e256ccb7.png" src="_images/7809d932e41e8b23aeb5093166b768a2c28c74bd4780c9937285cb08e256ccb7.png" />
+</div>
+</details>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">解説</p>
+<p>前のExerciseは、任意のエラー率を挿入する回路を作成するのですが、この時も量子ビットの性質を利用します。</p>
+<p>問題文に条件が書いてあるので順に整理します。</p>
+<ul class="simple">
+<li><p>エラーが発生する確率を選択できるようにしたい。</p></li>
+</ul>
+<p>こちらはすでに問題の中で実装済みで、関数の引数である error_percentage がその確率にあたります。</p>
+<ul class="simple">
+<li><p>入力はパーセンテージで、出力はその確率でエラーを発生させる回路にしたい。</p></li>
+</ul>
+<p>ここで入力はパーセンテージといわれているので error_percentage の単位は%であることが分かります。
+そしてこの関数によって回路に error_percentage (%)のエラーが生じなければなりません。</p>
+<ul class="simple">
+<li><p>3エンコード量子ビットのエラーが互いに独立であるようにしたい。</p></li>
+</ul>
+<p>このことから、エラーはエンコード量子ビットに対して個々に実施することになります。(エンコードした時のようにcxゲートなどを使ってエラーを伝搬させたりしない)</p>
+<ul class="simple">
+<li><p>修正対象であるビット反転エラーを導入したい。</p></li>
+</ul>
+<p>これがこの問題の核となる部分です。
+ビット反転エラーはつまり「0」を「1」と間違って読み出すエラーなので、「10%の確率でビット反転エラーを発生させるエラー」と言われたら、random関数などを用いて1/10の割合で対象のビットにxゲートを適応する以下のようなコードを思いつくかもしれません。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mf">0.1</span><span class="p">){</span>
+	<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">encoding_q0</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>しかしこれは誤りです。というのもこれは確かに1/10でビットが反転はしていますが、エンコード量子ビットを測定するときのエラー率は変化していないためです。
+(言い方を変えると、ビットは1/10で反転しているかもしれませんが、他にエラーがない場合そのビットの測定時は常に一方の値で測定されてしまいます。)</p>
+<p>エラー率を挿入するということは、測定時に「0」となるはずがエラーが発生して「1」となる状態にする必要があります。
+これを考えるにはブロッホ球で考えるのが良いと思います。ブロッホ球のイメージは<a class="reference external" href="https://javafxpert.github.io/grok-bloch/">ジェームズさんのサイト</a>から引用いたします。</p>
+<p>まず「0」の状態であるブロッホ球は以下のようになり、これは測定すると測定誤差などが無いとした場合は常に「0」となります。</p>
+<p><img alt="ブロッホ球1" src="_images/2023-spring-bloch-sphere1.png" /></p>
+<p>次にアダマールゲートを適用した場合を考えてみると、この時ブロッホ球は以下のようになり、「0」と「1」は半々の確率で測定されるようになります。</p>
+<p><img alt="ブロッホ球2" src="_images/2023-spring-bloch-sphere2.png" /></p>
+<p>このように「0」と「1」の間を指すようにすれば、その割合で測定誤差が生じることになります。
+これを整理すると、以下のような位置を指すことができればいいということになります。</p>
+<p><img alt="ブロッホ球3" src="_images/2023-spring-bloch-sphere3.png" /></p>
+<p>この時回転の中心は、Z軸（状態「0」と「1」を結ぶ軸）に垂直であれば良いので、解説ではX軸を中心として指定する角度だけ回転させるrxゲートを適用します。</p>
+<p>rxゲートによって <span class="math notranslate nohighlight">\( \theta \)</span> だけ回転するときの、 <span class="math notranslate nohighlight">\( \ket{0} \)</span> と <span class="math notranslate nohighlight">\( \ket{1} \)</span> の確率の変化を求めます。rxゲートによる回転角が <span class="math notranslate nohighlight">\( \theta \)</span> とき、rxゲートは次のような式で表されます。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+Rx(\theta) = \begin{pmatrix}
+\cos{(\theta/2)} &amp; -i\sin{(\theta/2)} \\
+-i\sin{(\theta/2)} &amp; \cos{(\theta/2)} \\
+\end{pmatrix} 
+\end{split}\]</div>
+<p>このrxゲートを<span class="math notranslate nohighlight">\( \ket{0} \)</span> 、 <span class="math notranslate nohighlight">\( \ket{1} \)</span> にそれぞれ適用すると以下の式のようになります。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Rx(\theta)\ket{0} = \begin{pmatrix}
+\cos{(\theta/2)} &amp; -i\sin{(\theta/2)} \\
+-i\sin{(\theta/2)} &amp; \cos{(\theta/2)} \\
+\end{pmatrix} 
+\begin{pmatrix}
+1 \\
+0 \\
+\end{pmatrix} 
+= \begin{pmatrix}
+\cos{(\theta/2)} \\
+-i\sin{(\theta/2)} \\
+\end{pmatrix} 
+= \cos{(\theta/2)}\ket{0} - i\sin{(\theta/2)}\ket{1}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+Rx(\theta)\ket{1} = \cos{(\theta/2)}\ket{1} - i\sin{(\theta/2)}\ket{0}
+\]</div>
+<p>つまりrxゲートを適用することで、 <span class="math notranslate nohighlight">\( (\sin{(\theta/2)})^2 \)</span> の確率だけ元の量子ビットとは逆の情報が現れることになります。</p>
+<p>この確率を、エラーの確率と等しくする必要があるので、Z軸からの回転角 <span class="math notranslate nohighlight">\( \theta \)</span> は</p>
+<div class="math notranslate nohighlight">
+\[ error\_percentage/100 = (\sin{(\theta/2)})^2 \]</div>
+<div class="math notranslate nohighlight">
+\[ \theta = 2 \times \arcsin{(\sqrt{error\_percentage/100})} \]</div>
+<p>以上でエラーパーセンテージ <span class="math notranslate nohighlight">\( error\_percentage \)</span> を発生させる回転角 <span class="math notranslate nohighlight">\( \theta \)</span> が求まったため、これを3エンコード量子ビットそれぞれに適用（rxゲートを回転角 <span class="math notranslate nohighlight">\( \theta \)</span> 適用）すれば、目標を達成することができます。</p>
+</div>
+<p>10％の確率でエラーを導入した場合、エラー訂正がどれだけうまく動くか検証します。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc4</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">initial_state</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">encoding_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">noise_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">syndrome_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">correction_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">decoding_circuit</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">measuring_circuit</span><span class="p">)</span>
+<span class="p">)</span>
+
+
+<span class="c1"># We choose again FakeManila</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">FakeManilaV2</span><span class="p">()</span>
+<span class="c1"># let the simulation run</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc4</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="c1"># and plot our results</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ca7f846b43b36cf737b0e54b1d72004527591352b6b7f4577bd15a6ba0fc95ab.png" src="_images/ca7f846b43b36cf737b0e54b1d72004527591352b6b7f4577bd15a6ba0fc95ab.png" />
+</div>
+</div>
+<p>結果は悪化してしまいましたが、ほとんどの場合、<code class="docutils literal notranslate"><span class="pre">001</span></code>が取得出来ていることが分かります。</p>
+<p>これで、最初の誤り訂正符号を作成し、テストすることに成功しました。<br />
+もし位相エラーも補正したいのであれば、別の方式とより多くの量子ビットが必要です。</p>
+</section>
+</section>
+</section>
+<section id="id12">
+<h2>補足: エラー訂正とハードウェアレイアウト<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>ここまではハードウェアのシミュレーターを使用しましたが、実機でより複雑なものを実行したい場合は、量子ビットのレイアウトも考慮する必要があります。<br />
+デバイスのレイアウトは重要です。実機ではすべての量子ビットが互いに接続されている理想的な状態ではないので、レイアウトを考えなければ、3つの CX 演算で構成される SWAP 演算が大量に使われることになります。<br />
+もちろん、エラーも発生します。</p>
+<p>例えば次のような物理量子ビットのレイアウトがあるとします。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0 - 1 - 2 - 3 - 4 
+</pre></div>
+</div>
+<p>この物理量子ビットを、エラー訂正回路で使用した論理量子ビットにどのようにマッピングするのでしょうか？<br />
+ここでは、量子ビットの最初のエンタングルメント部分の接続は、エラー訂正部分よりも「簡単」だと仮定します。<br />
+エラー訂正部分は何度か繰り返したいので、エラー訂正部分のみを考えて、これらの量子ビットをどのようにマッピングするのでしょうか？</p>
+<p>以下のコードで、レイアウトの違いで異なる回路になることを確認できます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.circuit</span><span class="w"> </span><span class="kn">import</span> <span class="n">IfElseOp</span>
+
+<span class="c1"># Fill in a better layout to test!!</span>
+<span class="n">initial_layout</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="c1"># We use Manila as our potential backend, since it has the wanted layout</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">FakeManilaV2</span><span class="p">()</span>
+
+<span class="c1"># Temporary workaround for fake backends. For real backends this is not required.</span>
+<span class="n">backend</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">add_instruction</span><span class="p">(</span><span class="n">IfElseOp</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;if_else&quot;</span><span class="p">)</span>
+
+<span class="c1"># And now we transpile the circuit for the backend.</span>
+<span class="n">qc_transpiled</span> <span class="o">=</span> <span class="n">transpile</span><span class="p">(</span><span class="n">complete_circuit</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">initial_layout</span><span class="o">=</span><span class="n">initial_layout</span><span class="p">)</span>
+
+<span class="n">qc_transpiled</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8f990626075bdf7d73bc27779b01a749dc39fb0cb61a0785fd0002ff2fa16bed.png" src="_images/8f990626075bdf7d73bc27779b01a749dc39fb0cb61a0785fd0002ff2fa16bed.png" />
+</div>
+</div>
+<p>完璧なレイアウトはありません。特に、最初の部分は3つの量子ビットをエンタングルさせるために、エラー訂正部分とは異なる接続が必要です。</p>
+<p>[0, 4, 2, 1, 3]というレイアウトは、エラー訂正に必要なすべてのCXゲートを直接接続することができ、その部分は何度も実行される可能性があるため、理にかなっています。<br />
+また、回路を構成するために最初にスタビライザーとして使用される量子ビットを使用することができるので、これらの量子ビットで初期設定（エンタングル）をどのようにうまく行うことができるかを考える余地もあります。</p>
+<p>レイアウトによって結果がかなり異なることを示すために、次のレイアウトを見てみましょう。どのように量子ビットをマッピングするのでしょうか？</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>2 - 3 - 4 
+        |
+       15
+        |
+       22
+</pre></div>
+</div>
+<p>上記と同様に[2, 4, 22, 3, 15]のレイアウトが理にかなっていると言えるでしょう。必要なCXゲートをすべて直接接続することができるからです。<br />
+どちらのレイアウトも単純な線であるため、これらのレイアウト間に差異はないことがわかります。しかし、実際のバックエンドを見ると、他の5量子ビットデバイスもあることがわかります。Manilaを選んだのは、exerciseに適していたからです。</p>
+<p>これらのシンプルな例から実際のハードウェアでは量子ビットのレイアウトに注意しなければならないことがわかります。</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2021-spring-lab3-error-ja.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">量子エラー訂正(2021年春 Lab3)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2024-spring-lab4-vqc-hw-ja.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">実際のバックエンドでVQCをテストする(2024年 Lab4)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">古典エラー訂正</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">Exercise: 3量子ビットデコード回路の実装</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">量子エラー訂正</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ビット反転反復符号の実装</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">量子ビットの初期化</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">量子ビットのエンコード</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">デコード回路の準備</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">スタビライザーの測定</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise: スタビライザーを利用したエンコード時のエラー検知</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">エラー訂正</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Exercise: エンコード時のエラー修正</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">テストの準備</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#excersise">Excersise: 任意のノイズを量子回路に追加する</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">補足: エラー訂正とハードウェアレイアウト</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Quantum Tokyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

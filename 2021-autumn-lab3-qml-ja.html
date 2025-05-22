@@ -1,0 +1,1046 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ja" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>量子機械学習による画像分類 &#8212; IBM Quantum Challengeで学ぶ量子コンピューティング</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=1cf7f4d9"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/translations.js?v=91613774"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2021-autumn-lab3-qml-ja';</script>
+    <link rel="icon" href="_static/quantum-tokyo-icon.ico"/>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="量子エラー訂正(2021年春 Lab3)" href="2021-spring-lab3-error-ja.html" />
+    <link rel="prev" title="ショアのアルゴリズム" href="2021-spring-lab2-shor-ja.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ja"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-light" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>
+    <script>document.write(`<img src="_static/quantum-tokyo-icon.jpg" class="logo__image only-dark" alt="IBM Quantum Challengeで学ぶ量子コンピューティング - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">検索</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    IBM Quantum Challengeで学ぶ量子コンピューティング
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter0 イントロダクション</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab0-welcome-ja.html">ようこそ、そしてハローワールド(2024)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter1 量子回路の構築</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-a-adder-ja.html">量子回路の基礎 - 加算器 (2020)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab1-toffoli.html">量子回路の基礎 - 加算器 (2021)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2022-autumn-lab1-bernstein-vazirani.html">重ね合わせと干渉の利用 (2022)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab2-teleportation-ja.html">量子テレポーテーション (2023)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2020-w1-b-grover-ja.html">振幅増幅 (Groverのアルゴリズム) (2020)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab3-iqpe.html">量子位相推定 (2023)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter2 量子コンピューターの応用</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab2-shor-ja.html">ショアのアルゴリズム (2021)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">量子機械学習による画像分類 (2021)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter3 量子コンピューターのエラー訂正・緩和</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2021-spring-lab3-error-ja.html">量子エラー訂正 (2021)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab4-error-correction.html">量子エラー訂正 (2023)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab4-vqc-hw-ja.html">実機上でのVQCのテスト (2024)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">ChapterX Qiskitを学ぶ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab1-qiskit10-ja-part1.html">量子状態の構築と測定 (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2022-autumn-lab1-runtime-ja.html">Qiskit Runtime Primitives (2022)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab1-qiskit10-ja-part2.html">Qiskit Runtime (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2023-spring-lab1-dynamic-ja.html">Dynamic Circuits (2023)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab2-transpilation-ja.html">Transpiler (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-ai-transpiler-ja.html">AIを活用したTranspiler (2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2024-spring-lab3-circuit-knitting-ja.html">Circuit Knitting (2024)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/quantum-tokyo/ibm-quantum-challenge-textbook/blob/main/src/2021-autumn-lab3-qml-ja.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/quantum-tokyo/ibm-quantum-challenge-textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="ソースリポジトリ"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="このページをダウンロード">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2021-autumn-lab3-qml-ja.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="ソースファイルをダウンロード"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="PDFに印刷"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全画面モード"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="検索" aria-label="検索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>量子機械学習による画像分類</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目次 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">データの準備</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">データのエンコーディング</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">量子特徴量マップ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-zzfeaturemap">Exercise: <code class="docutils literal notranslate"><span class="pre">ZZFeatureMap</span></code>の実装</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">量子カーネル推定</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise: 量子カーネルの計算</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qsvm">量子サポートベクターマシン (QSVM)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>量子機械学習による画像分類<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>このLabは2021年Challenge Fall Lab3 part Ⅰを基に作成しました。</p>
+</div></blockquote>
+<section id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>機械学習技術は，近年その高い性能と汎用性の高さから非常に注目を集めています。実際、アルゴリズムの発展や計算資源の増大に伴って様々な産業において実用化が進められています。<br />
+その代表例の一つは画像認識です。機械学習によって人間と同等以上の精度で画像を分類できるようになっています。これにより，例えば衣料画像の自動分類が可能となり，アパレル分野におけるネットショッピングがより便利になりました。</p>
+<p>量子計算を機械学習に応用することによって，その性能を更に向上することができる可能性が近年示されています。
+このような枠組みを量子機械学習と呼び，量子サポートベクターマシン (QSVM) や量子敵対的生成ネットワーク (QGAN) など，様々なアルゴリズムが提案されています。このチャレンジでは， QSVMを用いて衣料画像の画像分類に取り組みます。</p>
+<p>QSVMは，代表的な古典機械学習アルゴリズムの一つであるサポートベクターマシン (SVM) に量子計算を適用したものです。一口にQSVMといっても様々なアプローチが存在し，誤り耐性量子計算を前提として計算の高速化を目指すものや，現在のノイズありデバイスを想定して表現力の向上を目指すものなどがあります。今回のチャレンジは後者に注目したものとなっています。<br />
+今回扱うQSVMの実装では，量子部分をどのように構成するか，具体的には特徴マップ(feature-map)の構成について工夫することが重要です。複雑な特徴マップはより大きな表現力が期待される一方で、ノイズの影響をより受けやすくなるトレードオフが存在するため、そのバランスを考慮して構成を考える必要があります。<br />
+特にノイズを多く含むデバイスを利用する場合に，この点は非常に重要となってきます。</p>
+<p><img alt="" src="_images/2021-autumn-lab3-ecommerce.jpg" /></p>
+<p>このLabでは単純なデータセットの二値分類（手書き数字の4と9の分類）を題材として，QSVMの典型的なワークフローを学びます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>scikit-learn
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>qiskit-machine-learning<span class="o">==</span><span class="m">0</span>.8.2
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: scikit-learn in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (1.6.1)
+Requirement already satisfied: numpy&gt;=1.19.5 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from scikit-learn) (1.26.4)
+Requirement already satisfied: scipy&gt;=1.6.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from scikit-learn) (1.15.2)
+Requirement already satisfied: joblib&gt;=1.2.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from scikit-learn) (1.5.0)
+Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from scikit-learn) (3.6.0)
+Requirement already satisfied: qiskit-machine-learning==0.8.2 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (0.8.2)
+Requirement already satisfied: qiskit&gt;=1.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit-machine-learning==0.8.2) (1.4.2)
+Requirement already satisfied: scipy&gt;=1.4 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit-machine-learning==0.8.2) (1.15.2)
+Requirement already satisfied: numpy&gt;=1.17 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit-machine-learning==0.8.2) (1.26.4)
+Requirement already satisfied: psutil&gt;=5 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit-machine-learning==0.8.2) (7.0.0)
+Requirement already satisfied: scikit-learn&gt;=1.2 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit-machine-learning==0.8.2) (1.6.1)
+Requirement already satisfied: setuptools&gt;=40.1 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit-machine-learning==0.8.2) (80.3.1)
+Requirement already satisfied: dill&gt;=0.3.4 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit-machine-learning==0.8.2) (0.4.0)
+Requirement already satisfied: rustworkx&gt;=0.15.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit&gt;=1.0-&gt;qiskit-machine-learning==0.8.2) (0.16.0)
+Requirement already satisfied: sympy&gt;=1.3 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit&gt;=1.0-&gt;qiskit-machine-learning==0.8.2) (1.14.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit&gt;=1.0-&gt;qiskit-machine-learning==0.8.2) (2.9.0.post0)
+Requirement already satisfied: stevedore&gt;=3.0.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit&gt;=1.0-&gt;qiskit-machine-learning==0.8.2) (5.4.1)
+Requirement already satisfied: typing-extensions in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit&gt;=1.0-&gt;qiskit-machine-learning==0.8.2) (4.13.2)
+Requirement already satisfied: symengine&lt;0.14,&gt;=0.11 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from qiskit&gt;=1.0-&gt;qiskit-machine-learning==0.8.2) (0.13.0)
+Requirement already satisfied: six&gt;=1.5 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from python-dateutil&gt;=2.8.0-&gt;qiskit&gt;=1.0-&gt;qiskit-machine-learning==0.8.2) (1.17.0)
+Requirement already satisfied: joblib&gt;=1.2.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from scikit-learn&gt;=1.2-&gt;qiskit-machine-learning==0.8.2) (1.5.0)
+Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from scikit-learn&gt;=1.2-&gt;qiskit-machine-learning==0.8.2) (3.6.0)
+Requirement already satisfied: pbr&gt;=2.0.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from stevedore&gt;=3.0.0-&gt;qiskit&gt;=1.0-&gt;qiskit-machine-learning==0.8.2) (6.1.1)
+Requirement already satisfied: mpmath&lt;1.4,&gt;=1.1.0 in /Users/daimura/workspace/quantum/ibm-quantum-challenge-textbook/.venv/lib/python3.11/site-packages (from sympy&gt;=1.3-&gt;qiskit&gt;=1.0-&gt;qiskit-machine-learning==0.8.2) (1.3.0)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># General imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># scikit-learn imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="c1"># Qiskit imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.circuit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">ParameterVector</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.circuit.library</span><span class="w"> </span><span class="kn">import</span> <span class="n">PauliFeatureMap</span><span class="p">,</span> <span class="n">ZFeatureMap</span><span class="p">,</span> <span class="n">ZZFeatureMap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.circuit.library</span><span class="w"> </span><span class="kn">import</span> <span class="n">TwoLocal</span><span class="p">,</span> <span class="n">NLocal</span><span class="p">,</span> <span class="n">RealAmplitudes</span><span class="p">,</span> <span class="n">EfficientSU2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit.circuit.library</span><span class="w"> </span><span class="kn">import</span> <span class="n">HGate</span><span class="p">,</span> <span class="n">RXGate</span><span class="p">,</span> <span class="n">RYGate</span><span class="p">,</span> <span class="n">RZGate</span><span class="p">,</span> <span class="n">CXGate</span><span class="p">,</span> <span class="n">CRXGate</span><span class="p">,</span> <span class="n">CRZGate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_aer</span><span class="w"> </span><span class="kn">import</span> <span class="n">AerSimulator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qiskit_machine_learning.kernels</span><span class="w"> </span><span class="kn">import</span> <span class="n">FidelityQuantumKernel</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>データの準備<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>ここで扱うデータは MNIST という有名な手書き数字画像データセットの一部（&quot;4&quot;と&quot;9&quot;のみを抽出）です。</p>
+<p>このデータセットは，80個のラベル付き訓練データと20個のラベル無しテストデータの，計100個のデータからなります。<br />
+各データは， 28×28 の手書き数字データ画像を配列にしたもので，それぞれの値は 0 (白) から 255 (黒) までの整数となっています。<br />
+このデータセットを QSVM によって分類するためには、まず値を-1から1の間でスケーリングし，次元を量子ビットの数まで圧縮する必要があります。(ここでは5次元としています)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load MNIST dataset</span>
+<span class="n">DATA_PATH</span> <span class="o">=</span> <span class="s1">&#39;./resources/ch3_part1.npz&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">DATA_PATH</span><span class="p">)</span>
+
+<span class="n">sample_train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;sample_train&#39;</span><span class="p">]</span>
+<span class="n">labels_train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;labels_train&#39;</span><span class="p">]</span>
+<span class="n">sample_test</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;sample_test&#39;</span><span class="p">]</span>
+
+<span class="c1"># Split train data</span>
+<span class="n">sample_train</span><span class="p">,</span> <span class="n">sample_val</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">,</span> <span class="n">labels_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">sample_train</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Visualize samples</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="n">LABELS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">num_labels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">LABELS</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_labels</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_labels</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">sample_train</span><span class="p">[</span><span class="n">labels_train</span><span class="o">==</span><span class="n">LABELS</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ab45b91429f0e213e40ae725fd3b51081ed273badc39cc9e227148fe8e8dcded.png" src="_images/ab45b91429f0e213e40ae725fd3b51081ed273badc39cc9e227148fe8e8dcded.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standardize</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">sample_train</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">sample_train</span><span class="p">)</span>
+<span class="n">sample_val</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sample_val</span><span class="p">)</span>
+<span class="n">sample_test</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sample_test</span><span class="p">)</span>
+
+<span class="c1"># Reduce dimensions</span>
+<span class="n">N_DIM</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">N_DIM</span><span class="p">)</span>
+<span class="n">sample_train</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">sample_train</span><span class="p">)</span>
+<span class="n">sample_val</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sample_val</span><span class="p">)</span>
+<span class="n">sample_test</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sample_test</span><span class="p">)</span>
+
+<span class="c1"># Normalize</span>
+<span class="n">mms</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">sample_train</span> <span class="o">=</span> <span class="n">mms</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">sample_train</span><span class="p">)</span>
+<span class="n">sample_val</span> <span class="o">=</span> <span class="n">mms</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sample_val</span><span class="p">)</span>
+<span class="n">sample_test</span> <span class="o">=</span> <span class="n">mms</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sample_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>データのエンコーディング<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>今回のタスクである分類を含む、機械学習の一般的な課題はデータのパターンを発見し考察することです。<br />
+実は、多くの機械学習アルゴリズムはデータを線形に分離することを前提としていますが、現実のデータは線形に分離できないことが多いです。<br />
+そのためしばしばデータを高次元空間にマッピングして線形分離するといった手法を採用します。</p>
+<p>例えば下図のデータセットを見ると、明らかに2つの円の構造を持っていると分かりますが、これは2次元では線形分離できません。
+そこでこのデータをより高次元空間である3次元にマッピング( <span class="math notranslate nohighlight">\(\mathbf{z} = (x, y, x^2+y^2)^T\)</span> )してみましょう。</p>
+<p><img alt="" src="_images/2022-autumn-lab2-quantum-kernel-mapping.png" /></p>
+<p>すると図右のように、3次元では超平面で（線形で）分離可能であることがわかります。
+このように、データを高次元空間にマッピングすることを「特徴量マッピング」と呼びます。</p>
+<section id="id5">
+<h3>量子特徴量マップ<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>量子特徴量マップ <span class="math notranslate nohighlight">\(\phi(\mathbf{x})\)</span> とはその名の通り，古典データ <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> から量子状態 <span class="math notranslate nohighlight">\(|\Phi(\mathbf{x})\rangle\langle\Phi(\mathbf{x})|\)</span> への写像です。<br />
+これはデータを量子状態という高次元のヒルベルト空間という特徴量空間にマッピングすることを意味します。</p>
+<p>Qiskit では以下を始めとする特徴量マップが提供されています。<br />
+これらは <a class="reference external" href="https://www.nature.com/articles/s41586-019-0980-2"><strong><em>Havlicek et al</em>.  Nature <strong>567</strong>, 209-212 (2019)</strong></a> で紹介されているものです。<br />
+特に <code class="docutils literal notranslate"><span class="pre">ZZFeatureMap</span></code> は古典的にシミュレートすることが難しく、かつ小中規模な量子デバイス上でも実装できると見込まれています。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PauliFeatureMap</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ZZFeatureMap</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ZFeatureMap</span></code></p></li>
+</ul>
+<p>例えば <code class="docutils literal notranslate"><span class="pre">PauliFeatureMap</span></code> のユニタリ演算子は以下のように記述できます。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\mathcal{U}_{\Phi(\mathbf{x})}=\prod_d U_{\Phi(\mathbf{x})}H^{\otimes n},\\ 
+U_{\Phi(\mathbf{x})}=\exp\left(i\sum_{S\subseteq[n]}\phi_S(\mathbf{x})\prod_{k\in S} P_i\right), 
+\end{split}\]</div>
+<p>これは以下のように，エンタングルメントを生成するブロック <span class="math notranslate nohighlight">\(U_{\Phi(\mathbf{x})}\)</span> とアダマールゲートのブロックの層が交互に連なった形をしています。
+各エンタングルメントブロック <span class="math notranslate nohighlight">\(U_{\Phi(\mathbf{x})}\)</span> の中で， <span class="math notranslate nohighlight">\(P_i \in \{ I, X, Y, Z \}\)</span> はパウリ行列を表し，添字 <span class="math notranslate nohighlight">\(S\)</span> は量子ビット間の接続に対応しています。 (<span class="math notranslate nohighlight">\(S \in \{\binom{n}{k}\,\ k = 1,... n \}\)</span>)</p>
+<div><img src="./resources/2021-autumn-lab3-featuremap.png" width="1000" /></div>
+<p>データのマッピング関数 <span class="math notranslate nohighlight">\(\phi_S(\mathbf{x})\)</span> は通常以下で表されます。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\phi_S:\mathbf{x}\mapsto \Bigg\{
+\begin{array}{ll}
+    x_i                 &amp; if\ S=\{i\} \\
+    (\pi-x_i)(\pi-x_j)  &amp; if\ S=\{i,j\}
+\end{array}
+\end{split}\]</div>
+<p>特に　<span class="math notranslate nohighlight">\(k = 1, P_0 = Z\)</span> の場合を <code class="docutils literal notranslate"><span class="pre">ZFeatureMap</span></code> と呼びます。</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{U}_{\Phi(\mathbf{x})} = \left( \exp\left(i\sum_j \phi_{\{j\}}(\mathbf{x}) \, Z_j\right) \, H^{\otimes n} \right)^d.\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3 features, depth 2</span>
+<span class="n">map_z</span> <span class="o">=</span> <span class="n">ZFeatureMap</span><span class="p">(</span><span class="n">feature_dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">map_z</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ba0b8293d3f99a85971d7f777b351c3c65987b5a756407b70c08203042202256.png" src="_images/ba0b8293d3f99a85971d7f777b351c3c65987b5a756407b70c08203042202256.png" />
+</div>
+</div>
+<p>この特徴マップはエンタングルメントを伴わないことから，古典的なシミュレーションが容易であり，量子的な優位性が得られないことに注意してください。</p>
+<p><span class="math notranslate nohighlight">\(k = 2, P_0 = Z, P_1 = ZZ\)</span>のとき，<code class="docutils literal notranslate"><span class="pre">ZZFeatureMap</span></code>となります。
+$<span class="math notranslate nohighlight">\(\mathcal{U}_{\Phi(\mathbf{x})} = \left( \exp\left(i\sum_{jk} \phi_{\{j,k\}}(\mathbf{x}) \, Z_j \otimes Z_k\right) \, \exp\left(i\sum_j \phi_{\{j\}}(\mathbf{x}) \, Z_j\right) \, H^{\otimes n} \right)^d.\)</span>$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3 features, depth 1, linear entanglement</span>
+<span class="n">map_zz</span> <span class="o">=</span> <span class="n">ZZFeatureMap</span><span class="p">(</span><span class="n">feature_dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">entanglement</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+<span class="n">map_zz</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3209e904bf427cd803b063bf69bb10ae7b8db20b9a9bab5d7317d1c530f468e4.png" src="_images/3209e904bf427cd803b063bf69bb10ae7b8db20b9a9bab5d7317d1c530f468e4.png" />
+</div>
+</div>
+<p>この特徴量マップにはエンタングルメントが含まれており，その形を以下のように変更することができます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3 features, depth 1, circular entanglement</span>
+<span class="n">map_zz</span> <span class="o">=</span> <span class="n">ZZFeatureMap</span><span class="p">(</span><span class="n">feature_dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">entanglement</span><span class="o">=</span><span class="s1">&#39;circular&#39;</span><span class="p">)</span>
+<span class="n">map_zz</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/19861d53c1ecfb65073a2b7b4266a5d43686e0e546e3f85b548cdda121ae6242.png" src="_images/19861d53c1ecfb65073a2b7b4266a5d43686e0e546e3f85b548cdda121ae6242.png" />
+</div>
+</div>
+<p>特徴量マップ中のパウリゲートをカスタマイズすることも可能です。例えば <span class="math notranslate nohighlight">\(P_0 = X, P_1 = Y, P_2 = ZZ\)</span> とする場合は以下のようになります。</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{U}_{\Phi(\mathbf{x})} = \left( \exp\left(i\sum_{jk} \phi_{\{j,k\}}(\mathbf{x}) \, Z_j \otimes Z_k\right) \, \exp\left(i\sum_{j} \phi_{\{j\}}(\mathbf{x}) \, Y_j\right) \, \exp\left(i\sum_j \phi_{\{j\}}(\mathbf{x}) \, X_j\right) \, H^{\otimes n} \right)^d.\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3 features, depth 1</span>
+<span class="n">map_pauli</span> <span class="o">=</span> <span class="n">PauliFeatureMap</span><span class="p">(</span><span class="n">feature_dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">paulis</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;ZZ&#39;</span><span class="p">])</span>
+<span class="n">map_pauli</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7d1e25db739407f9d774fb6ffc19e6bc1ebbfe8e3a3c55b1bdebafff9e3750eb.png" src="_images/7d1e25db739407f9d774fb6ffc19e6bc1ebbfe8e3a3c55b1bdebafff9e3750eb.png" />
+</div>
+</div>
+<p>パラメータ付き回路を特徴マップとして用いるためには，<code class="docutils literal notranslate"><span class="pre">NLocal</span></code> と <code class="docutils literal notranslate"><span class="pre">TwoLocal</span></code> を利用することができます。<br />
+どちらも回転ゲートの層とエンタングルメント層を交互に繰り返すパラメータ付き回路を作成します。<br />
+<code class="docutils literal notranslate"><span class="pre">NLocal</span></code> では各ブロックが任意のサイズとできる一方で，<code class="docutils literal notranslate"><span class="pre">TwoLocal</span></code>ではローテーション層は一量子ビットゲート，エンタングルメント層は2量子ビットゲートに限定されます。</p>
+<p>例えば以下は <code class="docutils literal notranslate"><span class="pre">TwoLocal</span></code> の回路で，回転層に <span class="math notranslate nohighlight">\(R_y\)</span> と <span class="math notranslate nohighlight">\(R_Z\)</span> ゲート，エンタングルメント層に <span class="math notranslate nohighlight">\(CNOT\)</span> ゲートを用いて，循環的なエンタングルメントを実現しています。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twolocal</span> <span class="o">=</span> <span class="n">TwoLocal</span><span class="p">(</span><span class="n">num_qubits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">rotation_blocks</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ry&#39;</span><span class="p">,</span><span class="s1">&#39;rz&#39;</span><span class="p">],</span> 
+               <span class="n">entanglement_blocks</span><span class="o">=</span><span class="s1">&#39;cx&#39;</span><span class="p">,</span> <span class="n">entanglement</span><span class="o">=</span><span class="s1">&#39;circular&#39;</span><span class="p">,</span> <span class="n">insert_barriers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">twolocal</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/83f037a9945be3eeb7032431c94e4cd769464343c35cc7acee828685cf816f99.png" src="_images/83f037a9945be3eeb7032431c94e4cd769464343c35cc7acee828685cf816f99.png" />
+</div>
+</div>
+<p>同じものは，<code class="docutils literal notranslate"><span class="pre">NLocal</span></code>で以下のように実現できます。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">twolocaln</span> <span class="o">=</span> <span class="n">NLocal</span><span class="p">(</span><span class="n">num_qubits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+               <span class="n">rotation_blocks</span><span class="o">=</span><span class="p">[</span><span class="n">RYGate</span><span class="p">(</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)),</span> <span class="n">RZGate</span><span class="p">(</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">))],</span> 
+               <span class="n">entanglement_blocks</span><span class="o">=</span><span class="n">CXGate</span><span class="p">(),</span> 
+               <span class="n">entanglement</span><span class="o">=</span><span class="s1">&#39;circular&#39;</span><span class="p">,</span> <span class="n">insert_barriers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">twolocaln</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/83f037a9945be3eeb7032431c94e4cd769464343c35cc7acee828685cf816f99.png" src="_images/83f037a9945be3eeb7032431c94e4cd769464343c35cc7acee828685cf816f99.png" />
+</div>
+</div>
+<p>それでは，1個目の訓練データを <code class="docutils literal notranslate"><span class="pre">PauliFeatureMap</span></code>によってエンコードしてみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;First training data: </span><span class="si">{</span><span class="n">sample_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First training data: [-0.4755618  -0.42255764  0.30046422 -0.00534902 -0.89478119]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">encode_map</span> <span class="o">=</span> <span class="n">PauliFeatureMap</span><span class="p">(</span><span class="n">feature_dimension</span><span class="o">=</span><span class="n">N_DIM</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">paulis</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;ZZ&#39;</span><span class="p">])</span>
+<span class="n">encode_circuit</span> <span class="o">=</span> <span class="n">encode_map</span><span class="o">.</span><span class="n">assign_parameters</span><span class="p">(</span><span class="n">sample_train</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">encode_circuit</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/69370e72d1905493724632b8d334fef5e98fb00d1743ac109a0a9f842d6e68fa.png" src="_images/69370e72d1905493724632b8d334fef5e98fb00d1743ac109a0a9f842d6e68fa.png" />
+</div>
+</div>
+<section id="exercise-zzfeaturemap">
+<h4>Exercise: <code class="docutils literal notranslate"><span class="pre">ZZFeatureMap</span></code>の実装<a class="headerlink" href="#exercise-zzfeaturemap" title="Link to this heading">#</a></h4>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>5次元データをエンコードする特徴量マップを<code class="docutils literal notranslate"><span class="pre">ZZFeatureMap</span></code>によって構成してください。</p>
+<ul class="simple">
+<li><p>層の繰り返しは3回</p></li>
+<li><p>エンタングルメントは'circular'型</p></li>
+<li><p>それ以外はデフォルト設定のまま</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ex_fmap</span> <span class="o">=</span> <span class="n">ZZFeatureMap</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">##############################</span>
+<span class="c1"># Provide your code here</span>
+
+
+<span class="n">ex_fmap</span> <span class="o">=</span> <span class="n">ZZFeatureMap</span><span class="p">(</span><span class="n">feature_dimension</span><span class="o">=</span><span class="n">N_DIM</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">entanglement</span><span class="o">=</span><span class="s1">&#39;circular&#39;</span><span class="p">)</span>
+
+<span class="c1">##############################</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ex_fmap</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/be57df70fd4a7b5cfe0f7124c51d7bd0daa2d3442e402e1778a757a480fad18b.png" src="_images/be57df70fd4a7b5cfe0f7124c51d7bd0daa2d3442e402e1778a757a480fad18b.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="id6">
+<h2>量子カーネル推定<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>特徴量マッピングは強力な手法ですが、マッピングによる新たな特徴量空間は、元のデータ空間よりも次元が高くなるため、計算コストが増大するという欠点を持っています。<br />
+そこで、古典機械学習ではカーネル法と呼ばれる手法が用いられます。<br />
+カーネル法は、データを高次元空間にマッピングすることなく、高次元空間への写像後の内積を直接計算する手法です。多くの機械学習アルゴリズムでは内積計算の結果さえ取得できれば処理に影響がないため、カーネル法は非常に有用であり、「カーネルトリック」などと呼ばれています。</p>
+<div class="math notranslate nohighlight">
+\[ k(x_i, x_j) = \phi(x_i)^\dagger \phi(x_j) \]</div>
+<hr class="docutils" />
+<p>量子計算においても同様に、量子特徴量マップ <span class="math notranslate nohighlight">\(\phi(\mathbf{x})\)</span> から量子カーネル <span class="math notranslate nohighlight">\(k(\mathbf{x}_i,\mathbf{x}_j)= \phi(\mathbf{x}_j)^\dagger\phi(\mathbf{x}_i)\)</span> を考えることができます。<br />
+量子カーネル法では、古典カーネル法と同様に、入力データを量子状態にエンコードし、その内積の大きさを計算することで、量子カーネルを計算します。
+有限次元のデータを考える場合，量子カーネルは全てのデータペアに対して内積を計算することで、行列 <span class="math notranslate nohighlight">\(K_{ij} = \left| \langle \phi^\dagger(\mathbf{x}_j)| \phi(\mathbf{x}_i) \rangle \right|^{2}\)</span> として表すことができます。</p>
+<p>このカーネル行列の各要素は，物理的には量子状態 <span class="math notranslate nohighlight">\(|\phi(\mathbf{x}_i) \rangle\)</span> から <span class="math notranslate nohighlight">\(|\phi(\mathbf{x}_j) \rangle\)</span> への遷移確率を表しています。</p>
+<div class="math notranslate nohighlight">
+\[
+\left| \langle \phi^\dagger(\mathbf{x}_j)| \phi(\mathbf{x}_i) \rangle \right|^{2} = 
+\left| \langle 0^{\otimes n} | \mathbf{U_\phi^\dagger}(\mathbf{x}_j) \mathbf{U_\phi}(\mathbf{x_i}) | 0^{\otimes n} \rangle \right|^{2}
+\]</div>
+<p>ここで特徴量マップは <span class="math notranslate nohighlight">\(n\)</span> 量子ビットに対するユニタリー変換 <span class="math notranslate nohighlight">\(\mathbf{U_\phi}(\mathbf{x})\)</span> として記述されるパラメータ付き回路を仮定しています。<br />
+これにより量子カーネル行列の推定値を得ることができ、サポートベクターマシンなどのカーネル機械学習アルゴリズムに利用することができます。</p>
+<p><a class="reference external" href="https://www.nature.com/articles/s41586-019-0980-2"><strong><em>Havlicek et al</em>.  Nature 567, 209-212 (2019)</strong></a>で議論されているように，量子カーネルに基づくアルゴリズムは，その量子カーネルを古典的に推定するのが難しい場合にのみ優位性をもつ可能性があります。また古典的に量子カーネルを推定することの難しさは，量子優位性をもつための必要条件に過ぎず，十分条件ではありません。（量子優位性をもつ手法の量子カーネルが必ずしも全て古典的に推定が難しいとは限らない）<br />
+一方で，<a class="reference external" href="https://arxiv.org/abs/2010.02174"><strong><em>Liu et al.</em> arXiv:2010.02174 (2020)</strong></a>では，全ての古典学習器に対して量子優位性をもつような問題の存在が示されています。</p>
+<p>さて、データの前準備ができたら <code class="docutils literal notranslate"><span class="pre">PauliFeatureMap</span></code> を使って <code class="docutils literal notranslate"><span class="pre">QuantumKernel</span></code> クラスを設定し、シミュレータを用いてカーネル行列を推定してみましょう。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pauli_map</span> <span class="o">=</span> <span class="n">PauliFeatureMap</span><span class="p">(</span><span class="n">feature_dimension</span><span class="o">=</span><span class="n">N_DIM</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">paulis</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;ZZ&#39;</span><span class="p">])</span>
+<span class="n">pauli_kernel</span> <span class="o">=</span> <span class="n">FidelityQuantumKernel</span><span class="p">(</span><span class="n">feature_map</span><span class="o">=</span><span class="n">pauli_map</span><span class="p">)</span>
+
+<span class="n">matrix_train</span> <span class="o">=</span> <span class="n">pauli_kernel</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_vec</span><span class="o">=</span><span class="n">sample_train</span><span class="p">)</span>
+<span class="n">matrix_val</span> <span class="o">=</span> <span class="n">pauli_kernel</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_vec</span><span class="o">=</span><span class="n">sample_val</span><span class="p">,</span> <span class="n">y_vec</span><span class="o">=</span><span class="n">sample_train</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">(</span><span class="n">matrix_train</span><span class="p">),</span>
+              <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;training kernel matrix&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">(</span><span class="n">matrix_val</span><span class="p">),</span>
+              <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;validation kernel matrix&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c625aa032c5ad7343485ada07c14a15ed5e2b4e039bcfa83a1e098296d432a22.png" src="_images/c625aa032c5ad7343485ada07c14a15ed5e2b4e039bcfa83a1e098296d432a22.png" />
+</div>
+</div>
+<section id="exercise">
+<h3>Exercise: 量子カーネルの計算<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p><span class="math notranslate nohighlight">\(x = (-0.5, -0.4, 0.3, 0, -0.9)\)</span> と <span class="math notranslate nohighlight">\(y = (0, -0.7, -0.3, 0, -0.4)\)</span> の間の遷移確率を計算してください。</p>
+<ul class="simple">
+<li><p>特徴量マップは <code class="docutils literal notranslate"><span class="pre">ZZFeatureMap</span></code></p>
+<ul>
+<li><p>層の繰り返しは3回</p></li>
+<li><p>エンタングルメントは'circular'型</p></li>
+<li><p>それ以外はデフォルト設定のまま</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">]</span>
+
+<span class="c1">##############################</span>
+<span class="c1"># Provide your code here</span>
+
+
+<span class="n">ex_amp</span> <span class="o">=</span> 
+
+
+<span class="c1">##############################```</span>
+</pre></div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">]</span>
+
+<span class="c1">##############################</span>
+<span class="c1"># Provide your code here</span>
+
+<span class="n">ex_fmap</span> <span class="o">=</span> <span class="n">ZZFeatureMap</span><span class="p">(</span><span class="n">feature_dimension</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">reps</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">entanglement</span><span class="o">=</span><span class="s1">&#39;circular&#39;</span><span class="p">)</span>
+<span class="n">ex_kernel</span> <span class="o">=</span> <span class="n">FidelityQuantumKernel</span><span class="p">(</span><span class="n">feature_map</span><span class="o">=</span><span class="n">ex_fmap</span><span class="p">)</span>
+
+<span class="n">ex_amp</span> <span class="o">=</span> <span class="n">ex_kernel</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_vec</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y_vec</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">ex_amp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+
+<span class="c1">##############################</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.006626981295732
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="qsvm">
+<h2>量子サポートベクターマシン (QSVM)<a class="headerlink" href="#qsvm" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://www.nature.com/articles/s41586-019-0980-2"><strong><em>Havlicek et al</em>.  Nature 567, 209-212 (2019)</strong></a>で提案された，量子カーネルサポートベクター分類アルゴリズムは，以下のステップから構成されています。</p>
+<ol class="arabic simple">
+<li><p>量子カーネル行列を訓練用とテスト用それぞれで構築する。</p>
+<ol class="arabic simple">
+<li><p>訓練データの各ペア　<span class="math notranslate nohighlight">\(\mathbf{x}_{i},\mathbf{x}_j\)</span> で，特徴マップを適用し，遷移確率を測定する。 <span class="math notranslate nohighlight">\( K_{ij} = \left| \langle 0 | \mathbf{U}^\dagger_{\Phi(\mathbf{x_j})} \mathbf{U}_{\Phi(\mathbf{x_i})} | 0 \rangle \right|^2 \)</span></p></li>
+<li><p>訓練データ <span class="math notranslate nohighlight">\(\mathbf{x_i} \)</span>とテストデータ <span class="math notranslate nohighlight">\(\mathbf{y_j}\)</span> の各ペアで，特徴マップを適用し，遷移確率を測定する。<span class="math notranslate nohighlight">\( K_{ij} = \left| \langle 0 | \mathbf{U}^\dagger_{\Phi(\mathbf{y_j})} \mathbf{U}_{\Phi(\mathbf{x_i})} | 0 \rangle \right|^2 \)</span></p></li>
+</ol>
+</li>
+<li><p>量子カーネル行列を古典的なサポートベクターマシン分類アルゴリズムで使用する。</p></li>
+</ol>
+<p>以下のコードは，先に計算した訓練用とテスト用のカーネル行列を受け取り，<code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>の<code class="docutils literal notranslate"><span class="pre">svc</span></code>アルゴリズムに提供しています：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pauli_svc</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">)</span>
+<span class="n">pauli_svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">matrix_train</span><span class="p">,</span> <span class="n">labels_train</span><span class="p">)</span>
+<span class="n">pauli_score</span> <span class="o">=</span> <span class="n">pauli_svc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">matrix_val</span><span class="p">,</span> <span class="n">labels_val</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precomputed kernel classification test score: </span><span class="si">{</span><span class="n">pauli_score</span><span class="o">*</span><span class="mi">100</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precomputed kernel classification test score: 60.0%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2021-spring-lab2-shor-ja.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">前へ</p>
+        <p class="prev-next-title">ショアのアルゴリズム</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2021-spring-lab3-error-ja.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">次へ</p>
+        <p class="prev-next-title">量子エラー訂正(2021年春 Lab3)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目次
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">はじめに</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">データの準備</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">データのエンコーディング</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">量子特徴量マップ</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-zzfeaturemap">Exercise: <code class="docutils literal notranslate"><span class="pre">ZZFeatureMap</span></code>の実装</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">量子カーネル推定</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise: 量子カーネルの計算</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qsvm">量子サポートベクターマシン (QSVM)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+著者 Quantum Tokyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
