@@ -35,6 +35,8 @@ parts:
   chapters:
   - file: 2021-spring-lab3-error-ja
     title: 量子エラー訂正 (2021)
+  - file: 2023-spring-lab4-error-correction
+    title: 量子エラー訂正 (2023)
   - file: 2024-spring-lab4-vqc-hw-ja
     title: 実機上でのVQCのテスト (2024)
 
