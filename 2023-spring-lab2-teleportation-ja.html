@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -480,10 +480,10 @@ document.write(`
 </div>
 </div>
 <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qiskit</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
@@ -525,8 +525,8 @@ document.write(`
 CNOTゲートは2量子ビットゲートで、入力に制御量子ビットとターゲット量子ビットを指定する必要があります。<br />
 ここではアリスのもつ量子ビットを制御量子ビットに、ボブのもつ量子ビットをターゲット量子ビットに設定します。</p>
 <p>ここで、メッセージ量子ビット<span class="math notranslate nohighlight">\(s\)</span>の状態を<span class="math notranslate nohighlight">\(\ket{\psi}\)</span>とおくと、3量子ビットの量子状態は以下のように表すことが出来ます。</p>
-<div class="amsmath math notranslate nohighlight" id="equation-adbf626c-e78f-4572-b3c6-45be57034cc3">
-<span class="eqno">(1)<a class="headerlink" href="#equation-adbf626c-e78f-4572-b3c6-45be57034cc3" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-21d549ed-2148-47b7-aaec-d976f05c1831">
+<span class="eqno">(1)<a class="headerlink" href="#equation-21d549ed-2148-47b7-aaec-d976f05c1831" title="Permalink to this equation">#</a></span>\[\begin{align}
     \ket{\psi}\ket{B_{00}} &amp;= (\alpha\ket{0}+\beta\ket{1})(\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})) \\
      &amp;= \frac{1}{\sqrt{2}}(\alpha\ket{000}+\alpha\ket{011}+\beta\ket{100}+\beta\ket{111})
 \end{align}\]</div>
@@ -552,10 +552,10 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 </div>
 </div>
 <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">alice_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
@@ -609,10 +609,10 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 </div>
 </div>
 <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">measure_and_send</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
@@ -676,10 +676,10 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 </div>
 </div>
 <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bob_gates</span><span class="p">(</span><span class="n">qr</span><span class="p">:</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">cr</span><span class="p">:</span> <span class="n">ClassicalRegister</span><span class="p">):</span>
@@ -751,10 +751,10 @@ CNOTゲートは2量子ビットゲートで、入力に制御量子ビットと
 </div>
 </div>
 <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
